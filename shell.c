@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 14:38:57 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:22:10 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void
 	while (STATUS)
 	{
 		line = readline();
-//		table = parser(line);
+//		table = parser(line);fds
 //		execute(table);
 	}
 
