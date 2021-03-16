@@ -1,0 +1,6 @@
+*.sh
+*.out
+*.dSYM
+.DS_Store
+*.d
+*.o
