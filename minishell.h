@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/16 14:38:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:04:34 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@
 # include <curses.h>
 # include <term.h>
 # include "libft/libft.h"
-
-# define STATUS 1
 
 #endif
