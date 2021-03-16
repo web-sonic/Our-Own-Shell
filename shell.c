@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 14:04:16 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/16 14:38:57 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 /* 
 ** @params: int argc: 
@@ -25,7 +27,7 @@ void
 	while (STATUS)
 	{
 		line = readline();
-//		table = parser(table);
+//		table = parser(line);
 //		execute(table);
 	}
 
