@@ -6,7 +6,11 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/16 15:18:49 by sgath            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/16 17:04:34 by ctragula         ###   ########.fr       */
+>>>>>>> 9d4c4c5742e46078ff318e9707a00f4ce40e97aa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +31,5 @@
 # include <curses.h>
 # include <term.h>
 # include "libft/libft.h"
-
-# define STATUS 1
 
 #endif
