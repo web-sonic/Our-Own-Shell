@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 14:04:16 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/16 14:14:16 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* 
-** @params: int argc: 
-**			int argv:
-** Имитирует работу шелла
-** @return char *line: введенная строка в терминале
-*/
-void
-	shell_loop(int argc, char **argv)
-{
-	char *line;
-	t_list table;
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-	while (STATUS)
-	{
-		line = readline();
-//		table = parser(table);
-//		execute(table);
-	}
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/uio.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <signal.h>
+#include <dirent.h>
+# include <sys/errno.h>
+# include <curses.h>
+# include <term.h>
 
-}
+# define STATUS 1
+
+#endif
