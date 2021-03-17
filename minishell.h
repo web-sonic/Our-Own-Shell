@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/16 17:55:14 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/17 14:30:56 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/errno.h>
 # include <curses.h>
 # include <term.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 

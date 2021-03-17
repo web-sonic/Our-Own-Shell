@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wordtab_count.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/17 14:41:15 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 17:38:03 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/17 15:03:52 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/17 15:08:55 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wordtab_count(char **tab_lst)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	count;
+	unsigned char	*p1;
+	unsigned char	*p2;
+	int				i;
 
-	count = 0;
-	while (*tab_lst++)
-		count++;
-	return (count);
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	i = 0;
+	while (p1[i] == p2[i] && p1[i] && p2[i])
+		i++;
+	return (p1[i] - p2[i]);
 }
