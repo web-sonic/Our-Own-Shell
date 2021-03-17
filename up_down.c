@@ -2,6 +2,39 @@
 #include <string.h>
 
 int
+	ft_putchar(int c)
+{
+	write(1, &c, 1);
+	return (0);
+}
+
+void
+	puts_line(char *str)
+{
+	int i;
+
+	i = read(0, str, 100);
+	if (ft_strcmp(str, "\e[A") == 0)
+	{
+		tputs(restore_cursor, 1, ft_putchar);
+		//tputs(delete_line, 1, ft_putchar);
+		tputs(tigetstr("ed"), 1, ft_putchar);
+		write(1, "up", 3);
+	}
+	else if (ft_strcmp(str, "\e[B") == 0)
+	{
+		tputs(restore_cursor, 1, ft_putchar);
+		//tputs(delete_line, 1, ft_putchar);
+		tputs(tigetstr("ed"), 1, ft_putchar);
+		write(1, "down", 5);
+	}
+	else if (ft_strcmp(str, "\e[C") == 0 || ft_strcmp(str, "\e[D") == 0 )
+		return;
+	else
+		write(1, str, i);
+}
+
+int
 	main(int ac, char **av, char **env)
 {
 	char	*str;
@@ -28,20 +61,16 @@ int
 	tgetent(0, temp_name);
 	//term.c_cc[VMIN] = 1;
 	//term.c_cc[VTIME] = 0;
-	//do
-	while(strcmp(str, "\n"))
+	while(ft_strncmp(str, "\4", 2))
 	{
-		i = read(0, str, 100);
-		if (ft_strcmp(str, "\e[A") == 0)
-			write(1, "up\n", 3);
-		else if (ft_strcmp(str, "\e[B") == 0)
-			write(1, "down\n", 5);
-		else if (ft_strcmp(str, "\e[C") == 0 || ft_strcmp(str, "\e[D") == 0 )
-			continue;
-	//	else if (ft_strcmp(str, EOL) == 0)
-	//		write(1, "\n", 1);
-		else 
-			write(1, str, i);
+		tputs(save_cursor, 1, ft_putchar);
+		//Это было в do while
+		puts_line(str);
+		//tputs(save_cursor, 1, ft_putchar);
+		while (ft_strcmp(str, "\n"))
+		{
+			puts_line(str);
+		}
 	}
 	write(1, "\n", 1);
 
