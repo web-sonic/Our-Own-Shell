@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 08:48:35 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/17 15:10:03 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/18 09:42:47 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC = ft_atoi.c \
 		ft_putnbr_fd.c \
 		ft_wordtab_count.c \
 		ft_wordtab_clear.c \
-		ft_strcmp.c \
 
 BSRC =	ft_lstnew.c \
 		ft_lstadd_front.c \

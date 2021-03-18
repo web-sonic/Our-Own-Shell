@@ -3,30 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/16 18:11:58 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/18 10:10:14 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = up_dowd.c 
+SRCS =	shell_loop.c \
+		minishell.c \
+		#parser/parser.c \
+		#up_down.c
 
+LIB = libft/libft.a
 
 HEADERS = minishell.h
 
 NAME = minishell
 
-CFLAGS = -g -c -Wall -Wextra -Werror -ltermcap
+CC = gcc -g -Wall -Wextra
+
+FLAGS = -ltermcap  -L libft/ -lft
 
 .PHONY: all clean fclean re bonus
 
 $(NAME): $(SRC) $(HEADERS)
 	$(MAKE) bonus -C libft
-	gcc $(FLG) -L libft/ -lft $(FLC) -o $(NAME)
+	$(CC) $(SRCS) $(FLAGS) -o $@
 
 clean:
-	$(RM) *.o *.d
+	$(RM) *.o
 	$(MAKE) clean -C libft
 
 fclean:	clean
@@ -34,5 +40,8 @@ fclean:	clean
 	$(MAKE) fclean -C libft
 
 re: fclean all
+	$(NAME)
 
 bonus:
+
+.PHONY: all clean fclean re bonus
