@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/18 10:11:20 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:11:36 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ void
 	char *line;
 	t_list table;
 
-	printf("%s>", name);
-//	line = readline();
+	ft_putstr_fd(name, 1);
+	ft_putchar_fd('>', 1);
+	//printf("%s>", name);
+	line = readline(env);
+	if (!line)
+		exit(1);
 //	table = parser(line);
 //	execute(table);
 }

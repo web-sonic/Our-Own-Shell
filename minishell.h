@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/18 09:46:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:20:58 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include <termios.h>
 # include "libft/libft.h"
 
+# define BUF_STR 5
+
 void	shell_loop(char *name, char **env);
+char	*readline(char **env);
 
 #endif
