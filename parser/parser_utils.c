@@ -6,13 +6,13 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:03:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 14:22:42 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:50:18 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.c"
 
-/* 
+/*
 ** @params: t_list *lst указатель на список
 ** TODO возвращает content последнего элемента списка
 ** @return: void* указатель на list->content
@@ -25,7 +25,8 @@ void
 	last_lst = ft_lstlast(lst);
 	return (last_lst->content);
 }
-/* 
+
+/*
 ** @params: t_com command структура команды
 ** TODO инициализация структуры команды
 ** @return: NULL
@@ -60,14 +61,13 @@ int
 	process = ft_lstlast(processes);
 	init_command(&command);
 	ft_lstadd_back(process, ft_lstnew(&command));
-	return (1);
 }
 
 /* 
 ** @params: char *str обрабатываемая строка
 **			t_list processes список команд в баше
 ** TODO создает и добавляет в список новый элемент,
-	содержащий новый список команд
+**	содержащий новый список команд
 ** @return: int корректность выполнения команды
 */
 void
@@ -75,10 +75,8 @@ void
 {
 	t_list	*process;
 	ft_lstadd_back(processes, ft_lstnew(process));
-	add_command(NULL, processes);
 	if (str)
 		(*str)++;
-	return (1);
 }
 
 /* 
