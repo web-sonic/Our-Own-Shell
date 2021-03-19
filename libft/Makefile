@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 08:48:35 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/18 09:42:47 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/18 12:12:26 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ BSRC =	ft_lstnew.c \
 		ft_nbrlen_bonus.c \
 		ft_lstfind_bonus.c \
 		ft_lstsort_bonus.c \
+		ft_lstdelfirst_bonus.c \
 
 HEADERS = libft.h \
 

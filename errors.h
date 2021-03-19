@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 18:04:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/18 15:10:12 by ctragula         ###   ########.fr       */
+/*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 12:10:52 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-void lexer()
-{
-}
+# define PIPE_UNDEF "undefined behavior"
+# define PIPE_ERROR "syntax error near unexpected token `|'"
+
+#endif

@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/18 10:10:14 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/19 14:24:21 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,11 @@ FLAGS = -ltermcap  -L libft/ -lft
 
 .PHONY: all clean fclean re bonus
 
-$(NAME): $(SRC) $(HEADERS)
+$(NAME): $(SRCS) $(HEADERS)
 	$(MAKE) bonus -C libft
-	$(CC) $(SRCS) $(FLAGS) -o $@
+	$(CC) $(FLAGS) $(SRCS) -o $@
+
+all: $(NAME)
 
 clean:
 	$(RM) *.o
@@ -40,7 +42,6 @@ fclean:	clean
 	$(MAKE) fclean -C libft
 
 re: fclean all
-	$(NAME)
 
 bonus:
 

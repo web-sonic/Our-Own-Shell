@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/18 09:46:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:04:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <term.h>
 # include <termios.h>
 # include "libft/libft.h"
+# include "structures.h"
+# include "errors.h"
 
 void	shell_loop(char *name, char **env);
 

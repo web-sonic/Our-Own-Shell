@@ -1,17 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_lstdelfirst_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 18:04:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/18 15:10:12 by ctragula         ###   ########.fr       */
+/*   Created: 2021/03/18 12:00:33 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/18 12:14:53 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void lexer()
+void
+	ft_lstdelfirst(t_list **lst, void (*del)(void*))
 {
+	t_list *tmp;
+
+	tmp = (*lst)->next;
+	ft_lstdelone(*lst, del);
+	*lst = tmp;
 }
