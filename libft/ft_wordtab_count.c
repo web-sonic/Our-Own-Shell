@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wordtab_count.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 14:41:15 by ctragula          #+#    #+#             */
-/*   Updated: 2021/01/17 14:49:46 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/16 21:04:35 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wordtab_count(char **tab)
+size_t	ft_wordtab_count(char **tab_lst)
 {
 	size_t	count;
 
 	count = 0;
-	while (*tab++)
+	while (*tab_lst++)
 		count++;
 	return (count);
 }

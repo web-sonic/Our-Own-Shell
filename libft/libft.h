@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/02/15 16:00:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/16 21:04:12 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 char				*ft_itoa_base(unsigned long num, size_t base);
 int					ft_nbrlen(long long num, int base);
-size_t				ft_wordtab_count(char **tab);
-void				ft_wordtab_clear(char **tab);
+size_t				ft_wordtab_count(char **tab_lst);
+void				ft_wordtab_clear(char **tab_lst);
 t_list				*ft_lstfind(t_list *begin_list, void *data_ref,
 								int (*cmp)());
 void				ft_lstsort(t_list **begin_list, int (*cmp)());

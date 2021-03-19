@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/16 17:04:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/16 21:21:06 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/errno.h>
 # include <curses.h>
 # include <term.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 #endif
