@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 18:11:39 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:20:32 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void
 {
 	char	*token;
 
-	token = ft_strldup(*str++, 2);
+	token = ft_strldup(*str++, SYMBOL_LEN);
 	ft_lstadd_back(&tokens, ft_lstnew(token));
 }
 
@@ -48,11 +48,11 @@ void
 
 	if (**str + 1 == GREAT)
 	{
-		token = ft_strldup(*str, 3);
+		token = ft_strldup(*str, STR_REDIRECT_LEN);
 		*str += 2;
 	}
 	else
-		token = ft_strldup(*str++, 2);
+		token = ft_strldup(*str++, SYMBOL_LEN);
 	ft_lstadd_back(&tokens, ft_lstnew(token));
 }
 
