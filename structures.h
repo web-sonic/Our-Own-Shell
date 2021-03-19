@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 14:27:30 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 13:17:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
-int
-	main(int argc, char **argv, char **env)
+typedef struct		s_com
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
-}
+	int				fdin;
+	int				fdout;
+	t_list			*args;
+}					t_com;
+
+#endif

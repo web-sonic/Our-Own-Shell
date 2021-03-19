@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/18 15:20:58 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/19 14:27:38 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <term.h>
 # include <termios.h>
 # include "libft/libft.h"
+# include "structures.h"
+# include "errors.h"
 
 # define BUF_STR 5
 

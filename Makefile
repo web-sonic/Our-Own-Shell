@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/18 15:10:46 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/19 14:26:49 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ all: $(NAME)
 
 $(NAME): $(SRCS) $(HEADERS)
 	$(MAKE) bonus -C libft
-	$(CC) $(SRCS) $(FLAGS) -o $@
+	$(CC) $(FLAGS) $(SRCS) -o $@
+
+all: $(NAME)
 
 
 clean:

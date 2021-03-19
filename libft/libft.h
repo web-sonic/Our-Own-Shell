@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/18 13:32:11 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/19 14:27:54 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void				ft_wordtab_clear(char **tab_lst);
 t_list				*ft_lstfind(t_list *begin_list, void *data_ref,
 								int (*cmp)());
 void				ft_lstsort(t_list **begin_list, int (*cmp)());
-
+void				ft_lstdelfirst(t_list **lst, void (*del)(void*));
 #endif
