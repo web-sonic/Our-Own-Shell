@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 14:21:05 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/19 18:08:51 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/19 18:11:47 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,6 @@ char
 	if (tcsetattr(0, TCSANOW, &term) < 0)
 		return(NULL);
 	tgetent(0, temp_name);
-	//term.c_cc[VMIN] = 1;
-	//term.c_cc[VTIME] = 0;
 	tputs(save_cursor, 1, ft_putchar);
 	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)))
 		puts_line(str, &rem_str);
