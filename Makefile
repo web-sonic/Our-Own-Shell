@@ -6,18 +6,23 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/19 14:26:49 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/19 17:56:32 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	shell_loop.c \
 		minishell.c \
 		readline.c \
+		signal.c \
+		utils.c \
+		./gnl/get_next_line.c \
+		./gnl/get_next_line_utils.c \
 		#parser/parser.c 
 
-LIB = libft/libft.a
+LIB =	libft/libft.a 
 
-HEADERS = minishell.h
+HEADERS =	minishell.h \
+			./gnl/get_next_line.h \
 
 NAME = minishell
 

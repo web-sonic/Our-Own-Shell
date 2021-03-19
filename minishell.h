@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/19 14:27:38 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/19 17:54:44 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@
 # include "libft/libft.h"
 # include "structures.h"
 # include "errors.h"
+# include "./gnl/get_next_line.h"
 
 # define BUF_STR 5
 
 void	shell_loop(char *name, char **env);
 char	*readline(char **env);
+void	check_signal(char **rem_str, char *str);
+int		ft_putchar(int c);
 
 #endif
