@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structures.h                                       :+:      :+:    :+:   */
+/*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 20:12:23 by yu               ###   ########.fr       */
+/*   Created: 2020/11/03 09:27:02 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 20:11:12 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURES_H
-# define STRUCTURES_H
+#include "../minishell.h"
 
-typedef struct		s_com
+t_dlist	*ft_dlstnew(void *content)
 {
-	int				fdin;
-	int				fdout;
-	t_list			*args;
-}					t_com;
+	t_dlist	*tmp;
 
-typedef struct		s_dlist
-{
-	void			*content;
-	t_dlist			*next;
-	t_dlist			*prev;
-}					t_dlist;
-
-#endif
+	if (!(tmp = malloc(sizeof(t_dlist))))
+		return (NULL);
+	tmp->content = content;
+	tmp->next = NULL;
+	tmp->prev = NULL;
+	return (tmp);
+}
