@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 14:21:05 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/19 18:08:51 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/20 09:20:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void
 ** @return сохраненные аргументы в виде строки
 */
 char
-	*readline(char **env)
+	*readline()
 {
 	char	*str;
 	char	*rem_str;

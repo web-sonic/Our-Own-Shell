@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/line_edition/line_edition",
+			"program": "${workspaceFolder}/minishell",
 			"args": [],
 			"cwd": "${workspaceFolder}"
 		}

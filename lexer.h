@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:08:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 18:19:57 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/20 11:29:37 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SEMICOLON 59
 # define GREAT 62
 # define LOW 60
-# define STOP_SYMBOLS "\"'|<>; \t"
-# define STR_REDIRECT_LEN 3
+# define STOP_SYMBOLS "\\\"'|<>; \t"
+# define BACKSLASH 92
+
 #endif

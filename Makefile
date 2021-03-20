@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/19 17:56:32 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/20 09:24:56 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,11 @@ SRCS =	shell_loop.c \
 		utils.c \
 		./gnl/get_next_line.c \
 		./gnl/get_next_line_utils.c \
-		#parser/parser.c 
+		parser/parser.c 
 
 LIB =	libft/libft.a 
 
 HEADERS =	minishell.h \
-			./gnl/get_next_line.h \
 
 NAME = minishell
 
@@ -40,7 +39,6 @@ $(NAME): $(SRCS) $(HEADERS)
 	$(CC) $(FLAGS) $(SRCS) -o $@
 
 all: $(NAME)
-
 
 clean:
 	$(RM) *.o
