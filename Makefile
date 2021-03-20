@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/20 09:24:56 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/20 12:41:26 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,11 @@ SRCS =	shell_loop.c \
 		utils.c \
 		./gnl/get_next_line.c \
 		./gnl/get_next_line_utils.c \
-		parser/parser.c 
+		parser/parser.c \
+		parser/lexer.c \
+		dlists/ft_dlstadd_back.c \
+		dlists/ft_dlstnew.c \
+		dlists/ft_dlstsize.c 
 
 LIB =	libft/libft.a 
 

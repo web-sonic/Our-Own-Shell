@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 21:04:12 by yu               ###   ########.fr       */
-=======
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 14:27:54 by sgath            ###   ########.fr       */
->>>>>>> ca124e6c1c2770c59c7994751126539232187474
+/*   Created: 2021/03/20 12:02:44 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/20 12:03:17 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +80,5 @@ t_list				*ft_lstfind(t_list *begin_list, void *data_ref,
 								int (*cmp)());
 void				ft_lstsort(t_list **begin_list, int (*cmp)());
 void				ft_lstdelfirst(t_list **lst, void (*del)(void*));
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/20 11:57:03 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:38:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int		ft_putchar(int c);
 t_list	*ft_parser(char *line);
 char	*ft_strownjoin(char *dst, char *src);
 char	*ft_strldup(char *str, size_t len);
+t_list	*lexer(char *str);
 
 #endif

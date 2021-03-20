@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/20 09:25:50 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:44:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void
 	char	*line;
 	t_list	*table;
 
+	name += 2;
 	ft_putstr_fd(name, 1);
 	ft_putstr_fd("> ", 1);
 	line = readline(env);
