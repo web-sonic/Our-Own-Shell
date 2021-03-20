@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelfirst_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/18 12:00:33 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/18 12:14:53 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int
-	main(int argc, char **argv, char **env)
+void
+	ft_lstdelfirst(t_list **lst, void (*del)(void*))
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
+	t_list *tmp;
+
+	tmp = (*lst)->next;
+	ft_lstdelone(*lst, del);
+	*lst = tmp;
 }

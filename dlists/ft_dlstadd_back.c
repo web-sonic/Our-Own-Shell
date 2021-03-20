@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2020/11/03 11:01:17 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 20:13:04 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int
-	main(int argc, char **argv, char **env)
+void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
+	t_dlist	*list;
+
+	list = *lst;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+		list->next = new;
+	}
+	else
+		*lst = new;
 }

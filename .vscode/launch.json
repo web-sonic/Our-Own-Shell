@@ -8,7 +8,11 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
+<<<<<<< HEAD
 			"program": "${workspaceFolder}/a.out",
+=======
+			"program": "${workspaceFolder}/line_edition/line_edition",
+>>>>>>> ca124e6c1c2770c59c7994751126539232187474
 			"args": [],
 			"cwd": "${workspaceFolder}"
 		}

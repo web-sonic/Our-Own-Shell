@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2020/11/03 10:47:36 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 20:14:19 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int
-	main(int argc, char **argv, char **env)
+int	ft_dlstsize(t_dlist *lst)
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
+	int	i;
+
+	i = 0;
+	if (lst)
+	{
+		i++;
+		while (lst->next != 0)
+		{
+			lst = lst->next;
+			i++;
+		}
+	}
+	return (i);
 }

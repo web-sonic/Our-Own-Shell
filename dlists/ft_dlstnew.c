@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2020/11/03 09:27:02 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 20:11:12 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int
-	main(int argc, char **argv, char **env)
+t_dlist	*ft_dlstnew(void *content)
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
+	t_dlist	*tmp;
+
+	if (!(tmp = malloc(sizeof(t_dlist))))
+		return (NULL);
+	tmp->content = content;
+	tmp->next = NULL;
+	tmp->prev = NULL;
+	return (tmp);
 }

@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 12:10:52 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-int
-	main(int argc, char **argv, char **env)
-{
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
-}
+# define PIPE_UNDEF "undefined behavior"
+# define PIPE_ERROR "syntax error near unexpected token `|'"
+
+#endif

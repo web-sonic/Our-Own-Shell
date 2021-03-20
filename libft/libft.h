@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
 /*   Updated: 2021/03/16 21:04:12 by yu               ###   ########.fr       */
+=======
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/30 17:42:27 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 14:27:54 by sgath            ###   ########.fr       */
+>>>>>>> ca124e6c1c2770c59c7994751126539232187474
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +65,6 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *haystack, const char *needle,
 					size_t len);
 char				*ft_strrchr(const char *s, int c);
-char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
@@ -80,5 +86,5 @@ void				ft_wordtab_clear(char **tab_lst);
 t_list				*ft_lstfind(t_list *begin_list, void *data_ref,
 								int (*cmp)());
 void				ft_lstsort(t_list **begin_list, int (*cmp)());
-
+void				ft_lstdelfirst(t_list **lst, void (*del)(void*));
 #endif

@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:07 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/16 17:10:48 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:57:33 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
 /* 
 ** @params: char **env: массив переменных окружения
 **			char *name: название minishell
-** Имитирует работу шелла
+** TODO: shell_loop: Имитирует работу шелла
 ** @return NULL
 */
 void
@@ -24,7 +26,12 @@ void
 	char *line;
 	t_list table;
 
-	line = readline();
-//	table = parser(line);fds
+	ft_putstr_fd(name, 1);
+	ft_putstr_fd("> ", 1);
+	//printf("%s>", name);
+	line = readline(env);
+	if (!line)
+		exit(1);
+//	table = parser(line);
 //	execute(table);
 }

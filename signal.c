@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 17:08:30 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/19 18:09:46 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int
-	main(int argc, char **argv, char **env)
+void
+	check_signal(char **rem_str, char *str)
 {
-	while (argc)
-		shell_loop(argv[0], env);
-	return (0);
+	if(!ft_strncmp(str, "\4", 2) && !(*rem_str))
+	{
+		ft_putstr_fd("\n./minishell> exit\n", 1);
+		exit(0);
+	}
+	else if (!ft_strncmp(str, "\3", 2))
+	{
+		ft_putstr_fd("\n./minishell> ", 1);
+	}
 }
