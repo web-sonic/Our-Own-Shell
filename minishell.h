@@ -3,10 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/19 18:17:59 by sgath            ###   ########.fr       */
+=======
+<<<<<<< HEAD
+/*   Updated: 2021/03/19 16:18:16 by ctragula         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/19 17:54:44 by sgath            ###   ########.fr       */
+>>>>>>> 50d6066a64f8c366e05019ce4cb3e6e24a7eb750
+>>>>>>> dfe041e880375344b446bf06b587cd5ca3cb8361
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +38,14 @@
 # include "libft/libft.h"
 # include "structures.h"
 # include "errors.h"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# include "lexer.h"
+=======
+# include "./gnl/get_next_line.h"
+>>>>>>> 50d6066a64f8c366e05019ce4cb3e6e24a7eb750
+>>>>>>> dfe041e880375344b446bf06b587cd5ca3cb8361
 
 # define BUF_STR 5
 

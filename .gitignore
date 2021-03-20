@@ -6,3 +6,4 @@
 *.o
 minishell
 minishell_tester
+line_edition

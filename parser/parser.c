@@ -6,42 +6,85 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 11:25:48 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:11:39 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.c"
 
-/* 
-** @params: char *str обрабатываемая строка
-**			char *name: название minishell
-** TODO разбивает строку на список структур, которые содержат команду,
-**		 ее аргументы, информацию о дескрипторах входных и выходных данных
-** @return: t_list commands
-*/
-t_list	*parser(char *str)
+char
+	*ft_strldup(char *str, size_t len)
 {
-	t_list	*processes;
+	char	*dst;
 
-	add_process(NULL, processes);
-	while (*str)
+	dst = ft_calloc(len, sizeof(char));
+	ft_strlcpy(dst, str, len);
+	return (dst);
+}
+
+char
+	*ft_strownjoin(char *dst, char *src)
+{
+	char	*tmp_str;
+
+	tmp_str = ft_strjoin(dst, src);
+	free(dst);
+	return (tmp_str);
+}
+
+void
+	add_special(char **str, t_list *tokens)
+{
+	char	*token;
+
+	token = ft_strldup(*str++, 2);
+	ft_lstadd_back(&tokens, ft_lstnew(token));
+}
+
+void
+	add_redirect(char **str, t_list *tokens)
+{
+	char	*token;
+
+	if (**str + 1 == GREAT)
 	{
-		ft_strtrim(str, " \t");
-		if (*str == '"' || *str == '\'')
-			if (!add_with_quotes(&str, processes))
-				return (NULL);
-		else if (*str == '>' || *str == '<')
-			if (!add_redirect(&str, processes))
-				return (NULL);
-		else if (*str == '|')
-			if (!add_command(&str, processes))
-				return (NULL);
-		else if (*str == ';')
-			if (!add_process(&str, processes))
-				return (NULL);
-		else
-			if (!add_argument(&str, processes))
-				return (NULL);
+		token = ft_strldup(*str, 3);
+		*str += 2;
 	}
-	return (processes);
+	else
+		token = ft_strldup(*str++, 2);
+	ft_lstadd_back(&tokens, ft_lstnew(token));
+}
+
+void
+	add_argument(char **str, t_list *tokens)
+{
+	size_t	len;
+	char	*token;
+
+	len = 0;
+	while (!ft_strchr(STOP_SYMBOLS, *str[len]))
+		len++;
+	token = ft_strldup(*str, len);
+	*str += len;
+	if (**str == QUOTE || **str == DQUOTE)
+		token = ft_strownjoin(token, treat_quotes(str, tokens));
+}
+
+t_list
+	*get_tokens(char *str)
+{
+	t_list	*tokens;
+
+	while (*str != '\n')
+	{
+		ft_strtrim(str, SPACES);
+		if (*str == PIPE || *str == SEMICOLON)
+			add_special(&str, tokens);
+		else if (*str == GREAT || *str == LOW)
+			add_redirect(&str, tokens);
+		else
+			add_argument(&str, tokens);
+	}
+	return (tokens);
 }
