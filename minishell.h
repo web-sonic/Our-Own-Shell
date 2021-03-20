@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 14:02:48 by sgath             #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2021/03/19 18:17:59 by sgath            ###   ########.fr       */
 =======
 <<<<<<< HEAD
@@ -15,6 +16,9 @@
 /*   Updated: 2021/03/19 17:54:44 by sgath            ###   ########.fr       */
 >>>>>>> 50d6066a64f8c366e05019ce4cb3e6e24a7eb750
 >>>>>>> dfe041e880375344b446bf06b587cd5ca3cb8361
+=======
+/*   Updated: 2021/03/20 11:57:03 by ctragula         ###   ########.fr       */
+>>>>>>> 5a37a3fc5134946a0ed2079a9dbfe0e20421c0be
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +43,7 @@
 # include "structures.h"
 # include "errors.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 # include "lexer.h"
@@ -46,12 +51,18 @@
 # include "./gnl/get_next_line.h"
 >>>>>>> 50d6066a64f8c366e05019ce4cb3e6e24a7eb750
 >>>>>>> dfe041e880375344b446bf06b587cd5ca3cb8361
+=======
+# include "lexer.h"
+>>>>>>> 5a37a3fc5134946a0ed2079a9dbfe0e20421c0be
 
 # define BUF_STR 5
 
 void	shell_loop(char *name, char **env);
-char	*readline(char **env);
+char	*readline();
 void	check_signal(char **rem_str, char *str);
 int		ft_putchar(int c);
+t_list	*ft_parser(char *line);
+char	*ft_strownjoin(char *dst, char *src);
+char	*ft_strldup(char *str, size_t len);
 
 #endif

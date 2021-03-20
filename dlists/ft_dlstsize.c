@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structures.h                                       :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 20:12:23 by yu               ###   ########.fr       */
+/*   Created: 2020/11/03 10:47:36 by ctragula          #+#    #+#             */
+/*   Updated: 2021/03/19 20:14:19 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURES_H
-# define STRUCTURES_H
+#include "../minishell.h"
 
-typedef struct		s_com
+int	ft_dlstsize(t_dlist *lst)
 {
-	int				fdin;
-	int				fdout;
-	t_list			*args;
-}					t_com;
+	int	i;
 
-typedef struct		s_dlist
-{
-	void			*content;
-	t_dlist			*next;
-	t_dlist			*prev;
-}					t_dlist;
-
-#endif
+	i = 0;
+	if (lst)
+	{
+		i++;
+		while (lst->next != 0)
+		{
+			lst = lst->next;
+			i++;
+		}
+	}
+	return (i);
+}
