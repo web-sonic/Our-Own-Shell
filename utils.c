@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/20 10:13:21 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/21 12:31:54 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,46 @@ char
 	tmp_str = ft_strjoin(dst, src);
 	free(dst);
 	return (tmp_str);
+}
+
+/* 
+** @params: char *status: включение или отключение флагов
+**			struct termios *term: Структура, содержашая в себе всю работу терминала
+** TODO: control_flags_term: Включение или отключение флагов
+*/
+void
+	control_flags_term(char *status, struct termios *term)
+{
+	if (!ft_strncmp(status, "on", 3))
+	{
+		term->c_lflag &= ~ECHO;
+		term->c_lflag &= ~ICANON;
+		term->c_cflag &= ~ISIG;
+	}
+	else if (!ft_strncmp(status, "off", 4))
+	{
+		term->c_lflag |= ECHO;
+		term->c_lflag |= ICANON;
+		term->c_cflag |= ISIG;
+	}
+	else
+		exit (1);
+}
+
+int
+	running_term()
+{
+	char	*temp_name;
+	struct	termios term;
+
+	temp_name = ft_strdup("xterm-256color");
+	if (!temp_name)
+		return (1);
+	if (tcgetattr(0, &term) < 0)
+		return(1);
+	control_flags_term("on", &term);
+	if (tcsetattr(0, TCSANOW, &term) < 0)
+		return(1);
+	tgetent(0, temp_name);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 20:12:23 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/20 12:43:12 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef struct		s_com
 typedef struct		s_dlist
 {
 	void			*content;
-	t_dlist			*next;
-	t_dlist			*prev;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
 }					t_dlist;
 
 #endif

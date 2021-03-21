@@ -6,11 +6,11 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:04:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/20 11:47:59 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:44:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 /* 
 ** @params: char **str
@@ -47,17 +47,17 @@ char
 	return (token);
 }
 
-char
-	*treat_backslash(char **str, char quote)
-{
-	size_t	len;
-	char	*left_token;
-	char	*right_token;
-	char	*token;
+// char
+// 	*treat_backslash(char **str, char quote)
+// {
+// 	size_t	len;
+// 	char	*left_token;
+// 	char	*right_token;
+// 	char	*token;
 
-	quote 
+// 	quote 
 
-}
+// }
 
 /* 
 ** @params: char **str, t_list **tokens
@@ -114,8 +114,8 @@ static void
 	*str += len;
 	if (**str == QUOTE || **str == DQUOTE)
 		token = ft_strownjoin(token, treat_quotes(str));
-	if (**str == BACKSLASH)
-		token = ft_strownjoin(token, treat_backslash(str));
+	// if (**str == BACKSLASH)
+	// 	token = ft_strownjoin(token, treat_backslash(str));
 	ft_lstadd_back(tokens, ft_lstnew(token));
 }
 

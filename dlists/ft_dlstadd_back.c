@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 11:01:17 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/19 20:13:04 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/20 15:24:29 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
 		while (list->next)
 			list = list->next;
 		list->next = new;
+		(list->next)->prev = list;
 	}
-	else
-		*lst = new;
+	*lst = new;
 }

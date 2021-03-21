@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/18 14:21:05 by sgath             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/19 18:11:47 by sgath            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/20 09:20:30 by ctragula         ###   ########.fr       */
->>>>>>> 5a37a3fc5134946a0ed2079a9dbfe0e20421c0be
+/*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/21 12:40:59 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +19,38 @@
 ** TODO: swap_argument_str: заменяет одну строку на другую
 */
 static void
-	swap_argument_str(char *str, char **rem_str)
+	swap_argument_str(char *str, char **rem_str, t_dlist **histlist)
 {
-	if (*rem_str)
-		free(*rem_str);
-	*rem_str = ft_strdup(str);
+	char *tmp;
+
+	tmp = 0;
+	if (!(*histlist))
+		return;
 	tputs(restore_cursor, 1, ft_putchar);
 	tputs(delete_line, 1, ft_putchar);
 	tputs(tigetstr("ed"), 1, ft_putchar);
-	ft_putstr_fd("./minishell> ", 1);
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd("minishell> ", 1);
+	if (!ft_strncmp(str, "up", 3))
+	{
+		if((*histlist)->prev && ft_dlstsize((*histlist)->prev) != 0)
+		{
+			*histlist = (*histlist)->prev;
+			tmp = (*histlist)->content;
+		}
+		else
+			tmp = *rem_str;
+	}
+	else if(!ft_strncmp(str, "down", 5))
+	{
+		if ((*histlist)->next)
+		{
+			*histlist = (*histlist)->next;
+			tmp = (*histlist)->content;
+		}
+		else
+			tmp = *rem_str;
+	}
+	ft_putstr_fd(tmp, 1);
 }
 
 /* 
@@ -64,12 +82,15 @@ static void
 	delete_last_symbol_str(char **rem_str)
 {
 	int len;
-
-	tputs(cursor_left, 1, ft_putchar);
-	tputs(delete_character, 1, ft_putchar);
+	if (!(*rem_str))
+		return;
 	len = ft_strlen(*rem_str);
-	if (len - 1 >= 0)
+	if (len > 0)
+	{
+		tputs(cursor_left, 1, ft_putchar);
+		tputs(delete_character, 1, ft_putchar);
 		(*rem_str)[len - 1] = 0;
+	}
 }
 
 /* 
@@ -79,16 +100,16 @@ static void
 **					 выводит их на экран, и обрабатывает сигналы
 */
 static void
-	puts_line(char *str, char **rem_str)
+	puts_line(char *str, char **rem_str, t_dlist **histlist)
 {
 	int i;
 
 	i = read(0, str, 5);
 	str[i] = 0;
 	if (!ft_strncmp(str, "\e[A", 4))
-		swap_argument_str("up", rem_str);
+		swap_argument_str("up", rem_str, histlist);
 	else if (!ft_strncmp(str, "\e[B", 4))
-		swap_argument_str("down", rem_str);
+		swap_argument_str("down", rem_str, histlist);
 	else if (!ft_strncmp(str,"\177", 4))
 		delete_last_symbol_str(rem_str);
 	else if (!ft_strncmp(str, "\e[C", 4))
@@ -102,29 +123,7 @@ static void
 	}
 }
 
-/* 
-** @params: char *status: включение или отключение флагов
-**			struct termios *term: Структура, содержашая в себе всю работу терминала
-** TODO: control_flags_term: Включение или отключение флагов
-*/
-void
-	control_flags_term(char *status, struct termios *term)
-{
-	if (!ft_strncmp(status, "on", 3))
-	{
-		term->c_lflag &= ~ECHO;
-		term->c_lflag &= ~ICANON;
-		term->c_cflag &= ~ISIG;
-	}
-	else if (!ft_strncmp(status, "off", 4))
-	{
-		term->c_lflag |= ECHO;
-		term->c_lflag |= ICANON;
-		term->c_cflag |= ISIG;
-	}
-	else
-		exit (1);
-}
+
 
 /* 
 ** @params: char **env: массив переменных окружения
@@ -132,28 +131,21 @@ void
 ** @return сохраненные аргументы в виде строки
 */
 char
-	*readline()
+	*readline(char **env, t_dlist **histlist)
 {
 	char	*str;
 	char	*rem_str;
-	char	*temp_name;
-	struct	termios term;
 
+	(void)env;
 	rem_str = 0;
-	temp_name = ft_strdup("xterm-256color");
 	str = ft_calloc(sizeof(char), BUF_STR);
-	if (!temp_name || !str)
+	if (!str || running_term() != 0)
 		return (NULL);
-	if (tcgetattr(0, &term) < 0)
-		return(NULL);
-	control_flags_term("on", &term);
-	if (tcsetattr(0, TCSANOW, &term) < 0)
-		return(NULL);
-	tgetent(0, temp_name);
 	tputs(save_cursor, 1, ft_putchar);
 	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)))
-		puts_line(str, &rem_str);
+		puts_line(str, &rem_str, histlist);
 	//ft_putendl_fd(rem_str, 1);
+	ft_dlstadd_back(histlist, ft_dlstnew(rem_str));
 	free(str);
 	return (rem_str);
 }
