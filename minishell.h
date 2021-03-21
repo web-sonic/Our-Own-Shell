@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/21 12:34:35 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/21 13:43:33 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define BUF_STR 5
 
 void	shell_loop(char *name, char **env, t_dlist **histlist);
-char	*readline(char **env, t_dlist **histlist);
+char	*readline(t_dlist **histlist);
 void	check_signal(char **rem_str, char *str);
 int		ft_putchar(int c);
 t_list	*ft_parser(char *line);
