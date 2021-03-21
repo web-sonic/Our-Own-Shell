@@ -6,58 +6,87 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:04:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/20 12:44:05 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/21 12:36:18 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+char
+	*treat_backslash(char **str)
+{
+	char	*left_token;
+	char	*token;
+
+	**str++;
+	left_token = ft_strldup(*str, 2);
+	**str++;
+	token = ft_strjoin(left_token, treat_str(str));
+	free(left_token);
+	return("");
+}
+
+char
+	*treat_dollar(char **str)
+{
+	return("");
+}
 /* 
-** @params: char **str
+** @params: char **str обрабатываемая строка
+** 			int quote тип кавычек
 ** TODO: обрабатывает аргумент с кавычками в строке
 ** и сдивагет строку на следующую лексему
 ** @return char *token полученный аргумент
 */
 char
-	*treat_quotes(char **str)
+	*treat_quotes(char **str, int quote)
 {
-	char	quote;
 	size_t	len;
 	char	*left_token;
-	char	*right_token;
 	char	*token;
+	char	*stop_symbols;
 
-	quote = *(*str)++;
+	*str++;
+	if (quote == QUOTE)
+		stop_symbols = "'";
+	else
+		stop_symbols = "\\\"$";
 	len = 0;
-	while ((*str)[len] != quote && (*str[len - 1]) != BACKSLASH)
+	while ((*str)[len] && !ft_strchr(stop_symbols, (*str)[len]))
 		len++;
-	left_token = ft_strldup(*str, len);
+	left_token = ft_strldup(*str, len + 1);
 	*str += len;
-	//treat_shield(&left_token, quote);
-	len = 0;
-	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
-		len++;
-	right_token = ft_strldup(*str, len + 1);
-	*str += len + 1;
-	token = ft_strjoin(left_token, right_token);
+	if (**str == BACKSLASH)
+		token = ft_strjoin(left_token, treat_backslash(**str, WITH_QUOTE));
+	else if (**str == DOLLAR)
+		token = ft_strjoin(left_token, treat_dollar(**str));
+	else
+		token = ft_strjoin(left_token, treat_str(++*str));
 	free(left_token);
-	free(right_token);
-	if (**str == QUOTE || **str == DQUOTE)
-		token = ft_strownjoin(token, treat_quotes(str));
 	return (token);
 }
 
-// char
-// 	*treat_backslash(char **str, char quote)
-// {
-// 	size_t	len;
-// 	char	*left_token;
-// 	char	*right_token;
-// 	char	*token;
+char
+	*treat_str(char **str)
+{
+	size_t	len;
+	char	*token;
+	char	*left_token;
 
-// 	quote 
-
-// }
+	len = 0;
+	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
+		len++;
+	left_token = ft_strldup(*str, len + 1);
+	*str += len;
+	if (**str == QUOTE || **str == DQUOTE)
+		token = ft_strjoin(left_token, treat_quotes(str, **str));
+	else if (**str == BACKSLASH)
+		token = ft_strjoin(left_token, treat_backslash(str));
+	else if (**str == DOLLAR)
+		token = ft_strjoin(left_token, treat_dollar(str));
+	free(left_token);
+	return (token);
+}
 
 /* 
 ** @params: char **str, t_list **tokens
@@ -104,18 +133,9 @@ static void
 static void
 	add_argument(char **str, t_list **tokens)
 {
-	size_t	len;
-	char	*token;
+	char *token;
 
-	len = 0;
-	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
-		len++;
-	token = ft_strldup(*str, len + 1);
-	*str += len;
-	if (**str == QUOTE || **str == DQUOTE)
-		token = ft_strownjoin(token, treat_quotes(str));
-	// if (**str == BACKSLASH)
-	// 	token = ft_strownjoin(token, treat_backslash(str));
+	token = treat_str(str);
 	ft_lstadd_back(tokens, ft_lstnew(token));
 }
 
