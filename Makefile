@@ -3,15 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
+#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/16 15:29:48 by ctragula          #+#    #+#              #
-#    Updated: 2021/03/20 12:41:26 by ctragula         ###   ########.fr        #
+#    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
+#    Updated: 2021/03/21 12:34:47 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	shell_loop.c \
-		minishell.c \
+SRCS =	minishell.c \
 		readline.c \
 		signal.c \
 		utils.c \
