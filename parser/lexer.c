@@ -6,24 +6,39 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:04:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/21 12:36:18 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:11:56 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char
-	*treat_backslash(char **str)
+static char
+	*treat_backslash(char **str, int quote)
 {
+	char	*right_token;
 	char	*left_token;
 	char	*token;
 
-	**str++;
-	left_token = ft_strldup(*str, 2);
-	**str++;
-	token = ft_strjoin(left_token, treat_str(str));
+	if (quote && ft_strchr("$\"\\", **str))
+		left_token = ft_strldup(*str, 2);
+	else
+		left_token = ft_calloc(1, sizeof(char));
+	(*str)++;
+	if (!ft_strchr(SPACES, **str) || quote)
+	{
+		right_token = ft_strldup(*str, 2);
+		(*str)++;
+	}
+	else
+		right_token = ft_calloc(1, sizeof(char));
+	if (quote)
+		right_token = ft_strownjoin(right_token, treat_quotes(str, quote));
+	else
+		right_token = ft_strownjoin(right_token, treat_str(str));
+	token = ft_strjoin(left_token, right_token);
 	free(left_token);
-	return("");
+	free(right_token);
+	return(token);
 }
 
 char
@@ -31,7 +46,8 @@ char
 {
 	return("");
 }
-/* 
+
+/*
 ** @params: char **str обрабатываемая строка
 ** 			int quote тип кавычек
 ** TODO: обрабатывает аргумент с кавычками в строке
@@ -46,7 +62,7 @@ char
 	char	*token;
 	char	*stop_symbols;
 
-	*str++;
+	(*str)++;
 	if (quote == QUOTE)
 		stop_symbols = "'";
 	else
@@ -57,11 +73,13 @@ char
 	left_token = ft_strldup(*str, len + 1);
 	*str += len;
 	if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(**str, WITH_QUOTE));
+		token = ft_strjoin(left_token, treat_backslash(str, quote));
 	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(**str));
+		token = ft_strjoin(left_token, treat_dollar(str));
+	else if (*(*str)++)
+		token = ft_strjoin(left_token, treat_str(str));
 	else
-		token = ft_strjoin(left_token, treat_str(++*str));
+		token = 0;
 	free(left_token);
 	return (token);
 }
@@ -74,21 +92,23 @@ char
 	char	*left_token;
 
 	len = 0;
-	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
+	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 		len++;
 	left_token = ft_strldup(*str, len + 1);
 	*str += len;
 	if (**str == QUOTE || **str == DQUOTE)
 		token = ft_strjoin(left_token, treat_quotes(str, **str));
 	else if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str));
+		token = ft_strjoin(left_token, treat_backslash(str, 0));
 	else if (**str == DOLLAR)
 		token = ft_strjoin(left_token, treat_dollar(str));
+	else
+		token = ft_strdup(left_token);
 	free(left_token);
 	return (token);
 }
 
-/* 
+/*
 ** @params: char **str, t_list **tokens
 ** TODO: добавляет в список новую лексему спец. символ
 **	и сдивагет строку на следующую лексему
@@ -103,7 +123,7 @@ static void
 	ft_lstadd_back(tokens, ft_lstnew(token));
 }
 
-/* 
+/*
 ** @params: char **str, t_list **tokens
 ** TODO: добавляет в список новую лексему редирект
 **	и сдивагет строку на следующую лексему
@@ -136,7 +156,8 @@ static void
 	char *token;
 
 	token = treat_str(str);
-	ft_lstadd_back(tokens, ft_lstnew(token));
+	if (token && *token)
+		ft_lstadd_back(tokens, ft_lstnew(token));
 }
 
 /* 
