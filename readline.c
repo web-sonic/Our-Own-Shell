@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/21 12:40:59 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/21 13:57:36 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,11 @@ static void
 ** @return сохраненные аргументы в виде строки
 */
 char
-	*readline(char **env, t_dlist **histlist)
+	*readline(t_dlist **histlist)
 {
 	char	*str;
 	char	*rem_str;
 
-	(void)env;
 	rem_str = 0;
 	str = ft_calloc(sizeof(char), BUF_STR);
 	if (!str || running_term() != 0)

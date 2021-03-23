@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/21 12:32:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/21 13:25:32 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void
 	name += 2;
 	ft_putstr_fd(name, 1);
 	ft_putstr_fd("> ", 1);
-	line = readline(env, histlist);
+	line = readline(histlist);
 	table = ft_parser(line);
 //	execute(table);
 }
