@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/21 13:25:32 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:14:16 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,25 @@
 ** TODO: shell_loop: Имитирует работу шелла
 ** @return NULL
 */
-void
-	shell_loop(char *name, char **env, t_dlist **histlist)
-{
-	char	*line;
-	t_list	*table;
-
-	name += 2;
-	ft_putstr_fd(name, 1);
-	ft_putstr_fd("> ", 1);
-	line = readline(histlist);
-	table = ft_parser(line);
-//	execute(table);
-}
 
 int
 	main(int argc, char **argv, char **env)
 {
 	t_dlist	*histlist;
+	char	*line;
+	char	*name;
+	t_list	*table;
 
+	name = argv[0];
+	(void)env;
+	name += 2;
 	while (argc)
-		shell_loop(argv[0], env, &histlist);
+	{
+		ft_putstr_fd(name, 1);
+		ft_putstr_fd("> ", 1);
+		line = readline(&histlist);
+		table = ft_parser(line);
+	//	execute(table);
+	}
 	return (0);
 }
