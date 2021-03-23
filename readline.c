@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/23 12:14:05 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/23 12:27:54 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ static void
 	tputs(delete_line, 1, ft_putchar);
 	tputs(tigetstr("ed"), 1, ft_putchar);
 	ft_putstr_fd("minishell> ", 1);
-	if (direction == 0 && ft_dlstsize(*histlist) != 0)
+	if (direction == 0)
 	{
-		if (!tmp_str)
-			*tmp_str = *rem_str;
-		*histlist = (*histlist)->prev;
-		*rem_str = ft_strdup((*histlist)->content);
+		if (ft_dlstsize((*histlist)->prev) != 0)
+		{
+			if (!(*tmp_str))
+				*tmp_str = *rem_str;
+			else
+				*histlist = (*histlist)->prev;
+			*rem_str = ft_strdup((*histlist)->content);
+		}
 	}
 	if(direction == 1)
 	{
@@ -43,8 +47,12 @@ static void
 			*rem_str = ft_strdup((*histlist)->content);
 		}
 		else
-			*rem_str = ft_strdup((*tmp_str));
-		
+		{
+			if	(*tmp_str && !(*rem_str)) 
+				*rem_str = ft_strdup((*tmp_str));
+			else
+				*rem_str = ft_strdup("");
+		}
 	}
 	//*rem_str = ft_strdup((*histlist)->content);
 	ft_putstr_fd(*rem_str, 1);
