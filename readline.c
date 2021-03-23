@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/23 12:27:54 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/23 13:18:50 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ static void
 		if (ft_dlstsize((*histlist)->prev) != 0)
 		{
 			if (!(*tmp_str))
-				*tmp_str = *rem_str;
+			{
+				if (*rem_str)
+					*tmp_str = *rem_str;
+				else
+					*tmp_str = "";
+			}
 			else
 				*histlist = (*histlist)->prev;
 			*rem_str = ft_strdup((*histlist)->content);
@@ -48,9 +53,15 @@ static void
 		}
 		else
 		{
-			if	(*tmp_str && !(*rem_str)) 
-				*rem_str = ft_strdup((*tmp_str));
-			else
+			if	(!(*rem_str) || ft_strncmp(*rem_str, "", 1))
+			{
+				if (*tmp_str)
+				{
+					*rem_str = ft_strdup((*tmp_str));
+					*tmp_str = 0;
+				}
+			}
+			else if (*tmp_str != *rem_str)
 				*rem_str = ft_strdup("");
 		}
 	}
