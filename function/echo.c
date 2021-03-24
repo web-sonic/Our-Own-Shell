@@ -1,28 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 11:01:17 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/23 13:40:36 by sgath            ###   ########.fr       */
+/*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/23 17:55:36 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
+int
+	count_arr(char **str)
 {
-	t_dlist	*list;
+	int	count;
 
-	list = *lst;
-	if (list)
+	count = 0;
+	while (str[count])
+		count++;
+	return (count);
+}
+
+void
+	ft_echo(char **line)
+{
+	int	count;
+	int	i;
+	char *new_name;
+
+	i = -1;
+	count = count_arr(line);
+	
+	if (ft_strncmp(line[0], "-n"))
 	{
-		while (list->next)
-			list = list->next;
-		list->next = new;
-		(list->next)->prev = list;
+		while(++(i+1) < count)
+			ft_strjoin(new_name, " ", )
 	}
-	*lst = new;
+	while (++i < count && line[i][0] != '#')
+	{
+		ft_putstr_fd(line[i], 1);
+		if (line[i + 1])
+			ft_putstr_fd(" ", 1);
+	}
+	ft_putstr_fd("\n", 1);
 }

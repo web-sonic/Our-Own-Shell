@@ -6,20 +6,29 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/24 11:06:06 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/24 11:13:21 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		readline.c \
 		signal.c \
+<<<<<<< HEAD
 		utils.c \
-		./gnl/get_next_line.c \
-		./gnl/get_next_line_utils.c \
+		utils_pact_1.c \
+		utils_pact_2.c \
 		parser/cmd_list.c \
+=======
+		utils_pact_1.c \
+		utils_pact_2.c \
+		parser/parser.c \
+		parser/lexer.c \
+>>>>>>> 8c91cbe1b97dda9043629b6cd89e3f3fc5158866
 		dlists/ft_dlstadd_back.c \
 		dlists/ft_dlstnew.c \
-		dlists/ft_dlstsize.c 
+		dlists/ft_dlstsize.c \
+		./gnl/get_next_line.c \
+		./gnl/get_next_line_utils.c \
 
 LIB =	libft/libft.a 
 
