@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/23 17:05:23 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/24 11:16:27 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ SRCS =	minishell.c \
 		signal.c \
 		utils_pact_1.c \
 		utils_pact_2.c \
-		parser/parser.c \
-		parser/lexer.c \
+		parser/cmd_list.c \
 		dlists/ft_dlstadd_back.c \
 		dlists/ft_dlstnew.c \
 		dlists/ft_dlstsize.c \

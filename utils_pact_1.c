@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/23 17:09:55 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/24 11:15:45 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char
 }
 
 char
-	*ft_strownjoin(char *dst, char *src)
+	*ft_ownrealloc(char *(*f)(char *, char *), char *s1, char *s2)
 {
 	char	*tmp_str;
 
-	tmp_str = ft_strjoin(dst, src);
-	free(dst);
+	tmp_str = f(s1, s2);
+	free(s1);
 	return (tmp_str);
 }
 
