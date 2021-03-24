@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/21 12:34:47 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/24 11:06:06 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ SRCS =	minishell.c \
 		utils.c \
 		./gnl/get_next_line.c \
 		./gnl/get_next_line_utils.c \
-		parser/parser.c \
-		parser/lexer.c \
+		parser/cmd_list.c \
 		dlists/ft_dlstadd_back.c \
 		dlists/ft_dlstnew.c \
 		dlists/ft_dlstsize.c 
