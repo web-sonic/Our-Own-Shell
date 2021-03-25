@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 14:57:28 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:07:48 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,35 @@
 
 # define BUF_STR 5
 
-t_list  *get_cmds(char *line);
-char    *ft_ownrealloc(char *(*f)(const char *, const char *),
-            char **s1, char *s2);
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*ft_dlstnew(void *content);
 int	    ft_dlstsize(t_dlist *lst);
+
+t_list  *get_cmds(char *line);
+char    *ft_ownrealloc(char *(*f)(const char *, const char *),
+            char **s1, char *s2);
+char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote);
 t_list  *split_cmdlst(char *line, int stop_symbol);
-void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
-int	    ft_dlstsize(t_dlist *lst);
-void	shell_loop(char *name, char **env, t_dlist **histlist);
-char	*readline(t_dlist **histlist);
+char	*ft_strldup(char *str, size_t len);
+char    *treat_str(char **str);
+char    *treat_quotes(char **str, int quote);
+int     error_parse(char *str, int c);
+
+char	*readline(t_dlist **histlist, char *dir_add);
 void	check_signal(char **rem_str, char *str);
 int		running_term(struct termios *term);
 void	control_flags_term(char *status, struct termios *term);
 int		ft_putchar(int c);
 void	write_new_symbol_str(char **rem_str, char *str);
 void	dub_and_free(char **rem_str, char *str);
+
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
 void	ft_env(char **env);
-char	*ft_strldup(char *str, size_t len);
-int     error_parse(char *str, int c);
+
 void    execute(t_list *cmd_lst, char **env);
 t_cmd   parse_complete(char *str, char **env);
 

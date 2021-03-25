@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 11:25:13 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/25 14:58:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,29 @@ static void
 	}
 }
 
+void
+	end_readline(t_dlist **histlist, char **rem_str, char **tmp_str, char *dir_add)
+{
+	int fd;
+
+	if (**rem_str != '\n')
+	{
+		(*rem_str)[ft_strlen(*rem_str) - 1] = '\0';
+		ft_dlstadd_back(histlist, ft_dlstnew(*rem_str));
+		fd = open(dir_add, O_WRONLY | O_APPEND);
+		ft_putendl_fd(*rem_str, fd);
+		close(fd);
+	}
+	if (*tmp_str)
+		free(*tmp_str);
+}
 /* 
 ** @params: char **env: массив переменных окружения
 ** TODO: readline: Считывает введеные в консоль аргументы 
 ** @return сохраненные аргументы в виде строки
 */
 char
-	*readline(t_dlist **histlist)
+	*readline(t_dlist **histlist, char *dir_add)
 {
 	char			*str;
 	char			*rem_str;
@@ -161,14 +177,8 @@ char
 	tputs(save_cursor, 1, ft_putchar);
 	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)))
 		puts_line(str, &rem_str, &tmp_str, histlist);
-	if (*rem_str != '\n')
-	{
-		rem_str[ft_strlen(rem_str) - 1] = '\0';
-		ft_dlstadd_back(histlist, ft_dlstnew(rem_str));
-	}
-	free(str);
-	if (tmp_str)
-		free(tmp_str);
+	end_readline(histlist, &rem_str, &tmp_str, dir_add);
 	control_flags_term("off", &term);
+	free(str);
 	return (rem_str);
 }
