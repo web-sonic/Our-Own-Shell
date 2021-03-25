@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/25 11:15:27 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/25 11:20:51 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS =	minishell.c \
 		utils_pact_1.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
+		parser/error_parse.c \
 		dlists/ft_dlstadd_back.c \
 		dlists/ft_dlstnew.c \
 		dlists/ft_dlstsize.c \

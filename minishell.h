@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 10:09:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 10:39:15 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
 void	ft_env(char **env);
-char	*ft_strownjoin(char *dst, char *src);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote);
 t_list	*ft_parser(char *list);
 t_list	*lexer(char *str);
+int     error_parse(char *str, int c);
 
 #endif

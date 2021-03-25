@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/23 17:10:25 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/25 11:25:13 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,11 @@ char
 	tputs(save_cursor, 1, ft_putchar);
 	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)))
 		puts_line(str, &rem_str, &tmp_str, histlist);
-	if (ft_strncmp(rem_str, "", 1))
+	if (*rem_str != '\n')
+	{
+		rem_str[ft_strlen(rem_str) - 1] = '\0';
 		ft_dlstadd_back(histlist, ft_dlstnew(rem_str));
+	}
 	free(str);
 	if (tmp_str)
 		free(tmp_str);
