@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/25 22:20:41 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/25 22:23:08 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ SRCS =	minishell.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
 		parser/error_parse.c \
-		dlists/ft_dlstadd_back.c \
-		dlists/ft_dlstnew.c \
-		dlists/ft_dlstsize.c \
+		./dlists/ft_dlstclear.c \
+		./dlists/ft_dlstadd_back.c \
+		./dlists/ft_dlstnew.c \
+		./dlists/ft_dlstsize.c \
 		./gnl/get_next_line.c \
 		./gnl/get_next_line_utils.c \
 		./function/echo.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 15:07:48 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:32:25 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*ft_dlstnew(void *content);
 int	    ft_dlstsize(t_dlist *lst);
+void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
 
 t_list  *get_cmds(char *line);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),

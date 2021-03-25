@@ -6,13 +6,13 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 21:25:51 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:22:52 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char
+static char
 	*find_way(void)
 {
 	char	*dir;
@@ -39,7 +39,7 @@ char
 	return (str);
 }
 
-void
+static void
 	inint_histlist(t_dlist **histlist, char *dir_add)
 {
 	int		fd;
@@ -86,16 +86,16 @@ int
 		if (line)
 		{
 			cmd_lst = get_cmds(line);
-	//		if (cmd_lst)
-	//			execute(cmd_lst, env);
+			//if (cmd_lst)
+			//	execute(cmd_lst, env);
 		}
 	}
+	ft_dlstclear(&histlist, free);
 	return (0);
 }
 
 
 //если курсор близко к краю терминала - не работает
-// изменение окна терминала починить
 // очистка терминала работает?
 // дописать функции + функция history
 // парсер
@@ -103,3 +103,4 @@ int
 // написать свою функцию getenv
 // проверка существования файла
 //исправить 777 в создании файла
+// изменение окна терминала починить
