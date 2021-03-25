@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 20:55:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/01/17 14:53:08 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:33:25 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*ft_itoa_base(unsigned long num, size_t base)
 
 	i = 0;
 	numbers = "0123456789abcdef";
-	if (base < 2 || base > 16 || (base != 10 && num < 0))
+	if (base < 2 || base > 16 || (base != 10))
 		return (0);
 	i = ft_nbrlen(num, base);
-	if (base != 10 && num < 0)
+	if (base != 10)
 	{
 		num *= -1;
 		i--;

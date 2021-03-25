@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/24 12:25:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 10:06:44 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <curses.h>
 # include <term.h>
 # include <termios.h>
+# include <limits.h>
 # include "libft/libft.h"
 # include "structures.h"
 # include "errors.h"
@@ -59,6 +60,10 @@ void	control_flags_term(char *status, struct termios *term);
 int		ft_putchar(int c);
 void	write_new_symbol_str(char **rem_str, char *str);
 void	dub_and_free(char **rem_str, char *str);
+void	ft_echo(char **line);
+int		ft_pwd(void);
+void	ft_exit(long long *n,char **line);
+void	ft_env(char **env);
 char	*ft_strownjoin(char *dst, char *src);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
