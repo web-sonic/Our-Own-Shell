@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_complete.c                                   :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 16:09:04 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:18:08 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,20 @@ static void
 	
 }
 
+static char
+	parse_str(char *str)
 t_cmd
-	parse_complete(char *str, char **env)
 {
-	t_list
-	size_t  len;
 
+}
+
+	parser(char *str, char **env)
+{
+	t_cmd	cmd;
+	size_t  len;
+	t_list	tokens;
+
+	tokens = parse_str(str);
 	init_cmd(&cmd);
 	while (*str || *str != DIEZ)
 	{
