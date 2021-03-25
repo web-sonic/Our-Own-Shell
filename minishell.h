@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/24 11:20:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:25:49 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 # define BUF_STR 5
 
 t_list  *get_cmds(char *line);
-char	*ft_ownrealloc(char *(*f)(char *, char *), char *s1, char *s2);
+char    *ft_ownrealloc(char *(*f)(const char *, const char *),
+            char **s1, char *s2);
 char	*ft_strldup(char *str, size_t len);
 void	control_flags_term(char *status, struct termios *term);
 int		running_term();
@@ -58,7 +59,6 @@ void	control_flags_term(char *status, struct termios *term);
 int		ft_putchar(int c);
 void	write_new_symbol_str(char **rem_str, char *str);
 void	dub_and_free(char **rem_str, char *str);
-
 char	*ft_strownjoin(char *dst, char *src);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);

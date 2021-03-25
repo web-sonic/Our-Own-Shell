@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/24 11:15:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:26:02 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char
 }
 
 char
-	*ft_ownrealloc(char *(*f)(char *, char *), char *s1, char *s2)
+	*ft_ownrealloc(char *(*f)(const char *, const char *), char **s1, char *s2)
 {
 	char	*tmp_str;
 
-	tmp_str = f(s1, s2);
-	free(s1);
+	tmp_str = f(*s1, s2);
+	free(*s1);
 	return (tmp_str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/24 11:11:07 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:33:37 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static size_t
 	len = 1;
 	while(line[len] && line[len] != quote)
 	{
-		if (line[len] == '\\' && line[len + 1])
+		if (line[len] == '\\' && line[len + 1] && quote != QUOTE)
 			len++;
 		len++;
 	}
@@ -46,11 +46,13 @@ static void
 	get_pipes_lst(t_list **cmd_lst)
 {
 	t_list	*tmp_lst;
+	char	*str;
 
 	tmp_lst = *cmd_lst;
 	while (tmp_lst)
 	{
-		tmp_lst->content = split_cmdlst(tmp_lst->content, PIPE);
+		str = tmp_lst->content;
+		tmp_lst->content = split_cmdlst(str, PIPE);
 		tmp_lst = tmp_lst->next;
 	}
 }
@@ -69,25 +71,32 @@ t_list
 	char	*token;
 	size_t	len;
 	size_t	skip_len;
+	char	*tmp_line;
 
 	cmd_lst = 0;
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = 0;
 	while (*line)
 	{
 		len = 0;
+		line = ft_ownrealloc(&ft_strtrim, &line, " \t");
 		while (line[len] && line[len] != stop_symbol)
 		{
 			if (line[len] == QUOTE || line[len] == DQUOTE)
-				len += skip_quotes(line + len, line[len]);
+				len += skip_quotes(line + len, line[len]) + 1;
 			else if (line[len] == BACKSLASH && line[len + 1])
 				len += 2;
 			else
 				len++;
 		}
-		token = ft_strldup(line, len);
-		line += len;
+		token = ft_strldup(line, len + 1);
+		tmp_line = ft_strdup(line + len + 1);
+		free(line);
+		line = tmp_line;
 		ft_lstadd_back(&cmd_lst, ft_lstnew(token));
 	}
-	get_pipes_lst(&cmd_lst);
+	if (stop_symbol == SEMICOLON)
+		get_pipes_lst(&cmd_lst);
 	return (cmd_lst);
 }
 
@@ -103,6 +112,5 @@ t_list
 	t_list	*cmd_lst;
 
 	cmd_lst = split_cmdlst(line, SEMICOLON);
-	free(line);
 	return (cmd_lst);
 }
