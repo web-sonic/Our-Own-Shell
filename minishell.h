@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 10:06:44 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 10:09:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # include "errors.h"
 # include "lexer.h"
 # include "./gnl/get_next_line.h"
-# include "lexer.h"
 
 # define BUF_STR 5
 
