@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 11:08:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 12:07:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ t_list
 	size_t	skip_len;
 
 	cmd_lst = 0;
-	if (line[ft_strlen(line) - 1] == '\n')
-		line[ft_strlen(line) - 1] = 0;
 	while (*line)
 	{
 		len = 0;

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 11:01:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:25:41 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int
 		ft_putstr_fd(argv[0], 1);
 		ft_putstr_fd("> ", 1);
 		line = readline(&histlist);
-		cmd_lst = get_cmds(line);			
+		cmd_lst = get_cmds(line);
 	//	execute(cmd_lst, env);
 	}
 	return (0);
