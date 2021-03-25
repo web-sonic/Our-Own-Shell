@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 11:08:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:10:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,28 @@ t_list
 	size_t	skip_len;
 
 	cmd_lst = 0;
-	if (line[ft_strlen(line) - 1] == '\n')
-		line[ft_strlen(line) - 1] = 0;
 	while (*line)
 	{
 		len = 0;
-		while (ft_strchr(SPACES, *line))
+		while (ft_strchr(SPACES, line[len]))
 			len++;
 		while (line[len] && line[len] != stop_symbol)
 		{
 			if (line[len] == QUOTE || line[len] == DQUOTE)
-				len += skip_quotes(line + len, line[len]) + 1;
+			{
+				if (!(skip_len = skip_quotes(line + len, line[len])))
+					return (error_parse(PARSE_UNDEF, 0));
+				len += skip_len + 1;
+			}
 			else if (line[len] == BACKSLASH && line[len + 1])
 				len += 2;
 			else
 				len++;
 		}
 		token = ft_strldup(line, len + 1);
-		if (!*token && *line)
+		line += len + 1;
+		if (!(*token) && *line)
 			return (error_parse(PARSE_ERROR, stop_symbol));
-		line += len;
 		ft_lstadd_back(&cmd_lst, ft_lstnew(token));
 	}
 	if (stop_symbol == SEMICOLON)

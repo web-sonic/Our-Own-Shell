@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 14:58:49 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/25 15:32:25 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*ft_dlstnew(void *content);
 int	    ft_dlstsize(t_dlist *lst);
+void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
 
 t_list  *get_cmds(char *line);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),
@@ -50,8 +51,6 @@ t_list  *split_cmdlst(char *line, int stop_symbol);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote);
-t_list	*ft_parser(char *list);
-t_list	*lexer(char *str);
 int     error_parse(char *str, int c);
 
 char	*readline(t_dlist **histlist, char *dir_add);
@@ -66,5 +65,8 @@ void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
 void	ft_env(char **env);
+
+void    execute(t_list *cmd_lst, char **env);
+t_cmd   parse_complete(char *str, char **env);
 
 #endif

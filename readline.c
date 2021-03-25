@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 14:58:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/25 17:26:06 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static void
 **					 выводит их на экран, и обрабатывает сигналы
 */
 static void
-	puts_line(char *str, char **rem_str, char **tmp_str, t_dlist **histlist)
+	puts_line(char *str, char **rem_str, char **tmp_str, t_dlist **histlist, struct termios	*term)
 {
 	int i;
 
@@ -131,8 +131,21 @@ static void
 		delete_last_symbol_str(rem_str);
 	else if (!ft_strncmp(str, "\e[C", 4) || !ft_strncmp(str, "\e[D", 4) )
 		return;
-	else if (!ft_strncmp(str, "\4", 2) || !ft_strncmp(str, "\3", 2))
-		check_signal(rem_str, str);
+	else if (!ft_strncmp(str, "\4", 2))
+	{
+		ft_putstr_fd("\nminishell> exit\n", 1);
+		tcsetattr(0,  TCSANOW, term);
+		exit(0);
+	}
+	// else if (!ft_strncmp(str, "\3", 2))
+	// {
+	// 	//tputs(restore_cursor, 1, ft_putchar);
+	// 	*str = ft_strdup("\13");
+	// 	ft_putstr_fd("\nminishell> ", 1);
+	// 	tputs(save_cursor, 1, ft_putchar);
+	// 	if (*rem_str)
+	// 		ft_memset(*rem_str, '\0', ft_strlen(*rem_str));
+	// }
 	else
 	{
 		write_new_symbol_str(rem_str, str);
@@ -145,7 +158,7 @@ void
 {
 	int fd;
 
-	if (**rem_str != '\n')
+	if (**rem_str != '\n' && **rem_str != '\0')
 	{
 		(*rem_str)[ft_strlen(*rem_str) - 1] = '\0';
 		ft_dlstadd_back(histlist, ft_dlstnew(*rem_str));
@@ -175,10 +188,12 @@ char
 	if (!str || running_term(&term) != 0)
 		return (NULL);
 	tputs(save_cursor, 1, ft_putchar);
-	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)))
-		puts_line(str, &rem_str, &tmp_str, histlist);
+	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)) && (ft_strncmp(str, "\3", 3)))
+		puts_line(str, &rem_str, &tmp_str, histlist, &term);
+	if (ft_strncmp(str, "\3", 3))
+		ft_putchar_fd('\n', 1);
 	end_readline(histlist, &rem_str, &tmp_str, dir_add);
-	control_flags_term("off", &term);
+	tcsetattr(0,  TCSANOW, &term);
 	free(str);
 	return (rem_str);
 }
