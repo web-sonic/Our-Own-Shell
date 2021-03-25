@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 11:25:41 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:49:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int
 	t_dlist	*histlist;
 	char	*line;
 	t_list	*cmd_lst;
+	t_list	*pipe_lst;
+	char	*str;
 
 	argv[0] += 2;
 	while (argc)
@@ -32,8 +34,12 @@ int
 		ft_putstr_fd(argv[0], 1);
 		ft_putstr_fd("> ", 1);
 		line = readline(&histlist);
-		cmd_lst = get_cmds(line);
-	//	execute(cmd_lst, env);
+		if (line)
+		{
+			cmd_lst = get_cmds(line);
+			if (cmd_lst)
+				execute(cmd_lst, env);
+		}
 	}
 	return (0);
 }

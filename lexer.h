@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:08:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/21 12:26:53 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:02:25 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # define LOW 60
 # define BACKSLASH 92
 # define DOLLAR 36
+# define DIEZ 35
 # define STOP_SYMBOLS "\\\"'|<>; \t$"
 #endif

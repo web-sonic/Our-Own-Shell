@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/24 12:26:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 12:35:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char
 
 	dst = ft_calloc(len, sizeof(char));
 	ft_strlcpy(dst, str, len);
+	dst[len] = 0;
 	return (dst);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/25 11:20:51 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/25 14:52:58 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =	minishell.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
 		parser/error_parse.c \
+		parser/parse_complete.c \
 		dlists/ft_dlstadd_back.c \
 		dlists/ft_dlstnew.c \
 		dlists/ft_dlstsize.c \
@@ -26,6 +27,7 @@ SRCS =	minishell.c \
 		./function/env.c \
 		./function/exit.c \
 		./function/pwd.c \
+		execute/execute.c \
 
 LIB =	libft/libft.a 
 
