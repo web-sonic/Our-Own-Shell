@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/24 12:33:37 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:08:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_list
 	char	*token;
 	size_t	len;
 	size_t	skip_len;
-	char	*tmp_line;
 
 	cmd_lst = 0;
 	if (line[ft_strlen(line) - 1] == '\n')
@@ -79,7 +78,8 @@ t_list
 	while (*line)
 	{
 		len = 0;
-		line = ft_ownrealloc(&ft_strtrim, &line, " \t");
+		while (ft_strchr(SPACES, *line))
+			len++;
 		while (line[len] && line[len] != stop_symbol)
 		{
 			if (line[len] == QUOTE || line[len] == DQUOTE)
@@ -90,9 +90,9 @@ t_list
 				len++;
 		}
 		token = ft_strldup(line, len + 1);
-		tmp_line = ft_strdup(line + len + 1);
-		free(line);
-		line = tmp_line;
+		if (!*token && *line)
+			return (error_parse(PARSE_ERROR, stop_symbol));
+		line += len;
 		ft_lstadd_back(&cmd_lst, ft_lstnew(token));
 	}
 	if (stop_symbol == SEMICOLON)
