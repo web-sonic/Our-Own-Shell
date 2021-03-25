@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
+/*   Updated: 2021/03/25 11:17:44 by sgath            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h" 
 
 long long	super_atoi(const char *str)
@@ -44,7 +56,7 @@ void
 			i++;
 		while (line[0][i] && ft_isdigit(line[0][i]))
 			i++;
-		if (i == ft_strlen(line[0]))
+		if (i == (int)ft_strlen(line[0]))
 		{
 			*n = super_atoi(line[0]);
 			if (i == ft_nbrlen(*n, 10))
