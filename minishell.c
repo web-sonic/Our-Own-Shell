@@ -6,13 +6,13 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 15:03:57 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/25 15:10:09 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char
+static char
 	*find_way(void)
 {
 	char	*dir;
@@ -40,7 +40,7 @@ char
 	return (str);
 }
 
-void
+static void
 	inint_histlist(t_dlist **histlist, char *dir_add)
 {
 	int		fd;
@@ -90,5 +90,4 @@ int
 
 
 //если курсор близко к краю терминала - не работает
-//добавить найм в рид
 //
