@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 15:08:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:11:09 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ char
 			str = ft_ownrealloc(&ft_strjoin, &str, "/histlist");
 		}
 	}
-	while(way[++i])
-		free(way[i]);
+	ft_wordtab_clear(way);
 	free(dir);
 	return (str);
 }
@@ -96,5 +95,4 @@ int
 
 
 //если курсор близко к краю терминала - не работает
-//добавить найм в рид
-//
+//исправить 777 в создании файла
