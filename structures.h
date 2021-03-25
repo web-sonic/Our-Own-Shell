@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 14:49:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:32:45 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct		s_cmd
 	int				fdin;
 	int				fdout;
 	int				fderr;
-	t_list			*args;
+	char			**args;
 }					t_cmd;
 
 typedef struct		s_dlist
