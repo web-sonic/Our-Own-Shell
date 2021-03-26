@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 20:23:45 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 21:43:01 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		super_strlen(int start, char symbol, char *str);
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
-void	ft_env(char **env);
+//void	ft_env(char **env);
 
 void    execute(t_list *cmd_lst, char **env);
 t_cmd   parse_complete(char *str, char **env);
