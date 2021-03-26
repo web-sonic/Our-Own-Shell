@@ -2,6 +2,7 @@
 	"files.associations": {
 		"stdio.h": "c",
 		"ioctl.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"term.h": "c"
 	}
 }

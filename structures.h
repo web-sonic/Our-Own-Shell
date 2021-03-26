@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 16:05:01 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 20:00:46 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,11 @@ typedef struct		s_str
 	char			*rem_str;
 	char			*tmp_str;
 }					t_str;
+
+typedef struct		s_env
+{
+	char			*value;
+	char			*argum;
+}					t_env;
 
 #endif

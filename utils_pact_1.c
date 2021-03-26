@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 17:00:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/26 20:15:18 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,15 @@ char
 	tmp_str = f(*s1, s2);
 	free(*s1);
 	return (tmp_str);
+}
+
+int
+	super_strlen(int start, char symbol, char *str)
+{
+	int len;
+
+	len = 0;
+	while (str[start] != symbol && str[start++])
+		len++;
+	return(len);
 }

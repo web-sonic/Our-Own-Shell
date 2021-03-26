@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 16:39:25 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 20:53:16 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void
 		swap_argument_str(1, reader, histlist);
 	else if (!ft_strncmp(reader->line_term,"\177", 4))
 		delete_last_symbol_str(&reader->rem_str);
-	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) )
+	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) ||
+		!ft_strncmp(reader->line_term, "\t", 3))
 		return;
 	else if (!ft_strncmp(reader->line_term, "\4", 2))
 		cmnd_d(reader, term);

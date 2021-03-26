@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 16:24:00 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 20:23:45 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	write_new_symbol_str(char **rem_str, char *str);
 void	dub_and_free(char **rem_str, char *str);
 void	swap_argument_str(int direction, t_str *reader, t_dlist **histlist);
 void	cmnd_d(t_str *reader, struct termios *term);
+int		super_strlen(int start, char symbol, char *str);
 
 void	ft_echo(char **line);
 int		ft_pwd(void);
