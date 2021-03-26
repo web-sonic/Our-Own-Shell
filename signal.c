@@ -3,26 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 16:59:57 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/26 15:50:20 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void
-	check_signal(char **rem_str, char *str)
+	cmnd_d(t_str *reader, struct termios *term)
 {
-	if(!ft_strncmp(str, "\4", 2) && !(*rem_str))
+	if (!reader->rem_str || !ft_strncmp(reader->rem_str, "", 1))
 	{
-		ft_putstr_fd("\nminishell> exit\n", 1);
+		ft_putstr_fd("exit\n", 1);
+		dub_and_free(&reader->rem_str, "\n");
+		tcsetattr(0,  TCSANOW, term);
 		exit(0);
-	}
-	else if (!ft_strncmp(str, "\3", 2))
-	{
-		ft_putstr_fd("\nminishell> ", 1);
 	}
 }
 

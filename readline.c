@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 17:26:06 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/26 15:49:26 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,58 +117,52 @@ static void
 **					 выводит их на экран, и обрабатывает сигналы
 */
 static void
-	puts_line(char *str, char **rem_str, char **tmp_str, t_dlist **histlist, struct termios	*term)
+	puts_line(t_str *reader, t_dlist **histlist, struct termios	*term)
 {
 	int i;
 
-	i = read(0, str, 5);
-	str[i] = 0;
-	if (!ft_strncmp(str, "\e[A", 4))
-		swap_argument_str_up(rem_str, tmp_str, histlist);
-	else if (!ft_strncmp(str, "\e[B", 4))
-		swap_argument_str_down(rem_str, tmp_str, histlist);
-	else if (!ft_strncmp(str,"\177", 4))
-		delete_last_symbol_str(rem_str);
-	else if (!ft_strncmp(str, "\e[C", 4) || !ft_strncmp(str, "\e[D", 4) )
+	i = read(0, reader->line_term, 5);
+	reader->line_term[i] = 0;
+	if (!ft_strncmp(reader->line_term, "\e[A", 4))
+		swap_argument_str_up(&reader->rem_str, &reader->tmp_str, histlist);
+	else if (!ft_strncmp(reader->line_term, "\e[B", 4))
+		swap_argument_str_down(&reader->rem_str, &reader->tmp_str, histlist);
+	else if (!ft_strncmp(reader->line_term,"\177", 4))
+		delete_last_symbol_str(&reader->rem_str);
+	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) )
 		return;
-	else if (!ft_strncmp(str, "\4", 2))
-	{
-		ft_putstr_fd("\nminishell> exit\n", 1);
-		tcsetattr(0,  TCSANOW, term);
-		exit(0);
-	}
-	// else if (!ft_strncmp(str, "\3", 2))
-	// {
-	// 	//tputs(restore_cursor, 1, ft_putchar);
-	// 	*str = ft_strdup("\13");
-	// 	ft_putstr_fd("\nminishell> ", 1);
-	// 	tputs(save_cursor, 1, ft_putchar);
-	// 	if (*rem_str)
-	// 		ft_memset(*rem_str, '\0', ft_strlen(*rem_str));
-	// }
+	else if (!ft_strncmp(reader->line_term, "\4", 2))
+	
 	else
 	{
-		write_new_symbol_str(rem_str, str);
-		write(1, str, i);
+		write_new_symbol_str(&reader->rem_str, reader->line_term);
+		write(1, reader->line_term, i);
 	}
 }
 
 void
-	end_readline(t_dlist **histlist, char **rem_str, char **tmp_str, char *dir_add)
+	end_readline(t_dlist **histlist, t_str *reader, char *dir_add)
 {
 	int fd;
 
-	if (**rem_str != '\n' && **rem_str != '\0')
+	if (reader->rem_str && (reader->rem_str)[0] != '\n' && (reader->rem_str)[0] != '\0')
 	{
-		(*rem_str)[ft_strlen(*rem_str) - 1] = '\0';
-		ft_dlstadd_back(histlist, ft_dlstnew(*rem_str));
-		fd = open(dir_add, O_WRONLY | O_APPEND);
-		ft_putendl_fd(*rem_str, fd);
-		close(fd);
+		(reader->rem_str)[ft_strlen(reader->rem_str) - 1] = '\0';
+		if (!ft_strncmp(reader->line_term, "\3", 3))
+			ft_putchar_fd('\n', 1);
+		else
+		{
+			ft_dlstadd_back(histlist, ft_dlstnew(reader->rem_str));
+			fd = open(dir_add, O_WRONLY | O_APPEND);
+			ft_putendl_fd(reader->rem_str, fd);
+			close(fd);
+		}
 	}
-	if (*tmp_str)
-		free(*tmp_str);
+	if (reader->tmp_str)
+		free(reader->tmp_str);
+	free(reader->line_term);
 }
+
 /* 
 ** @params: char **env: массив переменных окружения
 ** TODO: readline: Считывает введеные в консоль аргументы 
@@ -177,23 +171,18 @@ void
 char
 	*readline(t_dlist **histlist, char *dir_add)
 {
-	char			*str;
-	char			*rem_str;
-	char			*tmp_str;
+	t_str			reader;
 	struct termios	term;
 
-	rem_str = 0;
-	tmp_str = 0;
-	str = ft_calloc(sizeof(char), BUF_STR);
-	if (!str || running_term(&term) != 0)
+	reader.rem_str = 0;
+	reader.tmp_str = 0;
+	reader.line_term = ft_calloc(sizeof(char), BUF_STR);
+	if (!reader.line_term || running_term(&term) != 0)
 		return (NULL);
 	tputs(save_cursor, 1, ft_putchar);
-	while(ft_strncmp(str, "\n", 2) && (ft_strncmp(str, "\13", 3)) && (ft_strncmp(str, "\3", 3)))
-		puts_line(str, &rem_str, &tmp_str, histlist, &term);
-	if (ft_strncmp(str, "\3", 3))
-		ft_putchar_fd('\n', 1);
-	end_readline(histlist, &rem_str, &tmp_str, dir_add);
+	while(ft_strncmp(reader.line_term, "\n", 2) && (ft_strncmp(reader.line_term, "\13", 3)) && (ft_strncmp(reader.line_term, "\3", 3)))
+		puts_line(&reader, histlist, &term);
+	end_readline(histlist, &reader, dir_add);
 	tcsetattr(0,  TCSANOW, &term);
-	free(str);
-	return (rem_str);
+	return (reader.rem_str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 15:32:25 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/26 14:48:25 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <term.h>
 # include <termios.h>
 # include <limits.h>
-# include "libft/libft.h"
+# include "./libft/libft.h"
 # include "structures.h"
 # include "errors.h"
 # include "lexer.h"

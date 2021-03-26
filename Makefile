@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: yu <yu@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/25 15:34:25 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/26 14:59:07 by yu               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ HEADERS =	minishell.h \
 
 NAME = minishell
 
-CC = gcc -g -Wall -Wextra
+CC = gcc -g -Wall -Wextra -ltermcap
 #-Werror
 
 FLAGS = -ltermcap  -L libft/ -lft
@@ -47,7 +47,7 @@ all: $(NAME)
 
 $(NAME): $(SRCS) $(HEADERS)
 	$(MAKE) bonus -C libft
-	$(CC) $(FLAGS) $(SRCS) -o $@
+	$(CC) $(SRCS) $(FLAGS) -o $(NAME)
 
 all: $(NAME)
 
