@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 21:10:50 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 22:45:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,28 @@ static void
 	cmd->fderr = 0;
 	cmd->fdin = 0;
 	cmd->fdout = 0;
+
+
 }
 
 static char
 	*treat_backslash(char **str, int quote)
 {
-	char	*right_token;
 	char	*left_token;
+	char	*right_token;
 	char	*token;
 
-	if (quote && ft_strchr("$\"\\", **str))
-		left_token = ft_strldup(*str, 2);
-	else
-		left_token = ft_calloc(1, sizeof(char));
+	(*str)++;
+	if (!**str)
+		return (ft_calloc(sizeof(char), 1));
+	left_token = ft_strldup(*str, 2);
 	(*str)++;
 	if (quote)
-	{
-		right_token = ft_strldup(*str, 2);
-		(*str)++;
-	}
+		right_token = treat_quotes(str, quote);
+	else if (**str)
+		right_token = parse_token(str);
 	else
-		right_token = ft_calloc(1, sizeof(char));
-	if (quote)
-		right_token =
-			ft_ownrealloc(&ft_strjoin, right_token, treat_quotes(str, quote));
-	else
-		right_token = ft_ownrealloc(&ft_strjoin, right_token, treat_str(str));
+		right_token = ft_calloc(sizeof(char), 1);
 	token = ft_strjoin(left_token, right_token);
 	free(left_token);
 	free(right_token);
@@ -55,7 +51,24 @@ static char
 char
 	*treat_dollar(char **str)
 {
-	return("");
+	char	*token;
+	int		len;
+
+	(*str)++;
+	if (**str == '?')
+	{
+		(*str)++;
+		return (ft_itoa(errno));
+	}
+	len = 0;
+	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
+		len++;
+	if (len = 0)
+		token = ft_strdup("$");
+	else
+		token = ft_strldup(*str, len + 1);
+	(*str) += len;
+	return(token);
 }
 
 /*
@@ -105,7 +118,11 @@ char
 
 	len = 0;
 	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
+	{
+		if ((*str)[len] == '2' && (*str)[len + 1] == GREAT)
+			break;
 		len++;
+	}
 	left_token = ft_strldup(*str, len + 1);
 	*str += len;
 	if (**str == QUOTE || **str == DQUOTE)
@@ -131,7 +148,12 @@ static char
 {
 	char	*token;
 
-	if ((*str)[1] == GREAT)
+	if ((*str[2]) == GREAT && (*str)[0] == '2')
+	{
+		token = ft_strldup(*str, 4);
+		*str += 3;
+	}
+	else if ((*str)[1] == GREAT)
 	{
 		token = ft_strldup(*str, 3);
 		*str += 2;
@@ -142,7 +164,7 @@ static char
 }
 
 t_cmd
-	parser(char *str, char **env)
+	parser(char *str)
 {
 	t_cmd	cmd;
 	size_t  len;
@@ -160,7 +182,7 @@ t_cmd
 		if (*token)
 			ft_lstadd_back(&tokens, ft_lstnew(token));
 	}
-	init_cmd(&cmd, tokens);
-	ft_lstclear(&tokens, &free);
+//	init_cmd(&cmd, tokens);
+//	ft_lstclear(&tokens, &free);
 	return (cmd);
 }
