@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 22:22:52 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:38:36 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_list	*g_lstenv;
 
 static char
 	*find_way(void)
@@ -40,7 +42,7 @@ static char
 }
 
 static void
-	inint_histlist(t_dlist **histlist, char *dir_add)
+	init_list(t_dlist **histlist, char *dir_add)
 {
 	int		fd;
 	int		i;
@@ -50,20 +52,19 @@ static void
 	if (fd < 0)
 	{
 		perror("-");
-		exit(2);
+		exit(1);
 	}
 	while ((i = get_next_line(fd, &line)) > 0)
 		ft_dlstadd_back(histlist, ft_dlstnew(line));
 	if (i == -1)
-		exit(2);
+		exit(1);
 	close(fd);
 }
 
 /* 
 ** @params: char **env: массив переменных окружения
-**			char *name: название minishell
-** TODO: shell_loop: Имитирует работу шелла
-** @return NULL
+** TODO: Имитирует работу шелла
+** @return 0
 */
 int
 	main(int argc, char **argv, char **env)
@@ -72,12 +73,15 @@ int
 	char	*line;
 	char	*dir_add;
 	t_list	*cmd_lst;
-	t_list	*pipe_lst;
-	char	*str;
+	int i = -1;
+	//char	*str;
 
 	dir_add = find_way();
-	inint_histlist(&histlist, dir_add);
+	histlist = 0;
+	init_list(&histlist, dir_add);
 	argv[0] += 2;
+	while (env[++i])
+		ft_lstadd_back(&lst_env, ft_lstnew(env[i]));
 	while (argc)
 	{
 		ft_putstr_fd(argv[0], 1);
@@ -97,7 +101,7 @@ int
 
 //если курсор близко к краю терминала - не работает
 // очистка терминала работает?
-// дописать функции + функция history
+// дописать функции
 // парсер
 // дюпы, пайпы, исполнение команд
 // написать свою функцию getenv
