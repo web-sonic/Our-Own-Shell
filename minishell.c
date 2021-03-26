@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 21:10:50 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 22:43:10 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static char
 	char	*dir;
 	char	*str;
 	char	**way;
-	int		i;
 
-	i = -1;
 	way = 0;
 	str = ft_strdup("/tmp/histlist");
 	dir = ft_calloc(sizeof(char), PATH_MAX);
@@ -42,12 +40,35 @@ static char
 }
 
 static void
-	init_list(t_dlist **histlist, char *dir_add)
+	evn_split(t_env *environment, char *env)
+{
+	int i;
+	int j;
+
+	i = -1;
+	j = -1;
+	environment->value = ft_calloc(sizeof(char), super_strlen(0, '=', env) + 1);
+	if (!environment->value || !environment->argum)
+		exit(1);
+	while (env[++i] != '=')
+		environment->value[i] = env[i];
+	environment->argum = ft_calloc(sizeof(char), super_strlen(i, '\0', env) + 1);
+	while (env[++i])
+		environment->argum[++j] = env[i];
+	// ft_putstr_fd(environment->value, 1);
+	// ft_putchar_fd('=', 1);
+	// ft_putendl_fd(environment->argum, 1);
+}
+
+static void
+	init_list(t_dlist **histlist, char *dir_add, char **env)
 {
 	int		fd;
 	int		i;
 	char	*line;
+	t_env	environment;
 
+	
 	fd = open(dir_add, O_RDONLY | O_CREAT, 0777);
 	if (fd < 0)
 	{
@@ -59,6 +80,13 @@ static void
 	if (i == -1)
 		exit(1);
 	close(fd);
+	i = -1;
+	while (env[++i])
+	{
+		evn_split(&environment, env[i]);
+		ft_lstadd_back(&g_lstenv, ft_lstnew(&environment));
+		//ft_putendl_fd(g_lstenv->environment., 1);
+	}
 }
 
 /* 
@@ -73,15 +101,11 @@ int
 	char	*line;
 	char	*dir_add;
 	t_list	*cmd_lst;
-	int i = -1;
-	//char	*str;
 
-	dir_add = find_way();
 	histlist = 0;
-	init_list(&histlist, dir_add);
+	dir_add = find_way();
+	init_list(&histlist, dir_add, env);
 	argv[0] += 2;
-//	while (env[++i])
-//		ft_lstadd_back(&lst_env, ft_lstnew(env[i]));
 	while (argc)
 	{
 		ft_putstr_fd(argv[0], 1);
@@ -108,5 +132,4 @@ int
 // проверка существования файла
 //исправить 777 в создании файла
 // изменение окна терминала починить
-// табуляцию считать?
-// backslash в конце строки
+// история как в баше (звездочки, изменения строк и т.д. и т.п.)
