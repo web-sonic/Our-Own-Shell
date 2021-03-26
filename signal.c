@@ -6,12 +6,16 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 16:23:31 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 16:42:19 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/* 
+** @params: t_str *reader: структура со строками, нужными для записи в листы
+**			struct termios *term: стандартные настройки терминала
+** TODO: cmnd_d: завершает работу с минишелом, если строка пустая
+*/
 void
 	cmnd_d(t_str *reader, struct termios *term)
 {
@@ -25,7 +29,7 @@ void
 }
 
 /*
-** @params: void
+** @params: struct termios *s_term:
 ** TODO: running_term: измение параметров терминала
 ** @return : 0 - если изменения терминала прошло успешно
 **			 1 - если при изменении терминала произошла ошибка
@@ -78,7 +82,7 @@ static void
 /*
 ** @params: char **rem_str: строка, хранящаяя символы введеные с консоли
 **			char **tmp_str: строка для временного хранения не записонной строки в лист
-**			char **histlist: листы с командами
+**			t_dlist **histlist: листы с командами
 ** TODO: swap_argument_str_down: заменяет одну строку на другую
 */
 static void
@@ -106,6 +110,12 @@ static void
 	ft_putstr_fd(*rem_str, 1);
 }
 
+/* 
+** @params: int direction: направление стрелочек: 0 вверх, 1 вниз
+**			t_str *reader: структура со строками, нужными для записи в листы
+**			t_dlist **histlist: листы с командами
+** TODO: swap_argument_str_down: заменяет одну строку на другую
+*/
 void
 	swap_argument_str(int direction, t_str *reader, t_dlist **histlist)
 {

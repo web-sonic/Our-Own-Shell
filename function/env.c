@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 11:08:47 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/26 17:22:25 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void
 	ft_env(char **env)
 {
-	int i;
+	int		i;
+	t_list	*env_lst;
 
 	i = -1;
 	while (env[++i])
-		ft_putendl_fd(env[i], 1);
+		ft_lstadd_back(&env_lst, ft_lstnew(env[i]));
+	
 }
