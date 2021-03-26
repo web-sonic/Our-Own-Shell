@@ -6,7 +6,7 @@
 #    By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/26 14:56:41 by kemaritsu        ###   ########.fr        #
+#    Updated: 2021/03/26 16:11:32 by kemaritsu        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ HEADERS =	minishell.h \
 
 NAME = minishell
 
-CC = gcc -g -Wall -Wextra
+CC = gcc -g -Wall -Wextra -ltermcap
 #-Werror
 
 FLAGS = -ltermcap  -L libft/ -lft

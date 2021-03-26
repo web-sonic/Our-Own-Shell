@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 15:32:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:05:01 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,12 @@ typedef struct		s_dlist
 	struct s_dlist	*next;
 	struct s_dlist	*prev;
 }					t_dlist;
+
+typedef struct		s_str
+{
+	char			*line_term;
+	char			*rem_str;
+	char			*tmp_str;
+}					t_str;
 
 #endif
