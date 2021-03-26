@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 17:38:36 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 21:10:50 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int
 	histlist = 0;
 	init_list(&histlist, dir_add);
 	argv[0] += 2;
-	while (env[++i])
-		ft_lstadd_back(&lst_env, ft_lstnew(env[i]));
+//	while (env[++i])
+//		ft_lstadd_back(&lst_env, ft_lstnew(env[i]));
 	while (argc)
 	{
 		ft_putstr_fd(argv[0], 1);
@@ -108,3 +108,5 @@ int
 // проверка существования файла
 //исправить 777 в создании файла
 // изменение окна терминала починить
+// табуляцию считать?
+// backslash в конце строки
