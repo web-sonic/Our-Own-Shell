@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
+#    By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/25 22:23:08 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/26 14:56:41 by kemaritsu        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ all: $(NAME)
 
 $(NAME): $(SRCS) $(HEADERS)
 	$(MAKE) bonus -C libft
-	$(CC) $(FLAGS) $(SRCS) -o $@
+	$(CC) $(SRCS) $(FLAGS) -o $@
 
 all: $(NAME)
 
