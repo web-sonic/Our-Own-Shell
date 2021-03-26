@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 15:50:20 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 16:23:31 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,77 @@ int
 	tgetent(0, temp_name);
 	free(temp_name);
 	return (0);
+}
+
+/* 
+** @params: char **rem_str: строка, хранящаяя символы введеные с консоли
+**			char **tmp_str: строка для временного хранения не записонной строки в лист
+**			char **histlist: листы с командами
+** TODO: swap_argument_str_up: заменяет одну строку на другую
+*/
+static void
+	swap_argument_str_up(char **rem_str, char **tmp_str, t_dlist **histlist)
+{
+	if (ft_dlstsize((*histlist)) != 0)
+	{
+		if (!(*tmp_str))
+		{
+			if (*rem_str)
+				*tmp_str = ft_strdup(*rem_str);
+			else
+				*tmp_str = ft_calloc(sizeof(char), 1);
+		}
+		else if (ft_dlstsize((*histlist)->prev) != 0)
+			*histlist = (*histlist)->prev;
+		dub_and_free(rem_str, (*histlist)->content);
+	}
+	ft_putstr_fd(*rem_str, 1);
+}
+
+/*
+** @params: char **rem_str: строка, хранящаяя символы введеные с консоли
+**			char **tmp_str: строка для временного хранения не записонной строки в лист
+**			char **histlist: листы с командами
+** TODO: swap_argument_str_down: заменяет одну строку на другую
+*/
+static void
+	swap_argument_str_down(char **rem_str, char **tmp_str, t_dlist **histlist)
+{
+	if ((*histlist)->next)
+	{
+		*histlist = (*histlist)->next;
+		dub_and_free(rem_str, (*histlist)->content);
+	}
+	else
+	{
+		if	(!(*rem_str) || ft_strncmp(*rem_str, "", 1))
+		{
+			if (*tmp_str)
+			{
+				dub_and_free(rem_str, *tmp_str);
+				free(*tmp_str);
+				*tmp_str = 0;
+			}
+		}
+		else if (*tmp_str != *rem_str)
+			dub_and_free(rem_str, "");
+	}
+	ft_putstr_fd(*rem_str, 1);
+}
+
+void
+	swap_argument_str(int direction, t_str *reader, t_dlist **histlist)
+{
+	if (!(*histlist))
+		return;
+
+	tputs(restore_cursor, 1, ft_putchar);
+	tputs(delete_line, 1, ft_putchar);
+	tputs(tigetstr("ed"), 1, ft_putchar);
+	ft_putstr_fd("minishell> ", 1);
+
+	if (direction == 0)
+		swap_argument_str_up(&reader->rem_str, &reader->tmp_str, histlist);
+	else if (direction ==1)
+		swap_argument_str_down(&reader->rem_str, &reader->tmp_str, histlist);
 }

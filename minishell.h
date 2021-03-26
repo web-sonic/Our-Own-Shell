@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 14:48:25 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/26 16:24:00 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <term.h>
 # include <termios.h>
 # include <limits.h>
+# include <string.h>
 # include "./libft/libft.h"
 # include "structures.h"
 # include "errors.h"
@@ -60,6 +61,8 @@ void	control_flags_term(char *status, struct termios *term);
 int		ft_putchar(int c);
 void	write_new_symbol_str(char **rem_str, char *str);
 void	dub_and_free(char **rem_str, char *str);
+void	swap_argument_str(int direction, t_str *reader, t_dlist **histlist);
+void	cmnd_d(t_str *reader, struct termios *term);
 
 void	ft_echo(char **line);
 int		ft_pwd(void);
