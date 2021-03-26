@@ -6,14 +6,14 @@
 /*   By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 16:09:25 by kemaritsu        ###   ########.fr       */
+/*   Updated: 2021/03/26 17:21:07 by kemaritsu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void
-	init_cmd(t_cmd  *cmd)
+static void
+	init_cmd(t_cmd *cmd, t_list *tokens)
 {
 	cmd->args = malloc(sizeof(char *));
 	(cmd->args)[0] = ft_calloc(sizeof(char), 1);
@@ -22,68 +22,58 @@ void
 	cmd->fdout = 0;
 }
 
-static void
-	add_newarg(char **args, size_t s_len, char **str)
+static char
+	*parse_right_token(char **str)
 {
-	char	**tmp;
-	int		i;
-
-	i = -1;
-	tmp = args;
-	args = malloc(sizeof(char *) * (ft_wordtab_count(args) + 2));
-	while (tmp[++i])
-		args[i] = tmp[i];
-	args[i] = ft_strldup(*str, s_len + 1);
-	args[i + 1] = 0;
-	ft_wordtab_clear(tmp);
-	*str += s_len;
+	if (**str == QUOTE || DQUOTE)
+		return (treat_quotes(str, **str));
+	else if (**str == DOLLAR)
+		return (treat_dollar(str));
+	else if (**str == GREAT || **str == LOW)
+		return (treat_redirect(str));
+	else if (**str == '2' && (*str) + 1 == GREAT)
+		return (treat_redirect(str));
+	else if (**str == BACKSLASH)
+		return (treat_backslash(str));
+	else
+		return (ft_calloc(sizeof(char), 1));
 }
 
-static void
-	treat_stopsymbol(t_cmd *cmd, char **str)
+static char
+	*parse_token(char **str)
 {
-	
+	int		len;
+	char	*left_token;
+	char	*right_token;
+	char	*token;
+	t_list	*tokens;
+
+	len = 0;
+	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
+		len++;
+	left_token = ft_strldup(*str, len + 1);
+	*str += len;
+	right_token = parse_right_token(str);
+	token = ft_strjoin(left_token, right_token);
+	free(left_token);
+	free(right_token);
+	return (token);
 }
 
-static t_list
-	parse_str(char *str)
-{
-	int	len;
-
-	while (*str && *str != DIEZ)
-	{
-		len = 0;
-		while (ft_strchr(SPACES, *str))
-			str++;
-		while (!ft_strchr("\\\"'$<> \t#", str[len]))
-		{
-			len++;
-		}
-	}
-}
-
+t_cmd
 	parser(char *str, char **env)
 {
 	t_cmd	cmd;
 	size_t  len;
-	t_list	tokens;
+	t_list	*tokens;
+	char	*token;
 
-	tokens = parse_str(str);
-	init_cmd(&cmd);
 	while (*str || *str != DIEZ)
 	{
-		len = 0;
-		while (ft_strchr(SPACES, *str))
-			str++;
-		while (!ft_strchr(STOP_SYMBOLS, str[len]))
-		{
-			if (str[len] == '2' && str[len + 1] == GREAT)
-				break;
-			len++;
-		}
-		if (len)
-			add_newarg(cmd.args, len, &str);
-		treat_stopsymbol(&cmd, &str);
+		token = parse_token(&str);
+		ft_lstadd_back(&tokens, ft_lstnew(token));
 	}
+	init_cmd(&cmd, tokens);
+	ft_lstclear(&tokens, &free);
 	return (cmd);
 }
