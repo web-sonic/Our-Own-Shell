@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 22:18:08 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:09:25 by kemaritsu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,21 @@ static void
 	
 }
 
-static char
+static t_list
 	parse_str(char *str)
-t_cmd
 {
+	int	len;
 
+	while (*str && *str != DIEZ)
+	{
+		len = 0;
+		while (ft_strchr(SPACES, *str))
+			str++;
+		while (!ft_strchr("\\\"'$<> \t#", str[len]))
+		{
+			len++;
+		}
+	}
 }
 
 	parser(char *str, char **env)

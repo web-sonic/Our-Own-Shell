@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 14:58:28 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:36:27 by kemaritsu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void
 	execute(t_list *cmd_lst, char **env)
 {
-    int     tmp_fdin;
-    int     tmp_fdout;
-    t_list  *pipe_lst;
-    t_cmd   cmd;
+	int     tmp_fdin;
+	int     tmp_fdout;
+	t_list  *pipe_lst;
+	t_cmd   cmd;
 
-    tmp_fdin = dup(0);
-    tmp_fdout = dup(1);
-    while (cmd_lst)
-    {
-        pipe_lst = cmd_lst->content;
-        while (pipe_lst)
-        {
-            cmd = parse_complete(pipe_lst->content, env);
-            pipe_lst = pipe_lst->next;
-        }
-    }
+	tmp_fdin = dup(0);
+	tmp_fdout = dup(1);
+	while (cmd_lst)
+	{
+		pipe_lst = cmd_lst->content;
+		while (pipe_lst)
+		{
+			cmd = parse_complete(pipe_lst->content, env);
+			pipe_lst = pipe_lst->next;
+		}
+	}
 }
 
 //  6    //set the initial input 
