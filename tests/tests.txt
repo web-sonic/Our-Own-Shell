@@ -3,3 +3,11 @@ command args
 nfcommand
 echo -n
 command $VAR
+
+
+<-------========== TESTS FOR PARSER -------============>
+
+hello
+how are you
+
+how are $USER
