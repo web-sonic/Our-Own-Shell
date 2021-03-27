@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 16:09:11 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:25:15 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # include "errors.h"
 # include "lexer.h"
 # include "./gnl/get_next_line.h"
-
-t_list	*g_lstenv;
 
 # define BUF_STR 5
 
@@ -70,9 +68,9 @@ int		super_strlen(int start, char symbol, char *str);
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
-void	ft_env(void);
+void	ft_env(t_list *envlst);
 //void	ft_export(char **line);
-void	ft_unset(char **line);
+void	ft_unset(char **line, t_list *envlst);
 
 void	execute(t_list *cmd_lst, char **env);
 t_cmd	parse_complete(char *str, char **env);

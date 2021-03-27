@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 15:54:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:25:15 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void
 }
 
 char
-	*ft_getenv(const char *name)
+	*ft_getenv(const char *name, t_list	*envlst)
 {
 	int		len;
 	t_env	*enviroment;
 	
 	len = ft_strlen(name);
-	while(g_lstenv)
+	while(envlst)
 	{
-		enviroment = g_lstenv->content;
+		enviroment = envlst->content;
 		if(!ft_strncmp(name, enviroment->value, len + 1))
 			return(enviroment->argum);
-		g_lstenv = g_lstenv->next;
+		envlst = envlst->next;
 	}
 	return (NULL);
 }
