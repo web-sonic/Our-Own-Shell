@@ -6,11 +6,14 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 22:45:54 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:04:35 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_list	*g_lstenv;
+
 
 static void
 	init_cmd(t_cmd *cmd, t_list *tokens)
@@ -63,7 +66,7 @@ char
 	len = 0;
 	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
 		len++;
-	if (len = 0)
+	if (!len)
 		token = ft_strdup("$");
 	else
 		token = ft_strldup(*str, len + 1);
@@ -178,11 +181,17 @@ t_cmd
 		else if (*str == GREAT && *(str + 1) == '2')
 			token = add_redirect(&str);
 		else
-			token = parse_str(&str);
+			token = parse_token(&str);
 		if (*token)
 			ft_lstadd_back(&tokens, ft_lstnew(token));
 	}
+	while (tokens)
+	{
+		token = tokens->content;
+		ft_putendl_fd(token, 1);
+		tokens = tokens->next;
+	}
 //	init_cmd(&cmd, tokens);
-//	ft_lstclear(&tokens, &free);
+	ft_lstclear(&tokens, &free);
 	return (cmd);
 }

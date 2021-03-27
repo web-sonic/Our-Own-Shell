@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 22:43:10 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:10:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int
 		if (line)
 		{
 			cmd_lst = get_cmds(line);
-			//if (cmd_lst)
-			//	execute(cmd_lst, env);
+			if (cmd_lst)
+				execute(cmd_lst, env);
 		}
 	}
 	ft_dlstclear(&histlist, free);
