@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 17:25:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:36:36 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void
 	free_env(t_env *enviroment)
 {
-	free(enviroment->argum);
+	if (enviroment->argum)
+		free(enviroment->argum);
 	free(enviroment->value);
 	free(enviroment);
 }
@@ -29,29 +30,29 @@ void
 
 	if(!line[0])
 		return;
-	enviroment = envlst->content;
+	enviroment = (*envlst)->content;
 	if (!ft_strncmp(line[0], enviroment->value, ft_strlen(enviroment->value) + 1))
 	{
-		tmp_lstenv = envlst->next;
-		ft_lstdelone(&envlst, &free_env);
+		tmp_lstenv = (*envlst)->next;
+		ft_lstdelone(envlst, &free_env);
 		envlst = tmp_lstenv;
+		return;
 	}
-	else
+	tmp_lstenv = envlst;
+	while (tmp_lstenv)
 	{
-		tmp_lstenv = envlst;
-		while (tmp_lstenv)
+		i = -1;
+		enviroment = tmp_lstenv->next;
+		while (line[++i])
 		{
-			i = -1;
-			enviroment = tmp_lstenv->next;
-			while (line[++i])
+			if (!ft_strncmp(line[i], enviroment->value, ft_strlen(enviroment->value) + 1))
 			{
-				if (!ft_strncmp(line[0], enviroment->value, ft_strlen(enviroment->value) + 1))
-				{
-					
-				}
+				tmp_lstenv->next->next;
+				ft_lstdelone(&tmp_lstenv->next, &free_env);
+				envlst = tmp_lstenv;
 			}
-			tmp_lstenv = tmp_lstenv->next;
 		}
+		tmp_lstenv = tmp_lstenv->next;
 	}
 }
 
