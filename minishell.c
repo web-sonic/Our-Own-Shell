@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 17:25:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:35:22 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void
 }
 
 void
-	init_envlist(t_list *envlst, char **env)
+	init_envlist(t_list **envlst, char **env)
 {
 	int i;
 	t_env	environment;
@@ -87,7 +87,7 @@ void
 	while (env[++i])
 	{
 		evn_split(&environment, env[i]);
-		ft_lstadd_back(&envlst, ft_lstnew(&environment));
+		ft_lstadd_back(envlst, ft_lstnew(&environment));
 	}
 }
 
