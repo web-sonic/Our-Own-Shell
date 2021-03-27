@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 16:31:10 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:15:29 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static void
 	{
 		evn_split(&environment, env[i]);
 		ft_lstadd_back(&g_lstenv, ft_lstnew(&environment));
+		t_env *hello = g_lstenv->content;
+		ft_putendl_fd(hello->argum, 1);
 		//ft_putendl_fd(g_lstenv->environment., 1);
 	}
 }

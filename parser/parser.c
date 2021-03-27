@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 16:57:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:00:13 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ t_cmd
 	size_t  len;
 	t_list	*tokens;
 	char	*token;
+
+	ft_getenv("USER");
 
 	while (*str && *str != DIEZ)
 	{
