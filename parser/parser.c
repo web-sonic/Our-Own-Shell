@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 22:44:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 23:08:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char
 	else if (*(*str)++)
 		token = ft_strjoin(left_token, parse_token(str, envlst));
 	else
-		token = 0;
+		token = ft_calloc(sizeof(char), 1);
 	free(left_token);
 	return (token);
 }
