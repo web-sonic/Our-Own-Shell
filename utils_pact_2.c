@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 15:54:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 21:33:16 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,19 @@ void
 }
 
 char
-	*ft_getenv(const char *name)
+	*ft_getenv(const char *name, t_list	*envlst)
 {
 	int		len;
 	t_env	*enviroment;
-	
+	char	*str;
+
+	str = 0;
 	len = ft_strlen(name);
-	while(g_lstenv)
+	while(envlst)
 	{
-		enviroment = g_lstenv->content;
+		enviroment = envlst->content;
 		if(!ft_strncmp(name, enviroment->value, len + 1))
-			return(enviroment->argum);
-		g_lstenv = g_lstenv->next;
+			return (ft_strdup(enviroment->argum));
 	}
-	return (NULL);
+	return (ft_calloc(sizeof(char), 1));
 }

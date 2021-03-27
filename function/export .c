@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 16:28:37 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:25:15 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void
 	t_env	*enviroment;
 	t_list	*tmp_lstenv;
 
-	tmp_lstenv = g_lstenv;
+	tmp_lstenv = envlst;
 	ft_lstsort(&tmp_lstenv, );
-	enviroment = g_lstenv->content;
+	enviroment = envlst->content;
 	ft_putstr_fd("declare -x ", 1);
 	ft_putstr_fd(enviroment->value, 1);
 	if(enviroment->value)

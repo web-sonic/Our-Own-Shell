@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 17:00:13 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 21:11:18 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void
 }
 
 static char
-	*treat_backslash(char **str, int quote)
+	*treat_backslash(char **str, int quote, t_list *envlst)
 {
 	char	*left_token;
 	char	*right_token;
@@ -40,9 +40,12 @@ static char
 	left_token = ft_strldup(*str, 2);
 	(*str)++;
 	if (quote)
-		right_token = treat_quotes(str, quote);
+	{
+		(*str)--;
+		right_token = treat_quotes(str, quote, envlst);
+	}
 	else if (**str)
-		right_token = parse_token(str);
+		right_token = parse_token(str, envlst);
 	else
 		right_token = ft_calloc(sizeof(char), 1);
 	token = ft_strjoin(left_token, right_token);
@@ -51,17 +54,16 @@ static char
 	return(token);
 }
 
-char
-	*treat_dollar(char **str)
+static char
+	*get_dollar_var(char **str, t_list *envlst)
 {
-	char	*token;
 	int		len;
+	char	*token;
 
-	(*str)++;
 	if (**str == '?')
 	{
 		(*str)++;
-		return (ft_itoa(errno));
+		return (ft_itoa(g_error));
 	}
 	len = 0;
 	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
@@ -71,6 +73,27 @@ char
 	else
 		token = ft_strldup(*str, len + 1);
 	(*str) += len;
+	return(ft_getenv(token, envlst));
+}
+
+char
+	*treat_dollar(char **str, int quote, t_list *envlst)
+{
+	char	*left_token;
+	char	*right_token;
+	char	*token;
+
+	(*str)++;
+	left_token = get_dollar_var(str, envlst);
+	if (quote)
+		right_token = treat_quotes(str, quote, envlst);
+	else if (**str)
+		right_token = parse_token(str, envlst);
+	else
+		right_token = ft_calloc(sizeof(char), 1);
+	token = ft_strjoin(left_token, right_token);
+	free(left_token);
+	free(right_token);
 	return(token);
 }
 
@@ -82,7 +105,7 @@ char
 ** @return char *token полученный аргумент
 */
 char
-	*treat_quotes(char **str, int quote)
+	*treat_quotes(char **str, int quote, t_list *envlst)
 {
 	size_t	len;
 	char	*left_token;
@@ -100,11 +123,11 @@ char
 	left_token = ft_strldup(*str, len + 1);
 	*str += len;
 	if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, quote));
+		token = ft_strjoin(left_token, treat_backslash(str, quote, envlst));
 	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(str));
+		token = ft_strjoin(left_token, treat_dollar(str, quote, envlst));
 	else if (*(*str)++)
-		token = ft_strjoin(left_token, parse_token(str));
+		token = ft_strjoin(left_token, parse_token(str, envlst));
 	else
 		token = 0;
 	free(left_token);
@@ -113,14 +136,14 @@ char
 
 
 char
-	*parse_token(char **str)
+	*parse_token(char **str, t_list *envlst)
 {
 	size_t	len;
 	char	*token;
 	char	*left_token;
 
 	len = 0;
-	while ((*str)[len] && ft_strchr(STOP_SYMBOLS, (*str)[len]))
+	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 	{
 		if ((*str)[len] == '2' && (*str)[len + 1] == GREAT)
 			break;
@@ -129,11 +152,11 @@ char
 	left_token = ft_strldup(*str, len + 1);
 	*str += len;
 	if (**str == QUOTE || **str == DQUOTE)
-		token = ft_strjoin(left_token, treat_quotes(str, **str));
+		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst));
 	else if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, 0));
+		token = ft_strjoin(left_token, treat_backslash(str, 0, envlst));
 	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(str));
+		token = ft_strjoin(left_token, treat_dollar(str, 0, envlst));
 	else
 		token = ft_strdup(left_token);
 	free(left_token);
@@ -167,23 +190,24 @@ static char
 }
 
 t_cmd
-	parser(char *str)
+	parser(char *str, t_list *envlst)
 {
 	t_cmd	cmd;
 	size_t  len;
 	t_list	*tokens;
 	char	*token;
 
-	ft_getenv("USER");
-
+	tokens = 0;
 	while (*str && *str != DIEZ)
 	{
+		while (ft_strchr(SPACES, *str))
+			str++;
 		if (*str == GREAT || *str == LOW)
 			token = add_redirect(&str);
 		else if (*str == GREAT && *(str + 1) == '2')
 			token = add_redirect(&str);
 		else
-			token = parse_token(&str);
+			token = parse_token(&str, envlst);
 		if (*token)
 			ft_lstadd_back(&tokens, ft_lstnew(token));
 	}

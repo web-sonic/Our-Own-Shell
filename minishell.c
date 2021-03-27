@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 17:15:29 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 20:52:09 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,19 @@ static void
 	i = -1;
 	j = -1;
 	environment->value = ft_calloc(sizeof(char), super_strlen(0, '=', env) + 1);
-	if (!environment->value || !environment->argum)
-		exit(1);
 	while (env[++i] != '=')
 		environment->value[i] = env[i];
 	environment->argum = ft_calloc(sizeof(char), super_strlen(i, '\0', env) + 1);
 	while (env[++i])
 		environment->argum[++j] = env[i];
-	// ft_putstr_fd(environment->value, 1);
-	// ft_putchar_fd('=', 1);
-	// ft_putendl_fd(environment->argum, 1);
 }
 
 static void
-	init_list(t_dlist **histlist, char *dir_add, char **env)
+	init_histlist(t_dlist **histlist, char *dir_add, char **env)
 {
 	int		fd;
 	int		i;
 	char	*line;
-	t_env	environment;
 
 	
 	fd = open(dir_add, O_RDONLY | O_CREAT, 0777);
@@ -79,14 +73,21 @@ static void
 	if (i == -1)
 		exit(1);
 	close(fd);
+}
+
+void
+	init_envlist(t_list **envlst, char **env)
+{
+	int		i;
+	t_env	*environment;
+
 	i = -1;
+
 	while (env[++i])
 	{
-		evn_split(&environment, env[i]);
-		ft_lstadd_back(&g_lstenv, ft_lstnew(&environment));
-		t_env *hello = g_lstenv->content;
-		ft_putendl_fd(hello->argum, 1);
-		//ft_putendl_fd(g_lstenv->environment., 1);
+		environment = malloc(sizeof(t_env));
+		evn_split(environment, env[i]);
+		ft_lstadd_back(envlst, ft_lstnew(environment));
 	}
 }
 
@@ -102,10 +103,13 @@ int
 	char	*line;
 	char	*dir_add;
 	t_list	*cmd_lst;
+	t_list	*envlst;
 
 	histlist = 0;
+	envlst = 0;
 	dir_add = find_way();
-	init_list(&histlist, dir_add, env);
+	init_histlist(&histlist, dir_add, env);
+	init_envlist(&envlst, env);
 	argv[0] += 2;
 	while (argc)
 	{
@@ -116,7 +120,7 @@ int
 		{
 			cmd_lst = get_cmds(line);
 			if (cmd_lst)
-				execute(cmd_lst);
+				execute(cmd_lst, envlst);
 		}
 	}
 	ft_dlstclear(&histlist, free);

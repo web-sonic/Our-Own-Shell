@@ -6,14 +6,14 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 16:55:25 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:41:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 void
-	execute(t_list *cmd_lst)
+	execute(t_list *cmd_lst, t_list *envlst)
 {
 	int     tmp_fdin;
 	int     tmp_fdout;
@@ -27,7 +27,7 @@ void
 		pipe_lst = cmd_lst->content;
 		while (pipe_lst)
 		{
-			cmd = parser(pipe_lst->content);
+			cmd = parser(pipe_lst->content, envlst);
 			pipe_lst = pipe_lst->next;
 		}
 		cmd_lst = cmd_lst->next;
