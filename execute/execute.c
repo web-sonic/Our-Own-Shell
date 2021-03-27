@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemaritsu <kemaritsu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 15:36:27 by kemaritsu        ###   ########.fr       */
+/*   Updated: 2021/03/27 16:55:25 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 void
-	execute(t_list *cmd_lst, char **env)
+	execute(t_list *cmd_lst)
 {
 	int     tmp_fdin;
 	int     tmp_fdout;
@@ -27,9 +27,10 @@ void
 		pipe_lst = cmd_lst->content;
 		while (pipe_lst)
 		{
-			cmd = parse_complete(pipe_lst->content, env);
+			cmd = parser(pipe_lst->content);
 			pipe_lst = pipe_lst->next;
 		}
+		cmd_lst = cmd_lst->next;
 	}
 }
 

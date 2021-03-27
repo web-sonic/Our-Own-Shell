@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 11:29:28 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:49:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # include "lexer.h"
 # include "./gnl/get_next_line.h"
 
+t_list	*g_lstenv;
+
 # define BUF_STR 5
 
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
@@ -44,7 +46,7 @@ void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
 
 t_list  *get_cmds(char *line);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),
-            char **s1, char *s2);
+			char **s1, char *s2);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote);
@@ -52,7 +54,7 @@ t_list  *split_cmdlst(char *line, int stop_symbol);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote);
-int     error_parse(char *str, int c);
+t_list  *error_parse(char *str, int c);
 
 char	*readline(t_dlist **histlist, char *dir_add);
 void	check_signal(char **rem_str, char *str);
@@ -68,10 +70,12 @@ int		super_strlen(int start, char symbol, char *str);
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
-//void	ft_env(char **env);
+void	ft_env(void);
+//void	ft_export(char **line);
+void	ft_unset(char **line);
 
-void    execute(t_list *cmd_lst, char **env);
-t_cmd   parse_complete(char *str, char **env);
+void    execute(t_list *cmd_lst);
+t_cmd   parser(char *str);
 char    *parse_token(char **str);
 
 #endif

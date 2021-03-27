@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/27 16:09:27 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/27 16:29:12 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,10 @@ SRCS =	minishell.c \
 		./function/env.c \
 		./function/exit.c \
 		./function/pwd.c \
+		./function/unset.c \
 		execute/execute.c \
-		parser/parse_complete.c \
+		parser/parser.c \
+		#./function/export.c \#
 LIB =	libft/libft.a 
 
 HEADERS =	minishell.h \

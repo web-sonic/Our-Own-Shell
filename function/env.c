@@ -3,33 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 21:43:40 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/27 16:02:14 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//t_list *g_lstenv;
+
 void
 	ft_env(void)
-// {
-// 	int		i;
-// 	t_list	*env_lst;
-
-// 	i = -1;
-// 	while (env[++i])
-// 		ft_lstadd_back(&env_lst, ft_lstnew(env[i]));
-	
-// }
 {
 	t_env *enviroment;
 
-	while(g_lstenv->next)
+	while(g_lstenv)
 	{
 		enviroment = g_lstenv->content;
 		g_lstenv = g_lstenv->next;
+		if (enviroment->argum)
+		{
+			ft_putstr_fd(enviroment->value, 1);
+			ft_putchar_fd('=', 1);
+			ft_putendl_fd(enviroment->argum, 1);
+		}
 	}
-	enviroment = g_lstenv->content;
 }

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:16 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/25 11:11:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:31:43 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 ** TODO добавляет новый список команд в список 
 ** @return: int корректность выполнения команды
 */
-int
-	error_parse(char *str, int c)
+t_list
+	*error_parse(char *str, int c)
 {
 	ft_putstr_fd("minishell: ", 2);
 	if (c)

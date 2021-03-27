@@ -6,13 +6,11 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 16:10:04 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:31:10 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_list	*g_lstenv;
 
 static char
 	*find_way(void)
@@ -76,7 +74,8 @@ static void
 		exit(1);
 	}
 	while ((i = get_next_line(fd, &line)) > 0)
-		ft_dlstadd_back(histlist, ft_dlstnew(line));
+		if(line[0] != '\0')
+			ft_dlstadd_back(histlist, ft_dlstnew(line));
 	if (i == -1)
 		exit(1);
 	close(fd);
@@ -115,7 +114,7 @@ int
 		{
 			cmd_lst = get_cmds(line);
 			if (cmd_lst)
-				execute(cmd_lst, env);
+				execute(cmd_lst);
 		}
 	}
 	ft_dlstclear(&histlist, free);
@@ -128,8 +127,8 @@ int
 // дописать функции
 // парсер
 // дюпы, пайпы, исполнение команд
-// написать свою функцию getenv
 // проверка существования файла
 //исправить 777 в создании файла
 // изменение окна терминала починить
 // история как в баше (звездочки, изменения строк и т.д. и т.п.)
+// нужна функция, которая превращает глобальный лист в список строк наподобии **env

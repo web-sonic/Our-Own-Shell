@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 16:04:35 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:57:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char
 	char	*left_token;
 
 	len = 0;
-	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
+	while ((*str)[len] && ft_strchr(STOP_SYMBOLS, (*str)[len]))
 	{
 		if ((*str)[len] == '2' && (*str)[len + 1] == GREAT)
 			break;
@@ -174,7 +174,7 @@ t_cmd
 	t_list	*tokens;
 	char	*token;
 
-	while (*str || *str != DIEZ)
+	while (*str && *str != DIEZ)
 	{
 		if (*str == GREAT || *str == LOW)
 			token = add_redirect(&str);

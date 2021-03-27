@@ -9,3 +9,4 @@ minishell_tester
 line_edition
 .vscode
 *.a
+*.json
