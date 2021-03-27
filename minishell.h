@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 17:28:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 17:46:59 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int		super_strlen(int start, char symbol, char *str);
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
-void	ft_env(t_list *envlst);
-//void	ft_export(char **line);
+void	ft_env(t_list **envlst);
+void	ft_export(char **line, t_list **envlst);
 void	ft_unset(char **line, t_list **envlst);
 
 void	execute(t_list *cmd_lst, char **env);
