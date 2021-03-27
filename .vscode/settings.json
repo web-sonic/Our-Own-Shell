@@ -3,6 +3,7 @@
 		"stdio.h": "c",
 		"ioctl.h": "c",
 		"minishell.h": "c",
-		"term.h": "c"
+		"term.h": "c",
+		"get_next_line.h": "c"
 	}
 }

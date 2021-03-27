@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 22:43:10 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:48:30 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_list	*g_lstenv;
 
 static char
 	*find_way(void)
@@ -76,7 +74,8 @@ static void
 		exit(1);
 	}
 	while ((i = get_next_line(fd, &line)) > 0)
-		ft_dlstadd_back(histlist, ft_dlstnew(line));
+		if(line[0] != '\0')
+			ft_dlstadd_back(histlist, ft_dlstnew(line));
 	if (i == -1)
 		exit(1);
 	close(fd);

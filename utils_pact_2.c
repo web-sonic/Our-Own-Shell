@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/23 16:37:04 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 15:54:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,21 @@ void
 		free(*rem_str);
 		*rem_str = tmp;
 	}
+}
+
+char
+	*ft_getenv(const char *name)
+{
+	int		len;
+	t_env	*enviroment;
+	
+	len = ft_strlen(name);
+	while(g_lstenv)
+	{
+		enviroment = g_lstenv->content;
+		if(!ft_strncmp(name, enviroment->value, len + 1))
+			return(enviroment->argum);
+		g_lstenv = g_lstenv->next;
+	}
+	return (NULL);
 }
