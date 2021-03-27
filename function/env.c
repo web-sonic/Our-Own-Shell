@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 16:02:14 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/27 16:31:12 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 void
 	ft_env(void)
 {
-	t_env *enviroment;
+	t_env	*enviroment;
+	t_list	*tmp_lstenv;
 
+	tmp_lstenv = g_lstenv;
 	while(g_lstenv)
 	{
-		enviroment = g_lstenv->content;
-		g_lstenv = g_lstenv->next;
+		enviroment =tmp_lstenv->content;
+		tmp_lstenv = tmp_lstenv->next;
 		if (enviroment->argum)
 		{
 			ft_putstr_fd(enviroment->value, 1);
