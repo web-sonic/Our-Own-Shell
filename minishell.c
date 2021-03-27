@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 21:42:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:37:49 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ int
 	argv[0] += 2;
 	while (argc)
 	{
-		ft_putstr_fd(argv[0], 1);
-		ft_putstr_fd("> ", 1);
 		line = readline(&histlist, dir_add);
 		if (line)
 		{

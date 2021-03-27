@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 20:53:16 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/27 23:02:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void
 		tputs(restore_cursor, 1, ft_putchar);
 		tputs(cursor_left, 1, ft_putchar);
 		tputs(delete_line, 1, ft_putchar);
-		tputs(tigetstr("ed"), 1, ft_putchar);
+		//tputs(tigetstr("ed"), 1, ft_putchar);
 		ft_putstr_fd("minishell> ", 1);
 		(*rem_str)[len - 1] = 0;
 		ft_putstr_fd(*rem_str, 1);
@@ -56,7 +56,7 @@ static void
 		swap_argument_str(0, reader, histlist);
 	else if (!ft_strncmp(reader->line_term, "\e[B", 4))
 		swap_argument_str(1, reader, histlist);
-	else if (!ft_strncmp(reader->line_term,"\177", 4))
+	else if (!ft_strncmp(reader->line_term,"\177", 4) || !ft_strncmp(reader->line_term, "\e[K", 4))
 		delete_last_symbol_str(&reader->rem_str);
 	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) ||
 		!ft_strncmp(reader->line_term, "\t", 3))
@@ -118,6 +118,7 @@ char
 	if (!reader.line_term || running_term(&term) != 0)
 		return (NULL);
 	tputs(save_cursor, 1, ft_putchar);
+	ft_putstr_fd("minishell> ", 1);
 	while(ft_strncmp(reader.line_term, "\n", 2) && (ft_strncmp(reader.line_term, "\13", 3)) && (ft_strncmp(reader.line_term, "\3", 3)))
 		puts_line(&reader, histlist, &term);
 	end_readline(histlist, &reader, dir_add);
