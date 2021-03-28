@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 20:53:16 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/28 13:04:50 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void
 		tputs(restore_cursor, 1, ft_putchar);
 		tputs(cursor_left, 1, ft_putchar);
 		tputs(delete_line, 1, ft_putchar);
-		tputs(tigetstr("ed"), 1, ft_putchar);
+		//tputs(tigetstr("ed"), 1, ft_putchar);
 		ft_putstr_fd("minishell> ", 1);
 		(*rem_str)[len - 1] = 0;
 		ft_putstr_fd(*rem_str, 1);
@@ -82,9 +82,9 @@ void
 {
 	int fd;
 
+	(reader->rem_str)[ft_strlen(reader->rem_str) - 1] = '\0';
 	if (reader->rem_str && (reader->rem_str)[0] != '\n' && (reader->rem_str)[0] != '\0')
 	{
-		(reader->rem_str)[ft_strlen(reader->rem_str) - 1] = '\0';
 		if (!ft_strncmp(reader->line_term, "\3", 3))
 			ft_putchar_fd('\n', 1);
 		else
