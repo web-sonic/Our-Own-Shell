@@ -7,7 +7,5 @@ command $VAR
 
 <-------========== TESTS FOR PARSER -------============>
 
-hello
-how are you
-
-how are $USER
+обычный ввод
+точка с запятой +

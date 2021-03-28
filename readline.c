@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 18:57:54 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 19:08:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void
 		tputs(restore_cursor, 1, ft_putchar);
 		tputs(cursor_left, 1, ft_putchar);
 		tputs(delete_line, 1, ft_putchar);
-		//tputs(tigetstr("ed"), 1, ft_putchar);
 		ft_putstr_fd("minishell> ", 1);
 		(*rem_str)[len - 1] = 0;
 		ft_putstr_fd(*rem_str, 1);

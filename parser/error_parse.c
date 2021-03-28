@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:16 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 20:51:12 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 16:51:32 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@ t_list
 	*error_parse(char *str, int c)
 {
 	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(" `", 2);
 	g_error = 258;
 	if (c)
-	{
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(" `", 2);
 		ft_putchar_fd(c, 2);
-		ft_putendl_fd("'", 2);
-	}
 	else
-		ft_putendl_fd(str, 2);
+		ft_putstr_fd("newline", 2);
+	ft_putendl_fd("'", 2);
 	return (0);
+}
+
+void
+	file_error(char *str)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putendl_fd(str, 2);
 }

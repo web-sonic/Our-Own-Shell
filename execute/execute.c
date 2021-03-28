@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 22:37:22 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:14:08 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void
 	int     tmp_fdin;
 	int     tmp_fdout;
 	t_list  *pipe_lst;
-	t_cmd   cmd;
+	t_cmd   *cmd;
 
 	tmp_fdin = dup(0);
 	tmp_fdout = dup(1);
@@ -28,6 +28,10 @@ void
 		while (pipe_lst)
 		{
 			cmd = parser(pipe_lst->content, envlst);
+			char	**str = cmd->args;
+			int i = 0;
+			while (str[i])
+				ft_putendl_fd(str[i++], 1);
 			pipe_lst = pipe_lst->next;
 		}
 		cmd_lst = cmd_lst->next;
