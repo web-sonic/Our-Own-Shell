@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 22:42:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:57:25 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,24 @@ char
 		envlst = envlst->next;
 	}
 	return (ft_calloc(sizeof(char), 1));
+}
+
+char
+	**ft_wordtab_realloc(char **wordtab, char *str)
+{
+	char	**tmp_tab;
+	int		i;
+
+	tmp_tab = wordtab;
+	wordtab = malloc(sizeof(char *) * (ft_wordtab_count(tmp_tab) + 2));
+	i = 0;
+	while (tmp_tab[i])
+	{
+		wordtab[i] = ft_strdup(tmp_tab[i]);
+		i++;
+	}
+	wordtab[i] = str;
+	wordtab[i + 1] = 0;
+	ft_wordtab_clear(tmp_tab);
+	return (wordtab);
 }

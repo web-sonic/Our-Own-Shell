@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 22:37:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:22:26 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char
 	char	**way;
 
 	way = 0;
-	str = ft_strdup("/tmp/histlist");
+	str = ft_strdup("/tmp/.minishell_history");
 	dir = ft_calloc(sizeof(char), PATH_MAX);
 	if (getcwd(dir, PATH_MAX - 1))
 	{
@@ -29,7 +29,7 @@ static char
 		{
 			free(str);
 			str = ft_strjoin("/Users/", way[1]);
-			str = ft_ownrealloc(&ft_strjoin, &str, "/histlist");
+			str = ft_ownrealloc(&ft_strjoin, &str, "/.minishell_history");
 		}
 	}
 	ft_wordtab_clear(way);
@@ -127,7 +127,6 @@ int
 
 
 //если курсор близко к краю терминала - не работает
-// очистка терминала работает?
 // дописать функции
 // парсер
 // дюпы, пайпы, исполнение команд
@@ -136,3 +135,5 @@ int
 // изменение окна терминала починить
 // история как в баше (звездочки, изменения строк и т.д. и т.п.)
 // нужна функция, которая превращает глобальный лист в список строк наподобии **env
+// обработчик ошибок
+// сигналы

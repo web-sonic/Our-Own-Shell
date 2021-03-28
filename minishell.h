@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 21:42:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 16:51:42 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ char    *treat_quotes(char **str, int quote, t_list *envlst);
 t_list  *split_cmdlst(char *line, int stop_symbol);
 char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
+char	**ft_wordtab_realloc(char **wordtab, char *str);
 t_list  *error_parse(char *str, int c);
+void	file_error(char *str);
 
 char	*readline(t_dlist **histlist, char *dir_add);
 void	check_signal(char **rem_str, char *str);
@@ -74,7 +76,7 @@ void	ft_export(char **line, t_list **envlst);
 void	ft_unset(char **line, t_list **envlst);
 
 void    execute(t_list *cmd_lst, t_list *envlst);
-t_cmd   parser(char *str, t_list *envlst);
+t_cmd	*parser(char *str, t_list *envlst);
 char    *parse_token(char **str, t_list *envlst);
 
 #endif

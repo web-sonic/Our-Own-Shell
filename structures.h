@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/26 20:00:46 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/28 16:14:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 typedef struct		s_cmd
 {
+	int				add_fd;
 	int				fdin;
 	int				fdout;
-	int				fderr;
 	char			**args;
 }					t_cmd;
 
@@ -40,5 +40,11 @@ typedef struct		s_env
 	char			*value;
 	char			*argum;
 }					t_env;
+
+typedef struct		s_token
+{
+	char			*str;
+	int				type;
+}					t_token;
 
 #endif

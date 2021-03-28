@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 20:48:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:36:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_list
 			if (line[len] == QUOTE || line[len] == DQUOTE)
 			{
 				if (!(skip_len = skip_quotes(line + len, line[len])))
-					return (error_parse(PARSE_UNDEF, 0));
+					return (error_parse(PARSE_ERROR, 0));
 				len += skip_len + 1;
 			}
 			else if (line[len] == BACKSLASH && line[len + 1])

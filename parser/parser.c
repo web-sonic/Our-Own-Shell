@@ -6,25 +6,103 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 13:07:15 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:10:46 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_list	*g_lstenv;
-
-
-static void
-	init_cmd(t_cmd *cmd, t_list *tokens)
+static t_cmd
+	*init_cmd()
 {
-	cmd->args = malloc(sizeof(char *));
-	(cmd->args)[0] = ft_calloc(sizeof(char), 1);
-	cmd->fderr = 0;
+	t_cmd	*cmd;
+
+	cmd = malloc(sizeof(t_cmd));
+	cmd->args = ft_calloc(sizeof(char *), 1);
+	(cmd->args)[0] = 0;
 	cmd->fdin = 0;
 	cmd->fdout = 0;
+	cmd->add_fd = -1;
 
+	return (cmd);
+}
 
+static int
+	add_fdin(t_cmd *cmd, char *token)
+{
+	if (cmd->fdin)
+		close(cmd->fdin);
+	if ((cmd->fdin = open(token, O_CREAT | O_RDONLY)) < 0)
+	{
+		g_error = errno;
+		file_error(strerror(errno));
+		return (0);
+	}
+	cmd->add_fd = -1;
+	return (1);
+}
+
+static int
+	add_fdout(t_cmd *cmd, char *token)
+{
+	if (cmd->fdout)
+		close(cmd->fdout);
+	if (cmd->add_fd == 1)
+	{
+		cmd->fdout = open(token, O_CREAT | O_WRONLY | O_TRUNC |O_APPEND);
+		if (cmd->fdout < 0)
+		{
+			g_error = errno;
+			file_error(strerror(errno));
+			return (0);
+		}
+		cmd->add_fd = -1;
+		return (1);
+	}
+	if ((cmd->fdout = open(token, O_CREAT | O_WRONLY |O_APPEND)) < 0)
+	{
+		g_error = errno;
+		file_error(strerror(errno));
+		return (0);
+	}
+	cmd->add_fd = -1;
+	return (1);
+}
+
+static int
+	add_token(t_cmd *cmd, char *token, t_bool is_redirect)
+{
+	t_bool	error;
+
+	error = FALSE;
+	if (is_redirect)
+	{
+		if (cmd->add_fd != -1)
+		{
+			error_parse(PARSE_ERROR, token[0]);
+			return (TRUE);
+		}
+		if (token[0] == LOW)
+			cmd->add_fd = 0;
+		if (token[0] == GREAT && !token[1])
+			cmd->add_fd = 1;
+		else if (token[0] == GREAT)
+			cmd->add_fd = 2;
+	}
+	else if (!cmd->add_fd)
+	{
+		if (!add_fdin(cmd, token))
+			error = TRUE;
+	}
+	else if (cmd->add_fd == 1 || cmd->add_fd == 2)
+	{
+		if (!add_fdout(cmd, token))
+			error = TRUE;
+	}
+	else 
+		cmd->args = ft_wordtab_realloc(cmd->args, token);
+	free(token);
+	return (error);
 }
 
 static char
@@ -85,7 +163,6 @@ char
 	char	*token;
 
 	(*str)++;
-
 	left_token = get_dollar_var(str, envlst);
 	if (quote)
 		right_token = treat_quotes(str, quote, envlst);
@@ -146,11 +223,7 @@ char
 
 	len = 0;
 	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
-	{
-		if ((*str)[len] == '2' && (*str)[len + 1] == GREAT)
-			break;
 		len++;
-	}
 	left_token = ft_strldup(*str, len + 1);
 	(*str) += len;
 
@@ -177,50 +250,42 @@ static char
 {
 	char	*token;
 
-	if ((*str[2]) == GREAT && (*str)[0] == '2')
-	{
-		token = ft_strldup(*str, 4);
-		*str += 3;
-	}
-	else if ((*str)[1] == GREAT)
+	if ((*str)[1] == GREAT)
 	{
 		token = ft_strldup(*str, 3);
 		*str += 2;
 	}
 	else
 		token = ft_strldup((*str)++, 2);
+	
 	return (token);
 }
 
 t_cmd
-	parser(char *str, t_list *envlst)
+	*parser(char *str, t_list *envlst)
 {
-	t_cmd	cmd;
-	size_t  len;
-	t_list	*tokens;
+	t_cmd	*cmd;
 	char	*token;
+	t_bool	is_redirect;
 
-	tokens = 0;
+	cmd = init_cmd();
 	while (*str && *str != DIEZ)
 	{
-		while (ft_strchr(SPACES, *str))
+		while (*str && ft_strchr(SPACES, *str))
 			str++;
 		if (*str == GREAT || *str == LOW)
+		{
 			token = add_redirect(&str);
-		else if (*str == GREAT && *(str + 1) == '2')
-			token = add_redirect(&str);
+			is_redirect = TRUE;
+		}
 		else
+		{
 			token = parse_token(&str, envlst);
+			is_redirect = FALSE;
+		}
 		if (*token)
-			ft_lstadd_back(&tokens, ft_lstnew(token));
+			if (add_token(cmd, token, is_redirect))
+				return (0);
 	}
-	while (tokens)
-	{
-		token = tokens->content;
-		ft_putendl_fd(token, 1);
-		tokens = tokens->next;
-	}
-//	init_cmd(&cmd, tokens);
-	ft_lstclear(&tokens, &free);
 	return (cmd);
 }
