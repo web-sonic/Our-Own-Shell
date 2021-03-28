@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/28 13:57:25 by ctragula         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/28 19:02:34 by sgath            ###   ########.fr       */
->>>>>>> 37f14ddb73206da4124d9df675083ca2f53ecde1
+/*   Updated: 2021/03/28 19:20:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +85,7 @@ char
 		wordtab[i] = ft_strdup(tmp_tab[i]);
 		i++;
 	}
-	wordtab[i] = str;
+	wordtab[i] = ft_strdup(str);
 	wordtab[i + 1] = 0;
 	ft_wordtab_clear(tmp_tab);
 	return (wordtab);

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 18:10:46 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:49:26 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static int
 	else 
 		cmd->args = ft_wordtab_realloc(cmd->args, token);
 	free(token);
+	*token = 0;
 	return (error);
 }
 
@@ -145,12 +146,16 @@ static char
 		return (ft_itoa(g_error));
 	}
 	len = 0;
-	while (!ft_strchr(STOP_SYMBOLS, (*str)[len]))
+	if ((*str)[1] == '_' || ft_isalpha((*str)[1]))
 		len++;
 	if (!len)
 		token = ft_strdup("$");
 	else
+	{
+		while(ft_isalnum((*str)[len]) || (*str)[len] == '_')
+			len++;
 		token = ft_strldup(*str, len + 1);
+	}
 	(*str) += len;
 	return(ft_getenv(token, envlst));
 }
@@ -165,7 +170,10 @@ char
 	(*str)++;
 	left_token = get_dollar_var(str, envlst);
 	if (quote)
+	{
+		(*str)--;
 		right_token = treat_quotes(str, quote, envlst);
+	}
 	else if (**str)
 		right_token = parse_token(str, envlst);
 	else
@@ -278,7 +286,7 @@ t_cmd
 			token = add_redirect(&str);
 			is_redirect = TRUE;
 		}
-		else
+		else if (*str)
 		{
 			token = parse_token(&str, envlst);
 			is_redirect = FALSE;
