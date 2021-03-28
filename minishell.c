@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 17:22:26 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:33:32 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void
 }
 
 static void
-	init_histlist(t_dlist **histlist, char *dir_add, char **env)
+	init_histlist(t_dlist **histlist, char *dir_add)
 {
 	int		fd;
 	int		i;
@@ -108,7 +108,7 @@ int
 	histlist = 0;
 	envlst = 0;
 	dir_add = find_way();
-	init_histlist(&histlist, dir_add, env);
+	init_histlist(&histlist, dir_add);
 	init_envlist(&envlst, env);
 	argv[0] += 2;
 	while (argc)

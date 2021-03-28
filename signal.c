@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/26 16:42:19 by yu               ###   ########.fr       */
+/*   Updated: 2021/03/28 15:23:15 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void
 
 	tputs(restore_cursor, 1, ft_putchar);
 	tputs(delete_line, 1, ft_putchar);
-	tputs(tigetstr("ed"), 1, ft_putchar);
+	//tputs(tigetstr("ed"), 1, ft_putchar);
 	ft_putstr_fd("minishell> ", 1);
 
 	if (direction == 0)

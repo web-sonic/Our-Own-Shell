@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 16:51:42 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:33:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include "./gnl/get_next_line.h"
 
 # define BUF_STR 5
+# define NO_SIG "\e[C \e[D \t \f \v \b"
 
 int		g_error;
 

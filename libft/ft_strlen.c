@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:37:35 by ctragula          #+#    #+#             */
-/*   Updated: 2020/10/30 18:53:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:25:46 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
+	if (!s)
+		return (0);
 	while (*s++ != '\0')
 		count++;
 	return (count);
