@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 18:33:32 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:08:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,6 @@ static char
 	ft_wordtab_clear(way);
 	free(dir);
 	return (str);
-}
-
-static void
-	evn_split(t_env *environment, char *env)
-{
-	int i;
-	int j;
-
-	i = -1;
-	j = -1;
-	environment->value = ft_calloc(sizeof(char), super_strlen(0, '=', env) + 1);
-	while (env[++i] != '=')
-		environment->value[i] = env[i];
-	environment->argum = ft_calloc(sizeof(char), super_strlen(i, '\0', env) + 1);
-	while (env[++i])
-		environment->argum[++j] = env[i];
 }
 
 static void
@@ -86,7 +70,7 @@ void
 	while (env[++i])
 	{
 		environment = malloc(sizeof(t_env));
-		evn_split(environment, env[i]);
+		line_split(environment, env[i]);
 		ft_lstadd_back(envlst, ft_lstnew(environment));
 	}
 }

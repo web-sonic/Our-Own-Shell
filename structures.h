@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 16:14:54 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:08:03 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_env
 {
 	char			*value;
 	char			*argum;
+	int				equally;
 }					t_env;
 
 typedef struct		s_token

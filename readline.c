@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 18:33:23 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:08:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void
 		reader->line_term[0] = 0;
 	else 
 	{
-
 		write_new_symbol_str(&reader->rem_str, reader->line_term);
 		write(1, reader->line_term, i);
 	}

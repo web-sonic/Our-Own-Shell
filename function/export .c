@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 18:41:57 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 18:35:41 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void
 		enviroment = tmp_lstenv->content;
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(enviroment->value, 1);
-		if(enviroment->value)
+		if(enviroment->equally == 1)
 		{
 			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(enviroment->argum, 1);
@@ -41,37 +41,64 @@ void
 }
 
 void
+	add_line(char *line, t_list **envlst)
+{
+	int add;
+	t_list	*tmp_lstenv;
+	t_env	*enviroment;
+	t_env	*arr_arg;
+
+	line_split(&arr_arg, line);
+	tmp_lstenv = *envlst;
+	add = 0;
+	arr_arg = malloc(sizeof(t_env));
+	while (tmp_lstenv && add == 0)
+	{
+		enviroment = tmp_lstenv->content;
+		if (!ft_strncmp(arr_arg->value, enviroment->value, ft_strlen(arr_arg->value) + 1))
+			if (arr_arg->argum)
+				add = dub_and_free(enviroment->argum, arr_arg->argum);
+		tmp_lstenv = tmp_lstenv->next;
+	}
+	if (add == 0)
+	{
+		tmp_lstenv = *envlst;
+		ft_dlstadd_back(&tmp_lstenv, &arr_arg);
+	}
+}
+
+int
+	print_error(char *str)
+{
+	ft_putstr_fd("minishell: export: `", 1);
+	ft_putstr_fd(str, 1);
+	ft_putnbr_fd("': not a valid identifier", 1);
+	return (1);
+}
+
+void
 	ft_export(char **line, t_list **envlst)
 {
-	int i;
+	int		i;
+	int		j;
+	int		error;
 	t_list	*tmp_lstenv;
-	t_list	*sort_lstenv;
-	t_env	*enviroment;
-	
-	tmp_lstenv = *envlst;
-	sort_lstenv = *envlst;
+
 	i = -1;
+	error = 0;
+	tmp_lstenv = *envlst;
 	if(!line[0])
 	{
 		print_env(tmp_lstenv);
 		return;
 	}
-	while (tmp_lstenv)
+	while (line[++i])
 	{
-		enviroment = tmp_lstenv->content;
-		while (line[++i])
-		{
-			if (line[i][0] != '_' && !ft_isalpha(line[i][0]))
-			{
-				ft_putstr_fd("minishell: export: `", 1);
-				ft_putstr_fd(line[i], 1);
-				ft_putnbr_fd("': not a valid identifier", 1);
-				break ;
-			}
-			if (!ft_strncmp(line[i], enviroment->value, ft_strlen(line[i]) + 1))
-				dub_and_free(enviroment->argum, line[i]);
-		}
+		j = -1;
+		while (line[i][++j])
+			if (line[i][j] != '_' && !ft_isalnum(line[i][j]) && !ft_isalpha(line[i][0]))
+				error = print_error(line[i]);
+		if (error != 1)
+			add_line(line[i], envlst);
 	}
-	
-	
 }

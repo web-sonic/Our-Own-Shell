@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 18:33:27 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:08:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ int		running_term(struct termios *term);
 void	control_flags_term(char *status, struct termios *term);
 int		ft_putchar(int c);
 void	write_new_symbol_str(char **rem_str, char *str);
-void	dub_and_free(char **rem_str, char *str);
+int		dub_and_free(char **rem_str, char *str);
 void	swap_argument_str(int direction, t_str *reader, t_dlist **histlist);
 void	cmnd_d(t_str *reader, struct termios *term);
 int		super_strlen(int start, char symbol, char *str);
 char	*ft_getenv(const char *name, t_list *envlst);
+void	line_split(t_env *arr_arg, char *line);
+int		cmp_sort(t_env *cont, t_env *next);
+
 void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);

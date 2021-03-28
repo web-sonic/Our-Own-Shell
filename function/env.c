@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 17:46:48 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 17:53:58 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void
 	{
 		enviroment =tmp_lstenv->content;
 		tmp_lstenv = tmp_lstenv->next;
-		if (enviroment->argum)
+		if (enviroment->equally == 1)
 		{
 			ft_putstr_fd(enviroment->value, 1);
 			ft_putchar_fd('=', 1);

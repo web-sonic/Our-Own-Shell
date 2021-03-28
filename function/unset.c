@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 17:36:36 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 18:11:38 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,3 @@ void
 		tmp_lstenv = tmp_lstenv->next;
 	}
 }
-
-// int main () 
-// {
-//    printf("PATH : %s\n", getenv("PATH"));
-//    printf("HOME : %s\n", getenv("HOME"));
-//    printf("ROOT : %s\n", getenv("RO"));
-
-//    return(0);
-// }
