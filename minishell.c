@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 21:42:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:55:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void
 }
 
 static void
-	init_histlist(t_dlist **histlist, char *dir_add, char **env)
+	init_histlist(t_dlist **histlist, char *dir_add)
 {
 	int		fd;
 	int		i;
@@ -108,13 +108,11 @@ int
 	histlist = 0;
 	envlst = 0;
 	dir_add = find_way();
-	init_histlist(&histlist, dir_add, env);
+	init_histlist(&histlist, dir_add);
 	init_envlist(&envlst, env);
 	argv[0] += 2;
 	while (argc)
 	{
-		ft_putstr_fd(argv[0], 1);
-		ft_putstr_fd("> ", 1);
 		line = readline(&histlist, dir_add);
 		if (line)
 		{

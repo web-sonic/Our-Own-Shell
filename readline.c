@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 13:04:50 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:42:12 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,17 @@ static void
 		swap_argument_str(0, reader, histlist);
 	else if (!ft_strncmp(reader->line_term, "\e[B", 4))
 		swap_argument_str(1, reader, histlist);
-	else if (!ft_strncmp(reader->line_term,"\177", 4))
+	else if (!ft_strncmp(reader->line_term,"\177", 4) || !ft_strncmp(reader->line_term, "\b", 4))
 		delete_last_symbol_str(&reader->rem_str);
-	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) ||
-		!ft_strncmp(reader->line_term, "\t", 3))
-		return;
-	else if (!ft_strncmp(reader->line_term, "\4", 2))
+	else if (!ft_strncmp(reader->line_term, "\4", 3))
 		cmnd_d(reader, term);
-	else
+	else if (!ft_strncmp(reader->line_term, "\e[C", 4) || !ft_strncmp(reader->line_term, "\e[D", 4) ||
+		!ft_strncmp(reader->line_term, "\t", 3) || !ft_strncmp(reader->line_term, "\f", 3) || 
+		!ft_strncmp(reader->line_term, "\v", 3) || !ft_strncmp(reader->line_term, "\13", 4))
+		reader->line_term[0] = 0;
+	else 
 	{
+
 		write_new_symbol_str(&reader->rem_str, reader->line_term);
 		write(1, reader->line_term, i);
 	}
@@ -82,18 +84,21 @@ void
 {
 	int fd;
 
-	(reader->rem_str)[ft_strlen(reader->rem_str) - 1] = '\0';
+	if (reader->rem_str)
+		(reader->rem_str)[ft_strlen(reader->rem_str) - 1] = '\0';
+	if (!ft_strncmp(reader->line_term, "\3", 3))
+	{
+		if (reader->rem_str)
+			free(reader->rem_str);
+		reader->rem_str = NULL;
+		ft_putchar_fd('\n', 1);
+	}
 	if (reader->rem_str && (reader->rem_str)[0] != '\n' && (reader->rem_str)[0] != '\0')
 	{
-		if (!ft_strncmp(reader->line_term, "\3", 3))
-			ft_putchar_fd('\n', 1);
-		else
-		{
-			ft_dlstadd_back(histlist, ft_dlstnew(reader->rem_str));
-			fd = open(dir_add, O_WRONLY | O_APPEND);
-			ft_putendl_fd(reader->rem_str, fd);
-			close(fd);
-		}
+		ft_dlstadd_back(histlist, ft_dlstnew(reader->rem_str));
+		fd = open(dir_add, O_WRONLY | O_APPEND);
+		ft_putendl_fd(reader->rem_str, fd);
+		close(fd);
 	}
 	if (reader->tmp_str)
 		free(reader->tmp_str);
@@ -112,12 +117,13 @@ char
 	t_str			reader;
 	struct termios	term;
 
-	reader.rem_str = 0;
-	reader.tmp_str = 0;
+	reader.rem_str = NULL;
+	reader.tmp_str = NULL;
 	reader.line_term = ft_calloc(sizeof(char), BUF_STR);
 	if (!reader.line_term || running_term(&term) != 0)
 		return (NULL);
 	tputs(save_cursor, 1, ft_putchar);
+	ft_putstr_fd("minishell> ", 1);
 	while(ft_strncmp(reader.line_term, "\n", 2) && (ft_strncmp(reader.line_term, "\13", 3)) && (ft_strncmp(reader.line_term, "\3", 3)))
 		puts_line(&reader, histlist, &term);
 	end_readline(histlist, &reader, dir_add);

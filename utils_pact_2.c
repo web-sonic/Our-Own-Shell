@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/27 21:42:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:42:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char
 		enviroment = envlst->content;
 		if(!ft_strncmp(name, enviroment->value, len + 1))
 			return (ft_strdup(enviroment->argum));
+		envlst = envlst->next;
 	}
 	return (ft_calloc(sizeof(char), 1));
 }

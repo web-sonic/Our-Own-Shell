@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/27 21:11:18 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:07:15 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static char
 	int		len;
 	char	*token;
 
+
 	if (**str == '?')
 	{
 		(*str)++;
@@ -84,6 +85,7 @@ char
 	char	*token;
 
 	(*str)++;
+
 	left_token = get_dollar_var(str, envlst);
 	if (quote)
 		right_token = treat_quotes(str, quote, envlst);
@@ -129,7 +131,7 @@ char
 	else if (*(*str)++)
 		token = ft_strjoin(left_token, parse_token(str, envlst));
 	else
-		token = 0;
+		token = ft_calloc(sizeof(char), 1);
 	free(left_token);
 	return (token);
 }
@@ -150,7 +152,8 @@ char
 		len++;
 	}
 	left_token = ft_strldup(*str, len + 1);
-	*str += len;
+	(*str) += len;
+
 	if (**str == QUOTE || **str == DQUOTE)
 		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst));
 	else if (**str == BACKSLASH)
