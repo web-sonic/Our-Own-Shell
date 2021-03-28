@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 15:42:12 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/28 18:57:54 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void
 		reader->line_term[0] = 0;
 	else 
 	{
-
 		write_new_symbol_str(&reader->rem_str, reader->line_term);
 		write(1, reader->line_term, i);
 	}
