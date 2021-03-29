@@ -6,99 +6,116 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 19:14:08 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:09:40 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 void
+	set_fds(t_fdstruct *fds, t_cmd *cmd, t_bool last_cmd)
+{
+	int	fdpipe[2];
+
+	if (cmd->fdin)
+	{
+		dup2(cmd->fdin, 0);
+		close(cmd->fdin);
+	}
+	else
+	{
+		dup2(fds->fdin, 0);
+		close(fds->fdin);
+	}
+	if (last_cmd)
+	{
+		(cmd->fdout) ? fds->fdout = dup(cmd->fdout) :
+			(fds->fdout = dup(fds->tmpout));
+	}
+	else
+	{
+		pipe(fdpipe);
+		if (!cmd->fdin)
+			fds->fdin = fdpipe[0];
+		if (!cmd->fdout)
+			fds->fdout = fdpipe[1];
+	}
+	dup2(fds->fdout, 1);
+	close(fds->fdout);
+}
+
+static void
+	init_fd(t_fdstruct *fds)
+{
+	fds->tmpin = dup(0);
+	fds->tmpout = dup(1);
+	fds->fdin = dup(fds->tmpin);
+	fds->fdout = dup(fds->tmpout);
+}
+
+void
+	unset_fd(t_fdstruct *fds)
+{
+	dup2(fds->tmpin, 0);
+	dup2(fds->tmpout, 1);
+	close(fds->tmpin);
+	close(fds->tmpout);
+}
+
+void
+	cmd_clear(t_cmd *cmd)
+{
+	ft_wordtab_clear(cmd->args);
+	free(cmd);
+}
+
+int
+	cmd_execute(char **args, t_fdstruct	*fds)
+{
+	pid_t	ret;
+
+	ret = fork();
+	if (ret == 0)
+	{
+		if (!ft_strncmp(args[0], "echo", 5))
+			ft_echo(args, fds->fdout);
+		exit(0);
+	}
+	else if (ret == -1)
+	{
+		ft_putendl_fd("nope", 1);
+		return (ret);
+	}
+	else
+		return (ret);	
+}
+
+void
 	execute(t_list *cmd_lst, t_list *envlst)
 {
-	int     tmp_fdin;
-	int     tmp_fdout;
-	t_list  *pipe_lst;
-	t_cmd   *cmd;
+	t_cmd		*cmd;
+	t_fdstruct	fds;
+	t_bool		last_cmd;
+	t_list		*pipe_lst;
+	pid_t		ret;
 
-	tmp_fdin = dup(0);
-	tmp_fdout = dup(1);
 	while (cmd_lst)
 	{
 		pipe_lst = cmd_lst->content;
+		init_fd(&fds);
+		last_cmd = FALSE;
 		while (pipe_lst)
 		{
 			cmd = parser(pipe_lst->content, envlst);
-			char	**str = cmd->args;
-			int i = 0;
-			while (str[i])
-				ft_putendl_fd(str[i++], 1);
 			pipe_lst = pipe_lst->next;
+			if (pipe_lst)
+				last_cmd = TRUE;
+			set_fds(&fds, cmd, last_cmd);
+			ret = cmd_execute(cmd->args, &fds);
+			cmd_clear(cmd);
 		}
+		unset_fd(&fds);
+		waitpid(ret, NULL, 0);
 		cmd_lst = cmd_lst->next;
 	}
 }
-
-//  6    //set the initial input 
-//  7    int fdin;
-//  8    if (infile) {
-//  9      fdin = open(infile,O_READ); 
-// 10    }
-// 11    else {
-// 12      // Use default input
-// 13      fdin=dup(tmpin);
-// 14    }
-// 15  
-// 16    int ret;
-// 17    int fdout;
-// 18    for(i=0;i<numsimplecommands; i++) {
-// 19      //redirect input
-// 20      dup2(fdin, 0);
-// 21      close(fdin);
-// 22      //setup output
-// 23      if (i == numsimplecommands­1){
-// 24        // Last simple command 
-// 25        if(outfile){
-// Draft
-// 26          fdout=open(outfile,â€¦â€¦);
-// 27        }
-// 28        else {
-// 29          // Use default output
-// 30          fdout=dup(tmpout);
-// 31        }
-// 32      }
-// 33  
-// 34       else {
-// 35          // Not last 
-// 36          //simple command
-// 37          //create pipe
-// 38          int fdpipe[2];
-// 39          pipe(fdpipe);
-// 40          fdout=fdpipe[1];
-// 41          fdin=fdpipe[0];
-// 42       }// if/else
-// 43  
-// 44       // Redirect output
-// 45       dup2(fdout,1);
-// 46       close(fdout);
-// 47   
-// 48       // Create child process
-// 49       ret=fork(); 
-// 50       if(ret==0) {
-// 51         execvp(scmd[i].args[0], scmd[i].args);
-// 52         perror(â€œexecvpâ€);
-// 53         _exit(1);
-// 54       }
-// 55     } //  for
-// 56   
-// 57     //restore in/out defaults
-// 58     dup2(tmpin,0);
-// 59     dup2(tmpout,1);
-// 60     close(tmpin);
-// 61     close(tmpout);
-// 62  
-// 63     if (!background) {
-// 64       // Wait for last command
-// 65       waitpid(ret, NULL);
-// 66     }
-// 67  
-// 68  } // execute
