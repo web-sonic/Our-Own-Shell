@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 19:20:05 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:33:26 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,6 @@ char
 	wordtab[i + 1] = 0;
 	ft_wordtab_clear(tmp_tab);
 	return (wordtab);
-}
-
-int
-	cmp_sort(t_env *cont, t_env *next)
-{
-	return(ft_strncmp(cont->value, next->value, ft_strlen(cont->value) + 1));
 }
 
 void

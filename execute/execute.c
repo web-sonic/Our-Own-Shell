@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 13:26:41 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:35:35 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int
 		if (!ft_strncmp(args[0], "echo", 5))
 			ft_echo(args);
 		if (!ft_strncmp(args[0], "cd", 3))
-			ft_cd(args);
+			ft_cd(args, &envlst);
 		if (!ft_strncmp(args[0], "env", 4))
-			ft_env(args);
+			ft_env(&envlst);
 		if (!ft_strncmp(args[0], "exit", 5))
 			ft_exit(&g_error, args);
 		if (!ft_strncmp(args[0], "export", 7))
@@ -98,7 +98,7 @@ int
 		if (!ft_strncmp(args[0], "pwd", 4))
 			ft_pwd();
 		if (!ft_strncmp(args[0], "unset", 6))
-			ft_unset(args[0], &envlst);
+			ft_unset(args, &envlst);
 		exit(0);
 	}
 	else if (ret == -1)

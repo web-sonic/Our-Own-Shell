@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 13:47:40 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 14:36:37 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_exit(long long *n,char **line);
 void	ft_env(t_list **envlst);
 void	ft_export(char **line, t_list **envlst);
 void	ft_unset(char **line, t_list **envlst);
+void	ft_cd(char **line, t_list **envlst);
 
 void    execute(t_list *cmd_lst, t_list *envlst);
 t_cmd	*parser(char *str, t_list *envlst);
