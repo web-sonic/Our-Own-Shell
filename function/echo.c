@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 13:25:06 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 14:42:09 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void
 	int	i;
 	int	n_flag;
 
-	i = 0;
+	i = 1;
 	count = count_arr(line);
 	n_flag = 0;
 	if (count != 1)
@@ -38,12 +38,12 @@ void
 		while (!ft_strncmp(line[i], "-n", 3))
 		{
 			n_flag = 1;
-			++i;
+			i++;
 		}
-		while (++i < count)
+		while (i < count)
 		{
 			ft_putstr_fd(line[i], 1);
-			if (line[i + 1])
+			if (line[i++ + 1])
 				ft_putstr_fd(" ", 1);
 		}
 	}
