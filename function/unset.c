@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 16:48:55 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:59:28 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void
 		*envlst = tmp_lstenv;
 		exit(0);
 	}
-	tmp_lstenv = *(envlst)->next;
+	tmp_lstenv = *(envlst);
 	while (tmp_lstenv)
 	{
 		i = -1;
