@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/29 17:08:12 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:10:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int
 }
 
 void
-	ft_echo(char **line, int fdout)
+	ft_echo(char **line)
 {
 	int	count;
 	int	i;
@@ -42,11 +42,11 @@ void
 		}
 		while (++i < count && line[i][0] != '#') //??
 		{
-			ft_putstr_fd(line[i], fdout);
+			ft_putstr_fd(line[i], 1);
 			if (line[i + 1])
-				ft_putstr_fd(" ", fdout);
+				ft_putstr_fd(" ", 1);
 		}
 	}
 	if(n_flag == 0)
-		ft_putstr_fd("\n", fdout);
+		ft_putstr_fd("\n", 1);
 }

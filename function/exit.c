@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/25 11:17:44 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 13:19:14 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ long long	super_atoi(const char *str)
 }
 
 void
-	ft_exit(long long *n,char **line)
+	ft_exit(long long *n, char **line)
 {
 	int	i;
 
