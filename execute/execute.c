@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 13:21:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:23:59 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,17 @@ int
 	{
 		if (!ft_strncmp(args[0], "echo", 5))
 			ft_echo(args);
-		if (!ft_strncmp(args[0], "echo", 5))
+		if (!ft_strncmp(args[0], "cd", 3))
 			ft_cd(args);
-		if (!ft_strncmp(args[0], "env", 5))
+		if (!ft_strncmp(args[0], "env", 4))
 			ft_env(args);
 		if (!ft_strncmp(args[0], "exit", 5))
 			ft_exit(&g_error, args);
-		if (!ft_strncmp(args[0], "export", 5))
+		if (!ft_strncmp(args[0], "export", 7))
 			ft_export(args, envlst);
-		if (!ft_strncmp(args[0], "pwd", 5))
+		if (!ft_strncmp(args[0], "pwd", 4))
 			ft_pwd();
-		if (!ft_strncmp(args[0], "unset", 5))
+		if (!ft_strncmp(args[0], "unset", 6))
 			ft_unset(args[0], envlst);
 		exit(0);
 	}
