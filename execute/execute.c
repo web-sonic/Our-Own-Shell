@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 14:35:35 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:51:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,36 +78,39 @@ void
 }
 
 int
-	cmd_execute(char **args, t_list *envlst)
+	cmd_bin(char **args, t_list *envlst)
 {
 	pid_t	ret;
+	char	**env;
 
 	ret = fork();
 	if (ret == 0)
 	{
-		if (!ft_strncmp(args[0], "echo", 5))
-			ft_echo(args);
-		if (!ft_strncmp(args[0], "cd", 3))
-			ft_cd(args, &envlst);
-		if (!ft_strncmp(args[0], "env", 4))
-			ft_env(&envlst);
-		if (!ft_strncmp(args[0], "exit", 5))
-			ft_exit(&g_error, args);
-		if (!ft_strncmp(args[0], "export", 7))
-			ft_export(args, &envlst);
-		if (!ft_strncmp(args[0], "pwd", 4))
-			ft_pwd();
-		if (!ft_strncmp(args[0], "unset", 6))
-			ft_unset(args, &envlst);
-		exit(0);
+		execve(args[0], args, env);
+		perror(args[0]);
+		exit(1);
 	}
-	else if (ret == -1)
-	{
-		ft_putendl_fd("nope", 1);
-		return (ret);
-	}
+}
+
+int
+	cmd_execute(char **args, t_list *envlst)
+{
+	if (!ft_strncmp(args[0], "echo", 5))
+		ft_echo(args);
+	else if (!ft_strncmp(args[0], "cd", 3))
+		ft_cd(args, &envlst);
+	else if (!ft_strncmp(args[0], "env", 4))
+		ft_env(&envlst);
+	else if (!ft_strncmp(args[0], "exit", 5))
+		ft_exit(&g_error, args);
+	else if (!ft_strncmp(args[0], "export", 7))
+		ft_export(args, &envlst);
+	else if (!ft_strncmp(args[0], "pwd", 4))
+		ft_pwd();
+	else if (!ft_strncmp(args[0], "unset", 6))
+		ft_unset(args, &envlst);
 	else
-		return (ret);	
+		cmd_bin(args, envlst);
 }
 
 void
