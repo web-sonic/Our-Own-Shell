@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 14:36:37 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:55:23 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,15 @@ int		cmp_sort(t_env *cont, t_env *next);
 
 void	ft_echo(char **line);
 int		ft_pwd(void);
-void	ft_exit(long long *n,char **line);
+void	ft_exit(char **line);
 void	ft_env(t_list **envlst);
 void	ft_export(char **line, t_list **envlst);
-void	ft_unset(char **line, t_list **envlst);
+//void	ft_unset(char **line, t_list **envlst);
 void	ft_cd(char **line, t_list **envlst);
 
 void    execute(t_list *cmd_lst, t_list *envlst);
 t_cmd	*parser(char *str, t_list *envlst);
 char    *parse_token(char **str, t_list *envlst);
+char	**getallenv(t_list *envlst);
 
 #endif

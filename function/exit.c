@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 13:19:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 19:18:53 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ long long	super_atoi(const char *str)
 }
 
 void
-	ft_exit(long long *n, char **line)
+	ft_exit(char **line)
 {
-	int	i;
-
+	int			i;
+	long long	n;
 	i = 0;
-	*n = 2;
+	n = 2;
 	ft_putendl_fd("exit", 1);
 	if (line[1] && line[0])
 		ft_putendl_fd("bash: exit: too many arguments", 2);
@@ -58,15 +58,15 @@ void
 			i++;
 		if (i == (int)ft_strlen(line[0]))
 		{
-			*n = super_atoi(line[0]);
-			if (i == ft_nbrlen(*n, 10))
-				exit(*n);
+			n = super_atoi(line[0]);
+			if (i == ft_nbrlen(n, 10))
+				exit(n);
 		}
 		ft_putstr_fd("minishell: exit: ", 1);
 		ft_putstr_fd(line[0], 1);
 		ft_putendl_fd(": numeric argument required", 2);
 	}
 	else
-		*n = 0;
-	exit(*n);
+		n = 0;
+	exit(n);
 }

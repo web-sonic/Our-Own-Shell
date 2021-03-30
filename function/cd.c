@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 16:31:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:59:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static void
 	t_list	*pwd_lst;
 	t_env	*enviroment;
 	char	*dir_pwd;
-	char	*dir_cd;
 	int		ret;
 
-	//dir_cd = ft_strdup(dir_add);
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
 	ret = chdir(dir_add);
@@ -40,10 +38,7 @@ static void
 		{
 			enviroment = pwd_lst->content;
 			if(!ft_strncmp(enviroment->value, "PWD", 4))
-			{
 				dub_and_free(&(enviroment->argum), dir_add);
-				ft_putendl_fd(enviroment->argum, 1);
-			}
 			if(!ft_strncmp(enviroment->value, "OLDPWD", 7))
 			{
 				if (count == 1 && enviroment->argum)

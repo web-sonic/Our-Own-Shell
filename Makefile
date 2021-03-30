@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/30 13:40:06 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/30 20:02:32 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,11 @@ SRCS =	minishell.c \
 		./function/env.c \
 		./function/exit.c \
 		./function/pwd.c \
-		./function/unset.c \
 		./function/export.c \
 		./function/cd.c \
-		
+		getallenv.c \
+		#./function/unset.c \
+
 LIB =	libft/libft.a 
 
 HEADERS =	minishell.h \
@@ -63,6 +64,9 @@ fclean:	clean
 	$(MAKE) fclean -C libft
 
 re: fclean all
+
+wc:
+	wc -l $(SRCS)
 
 bonus:
 
