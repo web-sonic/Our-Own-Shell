@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yu <yu@student.42.fr>                      +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/29 22:57:47 by yu               ###   ########.fr        #
+#    Updated: 2021/03/30 13:29:52 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,10 @@ SRCS =	minishell.c \
 		./function/pwd.c \
 		execute/execute.c \
 		parser/parser.c \
-		#./function/unset.c \
-		#./function/export.c \#
+		./function/unset.c \
+		./function/export.c \
+		function/cd.c \
+		
 LIB =	libft/libft.a 
 
 HEADERS =	minishell.h \
