@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/30 12:45:31 by sgath            ###   ########.fr        #
+#    Updated: 2021/03/30 13:40:06 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCS =	minishell.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
 		parser/error_parse.c \
+		execute/execute.c \
+		parser/parser.c \
 		./dlists/ft_dlstclear.c \
 		./dlists/ft_dlstadd_back.c \
 		./dlists/ft_dlstnew.c \
@@ -27,10 +29,10 @@ SRCS =	minishell.c \
 		./function/env.c \
 		./function/exit.c \
 		./function/pwd.c \
-		execute/execute.c \
-		parser/parser.c \
-		#./function/unset.c \
-		#./function/export.c \#
+		./function/unset.c \
+		./function/export.c \
+		./function/cd.c \
+		
 LIB =	libft/libft.a 
 
 HEADERS =	minishell.h \

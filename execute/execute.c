@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 13:23:59 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:26:41 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void
 }
 
 int
-	cmd_execute(char **args, t_fdstruct	*fds, t_list *envlst)
+	cmd_execute(char **args, t_list *envlst)
 {
 	pid_t	ret;
 
@@ -94,11 +94,11 @@ int
 		if (!ft_strncmp(args[0], "exit", 5))
 			ft_exit(&g_error, args);
 		if (!ft_strncmp(args[0], "export", 7))
-			ft_export(args, envlst);
+			ft_export(args, &envlst);
 		if (!ft_strncmp(args[0], "pwd", 4))
 			ft_pwd();
 		if (!ft_strncmp(args[0], "unset", 6))
-			ft_unset(args[0], envlst);
+			ft_unset(args[0], &envlst);
 		exit(0);
 	}
 	else if (ret == -1)
@@ -131,7 +131,7 @@ void
 			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			ret = cmd_execute(cmd->args, &fds, envlst);
+			ret = cmd_execute(cmd->args, envlst);
 			cmd_clear(cmd);
 		}
 		unset_fd(&fds);

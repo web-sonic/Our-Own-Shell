@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export .c                                          :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 19:34:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 14:02:26 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ void
 	t_env	*enviroment;
 	t_env	*arr_arg;
 
-	line_split(&arr_arg, line);
+	arr_arg = malloc(sizeof(t_env));
+	line_split(arr_arg, line);
 	tmp_lstenv = *envlst;
 	add = 0;
-	arr_arg = malloc(sizeof(t_env));
 	while (tmp_lstenv && add == 0)
 	{
 		enviroment = tmp_lstenv->content;
 		if (!ft_strncmp(arr_arg->value, enviroment->value, ft_strlen(arr_arg->value) + 1))
 			if (arr_arg->argum)
-				add = dub_and_free(enviroment->argum, arr_arg->argum);
+				add = dub_and_free(&(enviroment->argum), arr_arg->argum);
 		tmp_lstenv = tmp_lstenv->next;
 	}
 	if (add == 0)
 	{
 		tmp_lstenv = *envlst;
-		ft_dlstadd_back(&tmp_lstenv, &arr_arg);
+		ft_lstadd_back(&tmp_lstenv, ft_lstnew(arr_arg));
 	}
 }
 
@@ -72,7 +72,7 @@ int
 {
 	ft_putstr_fd("minishell: export: `", 1);
 	ft_putstr_fd(str, 1);
-	ft_putnbr_fd("': not a valid identifier", 1);
+	ft_putendl_fd("': not a valid identifier", 1);
 	return (1);
 }
 

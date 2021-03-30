@@ -6,11 +6,47 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 12:42:14 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 13:53:06 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static void
+	check_dir(t_list **envlst, char *dir_add, int count)
+{
+	t_list	*pwd_lst;
+	t_env	*enviroment;
+	char	*dir_pwd;
+
+	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
+	getcwd(dir_pwd, PATH_MAX - 1);
+	if (chdir(dir_add) < 0)
+	{
+		ft_putstr_fd("minishell: cd: ", 1);
+		ft_putstr_fd(dir_add, 1);
+		ft_putstr_fd(": No such file or directory", 1);
+	}
+	else
+	{
+		pwd_lst = *envlst;
+		while (pwd_lst)
+		{
+			enviroment = pwd_lst->content;
+			if(!ft_strncmp(enviroment->value, "PWD", 4))
+				dub_and_free(&(enviroment->argum), dir_add);
+			if(!ft_strncmp(enviroment->value, "OLDPWD", 4))
+			{
+				if (count == 1 && enviroment->argum)
+					ft_putendl_fd(enviroment->argum, 1);
+				dub_and_free(&(enviroment->argum), dir_pwd);
+			}
+			pwd_lst = pwd_lst->next;
+		}
+		
+	}
+	free(dir_pwd);
+}
 
 static int
 	no_arg(t_list **envlst)
@@ -67,42 +103,6 @@ static int
 	}
 	ft_putendl_fd("minishell> cd: OLDPWD not set", 1);
 	return (1);
-}
-
-void
-	check_dir(t_list **envlst, char *dir_add, int count)
-{
-	t_list	*pwd_lst;
-	t_env	*enviroment;
-	char	*dir_pwd;
-
-	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
-	getcwd(dir_pwd, PATH_MAX - 1);
-	if (chdir(dir_add) < 0)
-	{
-		ft_putstr_fd("minishell: cd: ", 1);
-		ft_putstr_fd(dir_add, 1);
-		ft_putstr_fd(": No such file or directory", 1);
-	}
-	else
-	{
-		pwd_lst = *envlst;
-		while (pwd_lst)
-		{
-			enviroment = pwd_lst->content;
-			if(!ft_strncmp(enviroment->value, "PWD", 4))
-				dub_and_free(enviroment->argum, dir_add);
-			if(!ft_strncmp(enviroment->value, "OLDPWD", 4))
-			{
-				if (count == 1 && enviroment->argum)
-					ft_putendl_fd(enviroment->argum, 1);
-				dub_and_free(enviroment->argum, dir_pwd);
-			}
-			pwd_lst = pwd_lst->next;
-		}
-		
-	}
-	free(dir_pwd);
 }
 
 void
