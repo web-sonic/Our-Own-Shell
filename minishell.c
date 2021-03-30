@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 13:47:01 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 15:41:09 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void
 	fd = open(dir_add, O_RDONLY | O_CREAT, 0777);
 	if (fd < 0)
 	{
-		perror("-");
+		ft_putendl_fd(strerror(errno), 2);
 		exit(1);
 	}
 	while ((i = get_next_line(fd, &line)) > 0)

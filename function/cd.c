@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 13:53:06 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:31:10 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ static void
 	t_list	*pwd_lst;
 	t_env	*enviroment;
 	char	*dir_pwd;
+	char	*dir_cd;
+	int		ret;
 
+	//dir_cd = ft_strdup(dir_add);
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
-	if (chdir(dir_add) < 0)
+	ret = chdir(dir_add);
+	if (ret == -1)
 	{
-		ft_putstr_fd("minishell: cd: ", 1);
-		ft_putstr_fd(dir_add, 1);
-		ft_putstr_fd(": No such file or directory", 1);
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(dir_add, 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
+		exit (1);
 	}
 	else
 	{
@@ -34,8 +40,11 @@ static void
 		{
 			enviroment = pwd_lst->content;
 			if(!ft_strncmp(enviroment->value, "PWD", 4))
+			{
 				dub_and_free(&(enviroment->argum), dir_add);
-			if(!ft_strncmp(enviroment->value, "OLDPWD", 4))
+				ft_putendl_fd(enviroment->argum, 1);
+			}
+			if(!ft_strncmp(enviroment->value, "OLDPWD", 7))
 			{
 				if (count == 1 && enviroment->argum)
 					ft_putendl_fd(enviroment->argum, 1);
@@ -46,6 +55,7 @@ static void
 		
 	}
 	free(dir_pwd);
+	ft_putstr_fd(getcwd(dir_pwd, PATH_MAX - 1), 1);
 }
 
 static int
@@ -61,10 +71,11 @@ static int
 		if(!ft_strncmp(enviroment->value, "HOME", 5))
 		{
 			check_dir(envlst,enviroment->argum, 0);
-			return (1);
+			return (0);
 		}
+		tmp_lst = tmp_lst->next;
 	}
-	ft_putendl_fd("minishell> cd: HOME not set", 1);
+	ft_putendl_fd("minishell: cd: HOME not set", 2);
 	return (1);
 }
 
@@ -98,29 +109,26 @@ static int
 		if(!ft_strncmp(enviroment->value, "OLDPWD", 7))
 		{
 			check_dir(envlst,enviroment->argum, count);
-			return (1);
+			return (0);
 		}
 	}
-	ft_putendl_fd("minishell> cd: OLDPWD not set", 1);
-	return (1);
+	ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+	exit(1);
 }
 
 void
 	ft_cd(char **line, t_list **envlst)
 {
-	int		rez;
-
-	rez = 0;
-	if (!line[0])
-		rez = no_arg(envlst);
-	if (rez == 0 && !ft_strncmp(line[0], ".", 2))
-		return;
-	if (rez == 0 && !ft_strncmp(line[0], "..", 3))
-		rez = two_dot(envlst);
-	if (rez == 0 && !ft_strncmp(line[0], "-", 2))
-		rez = divis(envlst, 2);
-	if (rez == 0 && !ft_strncmp(line[0], "--", 3))
-		rez = divis(envlst, 2);
+	if (!line[1])
+		no_arg(envlst);
+	if (!ft_strncmp(line[1], ".", 2))
+		exit (0);	
+	if (!ft_strncmp(line[1], "..", 3))
+		two_dot(envlst);
+	if (!ft_strncmp(line[1], "-", 2))
+		divis(envlst, 2);
+	if (!ft_strncmp(line[1], "--", 3))
+		divis(envlst, 2);
 	else
-		check_dir(envlst, line[0], 0);
+		check_dir(envlst, line[1], 0);
 }

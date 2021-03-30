@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 14:30:24 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:55 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,20 @@ void
 {
 	t_env	*enviroment;
 	t_list	*tmp_lstenv;
+	t_list	*next_lstenv;
 	int		i;
 
 	if(!line[0])
-		return;
+		exit(0);
 	enviroment = (*envlst)->content;
 	if (!ft_strncmp(line[0], enviroment->value, ft_strlen(enviroment->value) + 1))
 	{
-		tmp_lstenv = (*envlst)->next;
-		ft_lstdelone(tmp_lstenv, &free_env);
-		//envlst = tmp_lstenv;
-		return;
+		tmp_lstenv = (*envlst)->content;
+		ft_lstdelone(envlst, &free_env);
+		*envlst = tmp_lstenv;
+		exit(0);
 	}
-	tmp_lstenv = *envlst;
+	tmp_lstenv = *(envlst)->next;
 	while (tmp_lstenv)
 	{
 		i = -1;
@@ -50,12 +51,12 @@ void
 		{
 			if (!ft_strncmp(line[i], enviroment->value, ft_strlen(enviroment->value) + 1))
 			{
-				tmp_lstenv = tmp_lstenv->next;
-				tmp_lstenv = tmp_lstenv->next;
+				next_lstenv = tmp_lstenv->next;
+				tmp_lstenv = next_lstenv->next;
 				ft_lstdelone(tmp_lstenv->next, &free_env);
-				//envlst = tmp_lstenv;
 			}
 		}
 		tmp_lstenv = tmp_lstenv->next;
 	}
+	*envlst = tmp_lstenv;
 }
