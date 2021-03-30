@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 12:42:44 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 13:25:19 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_getenv(const char *name, t_list *envlst);
 void	line_split(t_env *arr_arg, char *line);
 int		cmp_sort(t_env *cont, t_env *next);
 
-void	ft_echo(char **line, int fdout);
+void	ft_echo(char **line);
 int		ft_pwd(void);
 void	ft_exit(long long *n,char **line);
 void	ft_env(t_list **envlst);

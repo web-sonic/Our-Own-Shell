@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/29 17:09:40 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:23:59 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void
 	{
 		dup2(cmd->fdin, 0);
 		close(cmd->fdin);
+		close(fds->fdin);
 	}
 	else
 	{
@@ -35,13 +36,20 @@ void
 	else
 	{
 		pipe(fdpipe);
-		if (!cmd->fdin)
-			fds->fdin = fdpipe[0];
-		if (!cmd->fdout)
-			fds->fdout = fdpipe[1];
+		fds->fdin = fdpipe[0];
+		fds->fdout = fdpipe[1];
 	}
-	dup2(fds->fdout, 1);
-	close(fds->fdout);
+	if (!cmd->fdout)
+	{
+		dup2(fds->fdout, 1);
+		close(fds->fdout);
+	}
+	else
+	{
+		dup2(cmd->fdout, 1);
+		close(fds->fdout);
+		close(cmd->fdout);
+	}
 }
 
 static void
@@ -70,7 +78,7 @@ void
 }
 
 int
-	cmd_execute(char **args, t_fdstruct	*fds)
+	cmd_execute(char **args, t_fdstruct	*fds, t_list *envlst)
 {
 	pid_t	ret;
 
@@ -78,7 +86,19 @@ int
 	if (ret == 0)
 	{
 		if (!ft_strncmp(args[0], "echo", 5))
-			ft_echo(args, fds->fdout);
+			ft_echo(args);
+		if (!ft_strncmp(args[0], "cd", 3))
+			ft_cd(args);
+		if (!ft_strncmp(args[0], "env", 4))
+			ft_env(args);
+		if (!ft_strncmp(args[0], "exit", 5))
+			ft_exit(&g_error, args);
+		if (!ft_strncmp(args[0], "export", 7))
+			ft_export(args, envlst);
+		if (!ft_strncmp(args[0], "pwd", 4))
+			ft_pwd();
+		if (!ft_strncmp(args[0], "unset", 6))
+			ft_unset(args[0], envlst);
 		exit(0);
 	}
 	else if (ret == -1)
@@ -108,10 +128,10 @@ void
 		{
 			cmd = parser(pipe_lst->content, envlst);
 			pipe_lst = pipe_lst->next;
-			if (pipe_lst)
+			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			ret = cmd_execute(cmd->args, &fds);
+			ret = cmd_execute(cmd->args, &fds, envlst);
 			cmd_clear(cmd);
 		}
 		unset_fd(&fds);
