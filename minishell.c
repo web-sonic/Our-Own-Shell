@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 21:10:06 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 21:12:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,20 @@ void
 	init_envlist(t_list **envlst, char **env)
 {
 	int		i;
-	t_env	*environment;
+	t_env	*enviroment;
 
 	i = -1;
-
 	while (env[++i])
 	{
-		environment = malloc(sizeof(t_env));
-		line_split(environment, env[i]);
-		ft_lstadd_back(envlst, ft_lstnew(environment));
+		enviroment = malloc(sizeof(t_env));
+		line_split(enviroment, env[i]);
+		ft_lstadd_back(envlst, ft_lstnew(enviroment));
 	}
+	enviroment = malloc(sizeof(t_env));
+	enviroment->argum = NULL;
+	enviroment->value = ft_strdup("OLDPWD");
+	enviroment->equally = 0;
+	ft_lstadd_back(envlst, ft_lstnew(enviroment));
 }
 
 /* 
@@ -102,7 +106,7 @@ int
 		{
 			cmd_lst = get_cmds(line);
 			if (cmd_lst)
-				execute(cmd_lst, envlst);
+				execute(cmd_lst, envlst, mod_address(dir_add));
 		}
 	}
 	ft_dlstclear(&histlist, free);

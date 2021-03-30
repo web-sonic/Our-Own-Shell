@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 16:24:12 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 20:20:31 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ int
 	while (str[start] != symbol && str[start++])
 		len++;
 	return(len);
+}
+
+char
+	*mod_address(char *dir_add)
+{
+	int	len;
+
+	len = ft_strlen(dir_add);
+
+	while(dir_add[--len] != '/')
+		dir_add[len] = 0;
+	return (dir_add);
 }

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 21:08:27 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/30 21:12:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,12 @@ int
 }
 
 int
-	cmd_execute(char **args, t_list *envlst)
+	cmd_execute(char **args, t_list *envlst, char *dir_add)
 {
 	if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(args);
 	else if (!ft_strncmp(args[0], "cd", 3))
-		ft_cd(args, &envlst);
+		ft_cd(args, &envlst, dir_add);
 	else if (!ft_strncmp(args[0], "env", 4))
 		ft_env(&envlst);
 	else if (!ft_strncmp(args[0], "exit", 5))
@@ -152,7 +152,7 @@ int
 }
 
 void
-	execute(t_list *cmd_lst, t_list *envlst)
+	execute(t_list *cmd_lst, t_list *envlst, char *dir_add)
 {
 	t_cmd		*cmd;
 	t_fdstruct	fds;
@@ -172,7 +172,7 @@ void
 			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			ret = cmd_execute(cmd->args, envlst);
+			ret = cmd_execute(cmd->args, envlst, dir_add);
 			cmd_clear(cmd);
 		}
 		unset_fd(&fds);

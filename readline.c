@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 12:49:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:07:16 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ char
 	while(ft_strncmp(reader.line_term, "\n", 2) && (ft_strncmp(reader.line_term, "\13", 3)) && (ft_strncmp(reader.line_term, "\3", 3)))
 		puts_line(&reader, histlist, &term);
 	end_readline(histlist, &reader, dir_add);
-	tcsetattr(0,  TCSANOW, &term);
+	tcsetattr(0, TCSANOW, &term);
 	return (reader.rem_str);
 }
