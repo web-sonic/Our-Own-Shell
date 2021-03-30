@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 19:08:03 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:20:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,13 @@ typedef struct		s_token
 	char			*str;
 	int				type;
 }					t_token;
+
+typedef struct		s_fdstruct
+{
+	int				tmpin;
+	int				tmpout;
+	int				fdin;
+	int				fdout;
+}					t_fdstruct;
 
 #endif
