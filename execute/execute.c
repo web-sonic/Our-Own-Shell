@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 12:23:22 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:29:22 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,13 @@ char
 	return (cmd);
 }
 
-int
+void
 	cmd_bin(char **args, t_list *envlst)
 {
 	pid_t	ret;
 	char	**env;
 	char	*cmd;
+	int		h;
 
 	ret = fork();
 	env = getallenv(envlst);
@@ -126,11 +127,12 @@ int
 		exit(errno);
 	}
 	else
-		waitpid(ret, &g_error, 0);
+		waitpid(ret, &h, 0);
+	g_error = h;
 	ft_wordtab_clear(env);
 	if (ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
-	}
+}
 
 int
 	cmd_execute(char **args, t_list *envlst, char *dir_add)
