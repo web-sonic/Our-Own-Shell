@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 17:17:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 12:22:03 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int
 	return (count);
 }
 
-void
+int
 	ft_echo(char **line)
 {
 	int	count;
@@ -49,4 +49,5 @@ void
 	}
 	if(n_flag == 0)
 		ft_putstr_fd("\n", 1);
+	return (0);
 }

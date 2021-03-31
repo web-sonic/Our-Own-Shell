@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 17:53:58 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 12:21:33 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //t_list *envlst;
 
-void
+int
 	ft_env(t_list **envlst)
 {
 	t_env	*enviroment;
@@ -32,4 +32,5 @@ void
 			ft_putendl_fd(enviroment->argum, 1);
 		}
 	}
+	return (0);
 }

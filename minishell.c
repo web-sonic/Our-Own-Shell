@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 11:56:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:28:57 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ static void
 	int		fd;
 	int		i;
 	char	*line;
-
 	
-	fd = open(dir_add, O_RDONLY | O_CREAT, 0777);
+	fd = open(dir_add, O_RDONLY | O_CREAT, 0755);
 	if (fd < 0)
 	{
 		ft_putendl_fd(strerror(errno), 2);
@@ -102,8 +101,13 @@ int
 	init_envlist(&envlst, env);
 	argv[0] += 2;
 	while (argc)
+	// int fd = open("tests/file_tests/cd_tests.txt", O_RDONLY);
+	// int i = 0;
+	// while (get_next_line(fd, &line) > 0)
 	{
-		line = readline(&histlist, dir_add);
+		// ft_putnbr_fd(++i, 1);
+		// ft_putendl_fd(line, 1);
+		 	line = readline(&histlist, dir_add);
 		if (line)
 		{
 			cmd_lst = get_cmds(line);
@@ -115,12 +119,7 @@ int
 	return (0);
 }
 
-
 //если курсор близко к краю терминала - не работает
-// дописать функции
-// проверка существования файла (если папка, а не файл)
-//исправить 777 в создании файла
 // изменение окна терминала починить
 // история как в баше (звездочки, изменения строк и т.д. и т.п.)
 // обработчик ошибок
-// сигналы

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 12:02:35 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 15:52:59 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int
 	rez = 0;
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
-	if (!all_add)
+	if (!all_add || !ft_strncmp(all_add, dir_add, ft_strlen(all_add) + 1))
 		add = ft_strdup(dir_add);
 	else
 		add = ft_strjoin (all_add, dir_add);
@@ -149,12 +149,18 @@ static int
 	}
 	else
 	{
-		dir = ft_calloc(sizeof(char), PATH_MAX);
-		getcwd(dir, PATH_MAX - 1);
-		dir = ft_ownrealloc(&ft_strjoin, &dir, "/");
+		if (add_dir[0] == '/')
+			dir = 0;
+		else
+		{
+			dir = ft_calloc(sizeof(char), PATH_MAX);
+			getcwd(dir, PATH_MAX - 1);
+			dir = ft_ownrealloc(&ft_strjoin, &dir, "/");
+		}
 	}
 	rez = check_dir(envlst, add_dir, dir);
-	free(dir);
+	if (dir)
+		free(dir);
 	return (rez);
 	
 }
