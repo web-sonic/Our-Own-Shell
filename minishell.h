@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 11:52:21 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 11:56:30 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	ft_cd(char **line, t_list **envlst, char *home_add);
 void    execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst);
 char    *parse_token(char **str, t_list *envlst);
+char	**getallenv(t_list *envlst);
 
 #endif

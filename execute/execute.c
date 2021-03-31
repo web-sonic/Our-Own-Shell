@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 19:52:38 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/30 21:12:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,56 @@ void
 	free(cmd);
 }
 
+char
+	*get_cmd(char *cmd, char *path)
+{
+	char	**paths;
+	int		i;
+	char	*cmd_name;
+	struct	stat buff;
+
+	paths = ft_split(path, ':');
+	i = 0;
+	while (paths[i])
+	{
+		cmd_name = ft_strjoin(paths[i], "/");
+		cmd_name = ft_ownrealloc(&ft_strjoin, &cmd_name, cmd);
+		stat(cmd_name, &buff);
+		if (buff.st_mode != 0)
+			break;
+		i++;
+		free(cmd_name);
+	}
+	if (paths[i])
+		return (cmd_name);
+	else
+		return (cmd);
+}
+
 int
 	cmd_bin(char **args, t_list *envlst)
 {
 	pid_t	ret;
 	char	**env;
+	char	*cmd;
 
 	ret = fork();
+	env = getallenv(envlst);
+	cmd = get_cmd(args[0], ft_getenv("PATH", envlst));
 	if (ret == 0)
 	{
-		execve(args[0], args, env);
-		perror(args[0]);
-		exit(1);
+		execve(cmd, args, env);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(args[0], 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		g_error = (short)errno;
+		exit(2);
 	}
+	else
+		waitpid(ret, &g_error, 0);
+	ft_wordtab_clear(env);
+	free(cmd);
 }
 
 int
@@ -107,10 +144,11 @@ int
 		ft_export(args, &envlst);
 	else if (!ft_strncmp(args[0], "pwd", 4))
 		ft_pwd();
-	else if (!ft_strncmp(args[0], "unset", 6))
-		ft_unset(args, &envlst);
+//	else if (!ft_strncmp(args[0], "unset", 6))
+//		ft_unset(args, &envlst);cd 
 	else
 		cmd_bin(args, envlst);
+	return (0);
 }
 
 void
@@ -138,7 +176,6 @@ void
 			cmd_clear(cmd);
 		}
 		unset_fd(&fds);
-		waitpid(ret, NULL, 0);
 		cmd_lst = cmd_lst->next;
 	}
 }
