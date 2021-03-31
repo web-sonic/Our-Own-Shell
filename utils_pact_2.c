@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 15:43:53 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 13:18:35 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,6 @@ void
 }
 
 char
-	*ft_getenv(const char *name, t_list	*envlst)
-{
-	int		len;
-	t_env	*enviroment;
-	char	*str;
-
-	str = 0;
-	len = ft_strlen(name);
-	while(envlst)
-	{
-		enviroment = envlst->content;
-		if(!ft_strncmp(name, enviroment->value, len + 1))
-			return (ft_strdup(enviroment->argum));
-		envlst = envlst->next;
-	}
-	return (ft_calloc(sizeof(char), 1));
-}
-
-char
 	**ft_wordtab_realloc(char **wordtab, char *str)
 {
 	char	**tmp_tab;
@@ -89,25 +70,4 @@ char
 	wordtab[i + 1] = 0;
 	ft_wordtab_clear(tmp_tab);
 	return (wordtab);
-}
-
-void
-	line_split(t_env *arr_arg, char *line)
-{
-	int i;
-
-	i = 1;
-	if(!ft_strchr(line, '='))
-	{
-		arr_arg->value = ft_strdup(line);
-		arr_arg->equally = 0;
-	}
-	else
-	{
-		arr_arg->value = ft_substr(line, 0, super_strlen(0, '=', line));
-		while (line[i] != '=')
-			i++;
-		arr_arg->argum = ft_substr(line, i + 1, super_strlen(i + 1, '\0', line));
-		arr_arg->equally = 1;
-	}
 }
