@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 14:33:21 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 11:58:51 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void
 	int		error;
 	t_list	*tmp_lstenv;
 
-	i = -1;
+	i = 0;
 	error = 0;
 	tmp_lstenv = *envlst;
-	if(!line[0])
+	if(!line[1])
 	{
 		print_env(tmp_lstenv);
 		return;
