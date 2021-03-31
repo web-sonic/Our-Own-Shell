@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 21:13:18 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:56:47 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static int
 			if(!ft_strncmp(enviroment->value, "PWD", 4))
 				dub_and_free(&(enviroment->argum), dir_add);
 			if(!ft_strncmp(enviroment->value, "OLDPWD", 7))
+			{
 				dub_and_free(&(enviroment->argum), dir_pwd);
+				enviroment->equally = 1;
+			}
 			pwd_lst = pwd_lst->next;
 		}
 	}
