@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 16:38:11 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:51:49 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,38 @@ char
 		return (cmd_name);
 	}
 	ft_wordtab_clear(paths);
-	return (cmd);
+	return (0);
+}
+
+void
+	print_error2(char *str)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	if (strchr(str, '/'))
+	{
+		if (open(str, O_RDONLY | O_DIRECTORY) >= 0)
+		{
+			ft_putendl_fd("is directory.", 2);
+			g_error = 126;
+		}
+		else if (open(str, O_RDWR) < 0)
+		{
+			ft_putendl_fd(strerror(errno), 2);
+			g_error = 127;
+		}
+		else
+		{
+			ft_putendl_fd("Permission denied", 2);
+			g_error = 126;
+		}
+	}
+	else
+	{
+		ft_putendl_fd("command not found", 1);
+		g_error = 127;
+	}
 }
 
 void
@@ -128,8 +159,10 @@ void
 		waitpid(ret, &h, 0);
 	g_error = h / 256;
 	ft_wordtab_clear(env);
-	if (ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
+	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
+	if (g_error > 1)
+		print_error2(args[0]);
 }
 
 int
