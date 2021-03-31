@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 11:56:47 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 12:02:35 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,19 +159,19 @@ static int
 	
 }
 
-void
+int
 	ft_cd(char **line, t_list **envlst, char *home_add)
 {
 	if (!line[1])
-		home_arg(envlst);
+		return (home_arg(envlst));
 	else if (!ft_strncmp(line[1], ".", 2))
-		return;
+		return (0);
 	else if (!ft_strncmp(line[1], "..", 3))
-		two_dot(envlst);
+		return (two_dot(envlst));
 	else if (!ft_strncmp(line[1], "-", 2))
-		divis(envlst);
+		return (divis(envlst));
 	else if (!ft_strncmp(line[1], "--", 3) || !ft_strncmp(line[1], "~", 2))
-		home_arg(envlst);
+		return (home_arg(envlst));
 	else
-		add_dir(envlst, line[1], home_add);
+		return (add_dir(envlst, line[1], home_add));
 }

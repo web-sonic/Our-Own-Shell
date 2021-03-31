@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 11:58:08 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:21:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_exit(char **line);
 void	ft_env(t_list **envlst);
 void	ft_export(char **line, t_list **envlst);
 void	ft_unset(char **line, t_list **envlst);
-void	ft_cd(char **line, t_list **envlst, char *home_add);
+int		ft_cd(char **line, t_list **envlst, char *home_add);
 
 void    execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst);
