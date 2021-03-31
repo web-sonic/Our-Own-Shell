@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 19:52:26 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 11:51:59 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ void
 	i = 0;
 	n = 2;
 	ft_putendl_fd("exit", 1);
-	if (line[1] && line[0])
+	if (line[1] && line[2])
 		ft_putendl_fd("bash: exit: too many arguments", 2);
-	else if(!line[1] && line[0])
+	else if(!line[2] && line[1])
 	{
-		if (line[0][i] == '-')
+		if (line[1][i] == '-')
 			i++;
-		while (line[0][i] && ft_isdigit(line[0][i]))
+		while (line[1][i] && ft_isdigit(line[1][i]))
 			i++;
-		if (i == (int)ft_strlen(line[0]))
+		if (i == (int)ft_strlen(line[1]))
 		{
-			n = super_atoi(line[0]);
+			n = super_atoi(line[1]);
 			if (i == ft_nbrlen(n, 10))
 				exit(n);
 		}
 		ft_putstr_fd("minishell: exit: ", 1);
-		ft_putstr_fd(line[0], 1);
+		ft_putstr_fd(line[1], 1);
 		ft_putendl_fd(": numeric argument required", 2);
 	}
 	else
