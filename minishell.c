@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/30 21:12:19 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:56:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int
 	t_list	*cmd_lst;
 	t_list	*envlst;
 
+	signal(SIGINT, &signal_handler);
+	signal(SIGQUIT, &signal_handler);
 	histlist = 0;
 	envlst = 0;
 	dir_add = find_way();

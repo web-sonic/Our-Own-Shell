@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   readline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 15:23:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 11:44:49 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,7 @@ void
 
 	tputs(restore_cursor, 1, ft_putchar);
 	tputs(delete_line, 1, ft_putchar);
-	//tputs(tigetstr("ed"), 1, ft_putchar);
 	ft_putstr_fd("minishell> ", 1);
-
 	if (direction == 0)
 		swap_argument_str_up(&reader->rem_str, &reader->tmp_str, histlist);
 	else if (direction ==1)

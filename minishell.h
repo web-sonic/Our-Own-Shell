@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 21:12:41 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:51:38 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void    execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst);
 char    *parse_token(char **str, t_list *envlst);
 char	**getallenv(t_list *envlst);
+void	signal_handler(int key);
 
 #endif
