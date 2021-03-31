@@ -6,13 +6,13 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/30 20:02:32 by ctragula         ###   ########.fr        #
+#    Updated: 2021/03/31 11:08:36 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		readline.c \
-		signal.c \
+		readline_utils.c \
 		utils_pact_1.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
