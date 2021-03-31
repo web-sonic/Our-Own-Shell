@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 19:49:26 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:47:16 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ t_cmd
 		}
 		if (*token)
 			if (add_token(cmd, token, is_redirect))
-				return (0);
+				return (cmd_clear(cmd));
 	}
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 12:21:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:19:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_cmd	*parser(char *str, t_list *envlst);
 char    *parse_token(char **str, t_list *envlst);
 char	**getallenv(t_list *envlst);
 void	signal_handler(int key);
+t_cmd	*cmd_clear(t_cmd *cmd);
 
 #endif

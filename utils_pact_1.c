@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/30 20:20:31 by sgath            ###   ########.fr       */
+/*   Updated: 2021/03/31 13:58:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ int
 char
 	*mod_address(char *dir_add)
 {
-	int	len;
+	char	*str;
 
-	len = ft_strlen(dir_add);
-
-	while(dir_add[--len] != '/')
-		dir_add[len] = 0;
+	str = ft_strrchr(dir_add, '/');
+	if (str)
+		*str = 0; 
 	return (dir_add);
 }

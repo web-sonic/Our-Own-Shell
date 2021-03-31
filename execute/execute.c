@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 12:29:22 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:51:26 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ void
 	close(fds->tmpout);
 }
 
-void
-	cmd_clear(t_cmd *cmd)
+t_cmd
+	*cmd_clear(t_cmd *cmd)
 {
-	ft_wordtab_clear(cmd->args);
+	if (cmd->args)
+		ft_wordtab_clear(cmd->args);
 	free(cmd);
+	return (0);
 }
 
 char
@@ -120,15 +122,11 @@ void
 	if (ret == 0)
 	{
 		execve(cmd, args, env);
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(strerror(errno), 2);
 		exit(errno);
 	}
 	else
 		waitpid(ret, &h, 0);
-	g_error = h;
+	g_error = h / 256;
 	ft_wordtab_clear(env);
 	if (ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
@@ -137,10 +135,15 @@ void
 int
 	cmd_execute(char **args, t_list *envlst, char *dir_add)
 {
-	if (!ft_strncmp(args[0], "echo", 5))
+	if (*args == 0)
+	{
+		free(*args);
+		return (1);
+	}
+	else if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(args);
 	else if (!ft_strncmp(args[0], "cd", 3))
-		ft_cd(args, &envlst, dir_add);
+		g_error = ft_cd(args, &envlst, dir_add);
 	else if (!ft_strncmp(args[0], "env", 4))
 		ft_env(&envlst);
 	else if (!ft_strncmp(args[0], "exit", 5))
@@ -163,7 +166,6 @@ void
 	t_fdstruct	fds;
 	t_bool		last_cmd;
 	t_list		*pipe_lst;
-	pid_t		ret;
 
 	while (cmd_lst)
 	{
@@ -172,12 +174,14 @@ void
 		last_cmd = FALSE;
 		while (pipe_lst)
 		{
-			cmd = parser(pipe_lst->content, envlst);
+			if (!(cmd = parser(pipe_lst->content, envlst)))
+				break ;
 			pipe_lst = pipe_lst->next;
 			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			ret = cmd_execute(cmd->args, envlst, dir_add);
+			if (cmd_execute(cmd->args, envlst, dir_add))
+				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}
 		unset_fd(&fds);

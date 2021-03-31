@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 12:18:43 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:56:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ void
 	int			i;
 	long long	n;
 	i = 0;
-	n = 2;
+	n = 0;
 	ft_putendl_fd("exit", 1);
 	if (line[1] && line[2])
-		ft_putendl_fd("bash: exit: too many arguments", 2);
+	{
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		n = 1;
+	}
 	else if(!line[2] && line[1])
 	{
 		if (line[1][i] == '-')
@@ -65,8 +68,7 @@ void
 		ft_putstr_fd("minishell: exit: ", 1);
 		ft_putstr_fd(line[1], 1);
 		ft_putendl_fd(": numeric argument required", 2);
+		n = 255;
 	}
-	else
-		n = 0;
 	exit(n);
 }

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 14:36:54 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:10:21 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ t_list
 		len = 0;
 		while (ft_strchr(SPACES, line[len]))
 			len++;
+		if (line[len] == stop_symbol)
+			return (error_parse(PARSE_ERROR, stop_symbol));
 		while (line[len] && line[len] != stop_symbol)
 		{
 			if (line[len] == QUOTE || line[len] == DQUOTE)
