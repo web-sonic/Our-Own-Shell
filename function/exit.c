@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 12:56:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:27:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ long long	super_atoi(const char *str)
 	return (number);
 }
 
-void
+int
 	ft_exit(char **line)
 {
 	int			i;
@@ -70,5 +70,5 @@ void
 		ft_putendl_fd(": numeric argument required", 2);
 		n = 255;
 	}
-	exit(n);
+	return (n);
 }

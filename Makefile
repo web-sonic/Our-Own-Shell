@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/03/31 13:48:51 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/01 13:55:21 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ SRCS =	minishell.c \
 		./function/exit.c \
 		./function/pwd.c \
 		./function/export.c \
-		./function/cd.c \
 		./function/unset.c \
 		getallenv.c \
 		signal_handler.c \
 		utils_env.c \
+		#./function/cd.c \
 
 LIB =	libft/libft.a 
 

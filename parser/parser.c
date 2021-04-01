@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 11:05:06 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:49:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static int
 }
 
 static char
-	*treat_backslash(char **str, int quote, t_list *envlst)
+	*treat_backslash(char **str, int quote, t_list *envlst, char *dir_addr)
 {
 	char	*left_token;
 	char	*right_token;
@@ -125,10 +125,10 @@ static char
 	if (quote)
 	{
 		(*str)--;
-		right_token = treat_quotes(str, quote, envlst);
+		right_token = treat_quotes(str, quote, envlst, dir_addr);
 	}
 	else if (**str)
-		right_token = parse_token(str, envlst);
+		right_token = parse_token(str, envlst, dir_addr);
 	else
 		right_token = ft_calloc(sizeof(char), 1);
 	token = ft_strjoin(left_token, right_token);
@@ -143,7 +143,7 @@ static char
 	int		len;
 	char	*token;
 
-
+	(*str)++;
 	if (**str == '?')
 	{
 		(*str)++;
@@ -164,22 +164,40 @@ static char
 	return(ft_getenv(token, envlst));
 }
 
+static char
+	*get_tilda_var(char **str, char *dir_addr)
+{
+	char	*token;
+
+	(*str)++;
+	if (!(**str))
+		token = ft_strdup(dir_addr);
+	else if ((**str) == '/')
+		token = ft_strdup(dir_addr);
+	else
+		token = ft_strdup("~");
+	return(token);
+}
+
 char
-	*treat_dollar(char **str, int quote, t_list *envlst)
+	*treat_dollar(char **str, int quote, t_list *envlst, char *dir_addr)
 {
 	char	*left_token;
 	char	*right_token;
 	char	*token;
 
-	(*str)++;
-	left_token = get_dollar_var(str, envlst);
+
+	if (**str == DOLLAR)
+		left_token = get_dollar_var(str, envlst);
+	else
+		left_token = get_tilda_var(str, dir_addr);
 	if (quote)
 	{
 		(*str)--;
-		right_token = treat_quotes(str, quote, envlst);
+		right_token = treat_quotes(str, quote, envlst, dir_addr);
 	}
 	else if (**str)
-		right_token = parse_token(str, envlst);
+		right_token = parse_token(str, envlst, dir_addr);
 	else
 		right_token = ft_calloc(sizeof(char), 1);
 	token = ft_strjoin(left_token, right_token);
@@ -196,7 +214,7 @@ char
 ** @return char *token полученный аргумент
 */
 char
-	*treat_quotes(char **str, int quote, t_list *envlst)
+	*treat_quotes(char **str, int quote, t_list *envlst, char *dir_addr)
 {
 	size_t	len;
 	char	*left_token;
@@ -214,11 +232,11 @@ char
 	left_token = ft_substr(*str, 0, len);
 	*str += len;
 	if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, quote, envlst));
+		token = ft_strjoin(left_token, treat_backslash(str, quote, envlst, dir_addr));
 	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(str, quote, envlst));
+		token = ft_strjoin(left_token, treat_dollar(str, quote, envlst, 0));
 	else if (*(*str)++)
-		token = ft_strjoin(left_token, parse_token(str, envlst));
+		token = ft_strjoin(left_token, parse_token(str, envlst, dir_addr));
 	else
 		token = ft_calloc(sizeof(char), 1);
 	free(left_token);
@@ -227,7 +245,7 @@ char
 
 
 char
-	*parse_token(char **str, t_list *envlst)
+	*parse_token(char **str, t_list *envlst, char *dir_addr)
 {
 	size_t	len;
 	char	*token;
@@ -239,11 +257,11 @@ char
 	left_token = ft_substr(*str, 0, len);
 	(*str) += len;
 	if (**str == QUOTE || **str == DQUOTE)
-		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst));
+		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst, dir_addr));
 	else if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, 0, envlst));
-	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(str, 0, envlst));
+		token = ft_strjoin(left_token, treat_backslash(str, 0, envlst, dir_addr));
+	else if (**str == DOLLAR || **str == '~')
+		token = ft_strjoin(left_token, treat_dollar(str, 0, envlst, dir_addr));
 	else
 		token = ft_strdup(left_token);
 	free(left_token);
@@ -273,7 +291,7 @@ static char
 }
 
 t_cmd
-	*parser(char *str, t_list *envlst)
+	*parser(char *str, t_list *envlst, char *dir_addr)
 {
 	t_cmd	*cmd;
 	char	*token;
@@ -292,7 +310,7 @@ t_cmd
 		}
 		else if (*str)
 		{
-			token = parse_token(&str, envlst);
+			token = parse_token(&str, envlst, dir_addr);
 			is_redirect = FALSE;
 		}
 		if (token && *token)

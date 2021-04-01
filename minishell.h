@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 13:53:25 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:30:57 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list  *get_cmds(char *line);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),
 			char **s1, char *s2);
 char    *treat_str(char **str);
-char    *treat_quotes(char **str, int quote, t_list *envlst);
+char    *treat_quotes(char **str, int quote, t_list *envlst, char *dir_addr);
 t_list  *split_cmdlst(char *line, int stop_symbol);
 char    *treat_str(char **str);
 char	**ft_wordtab_realloc(char **wordtab, char *str);
@@ -72,18 +72,18 @@ char	*mod_address(char *dir_add);
 
 int		ft_echo(char **line);
 int		ft_pwd(void);
-void	ft_exit(char **line);
+int		ft_exit(char **line);
 int		ft_env(t_list **envlst);
 int		ft_export(char **line, t_list *envlst);
 void	ft_unset(char **line, t_list **envlst);
-int		ft_cd(char **line, t_list *envlst, char *home_add);
+//int		ft_cd(char **line, t_list *envlst, char *home_add);
 void	*return_content(void *content);
 void	free_env(void *env);
 void	line_split(t_env *arr_arg, char *line);
 
 void    execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
-t_cmd	*parser(char *str, t_list *envlst);
-char    *parse_token(char **str, t_list *envlst);
+t_cmd	*parser(char *str, t_list *envlst, char *dir_addr);
+char    *parse_token(char **str, t_list *envlst, char *dir_addr);
 char	**getallenv(t_list *envlst);
 void	signal_handler(int key);
 t_cmd	*cmd_clear(t_cmd *cmd);

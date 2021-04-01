@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 13:47:48 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 15:07:14 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,21 @@ void
 	ft_lstadd_back(envlst, ft_lstnew(enviroment));
 }
 
+int
+	empty_line(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i] && ft_strchr(SPACES, line[i]))
+		i++;
+	if (!line[i])
+	{
+		g_error = 0;
+		return (1);
+	}
+	return (0);
+}
 /* 
 ** @params: char **env: массив переменных окружения
 ** TODO: Имитирует работу шелла
@@ -103,7 +118,7 @@ int
 	while (argc)
 	{
 	 	line = readline(&histlist, dir_add);
-		if (line)
+		if (line && !empty_line(line))
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
 				line[ft_strlen(line) - 1] = 0;
