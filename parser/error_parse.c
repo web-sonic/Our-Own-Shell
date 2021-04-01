@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:16 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 16:51:32 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 07:51:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ t_list
 }
 
 void
-	file_error(char *str)
+	file_error(char *file, char *error)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(str, 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(error, 2);
 }

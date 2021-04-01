@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 14:10:21 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 07:08:51 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,13 @@ t_list
 	while (*line)
 	{
 		len = 0;
-		while (ft_strchr(SPACES, line[len]))
+		while (line[len] && ft_strchr(SPACES, line[len]))
 			len++;
+		if (len != 0)
+		{
+			line += len;
+			len = 0;
+		}
 		if (line[len] == stop_symbol)
 			return (error_parse(PARSE_ERROR, stop_symbol));
 		while (line[len] && line[len] != stop_symbol)
@@ -93,8 +98,8 @@ t_list
 			else
 				len++;
 		}
-		token = ft_strldup(line, len + 1);
-		line += len + 1;
+		token = ft_substr(line, 0, len);
+		line += (line[len]) ? len + 1 : len;
 		if (!(*token) && *line)
 			return (error_parse(PARSE_ERROR, stop_symbol));
 		ft_lstadd_back(&cmd_lst, ft_lstnew(token));

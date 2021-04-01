@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/29 14:20:04 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 10:53:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 typedef struct		s_cmd
 {
+	t_bool			is_fdin;
+	t_bool			is_fdout;
 	int				add_fd;
 	int				fdin;
 	int				fdout;

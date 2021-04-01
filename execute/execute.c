@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 17:51:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:51:11 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void
 {
 	int	fdpipe[2];
 
-	if (cmd->fdin)
+	if (cmd->is_fdin)
 	{
 		dup2(cmd->fdin, 0);
 		close(cmd->fdin);
@@ -30,7 +30,7 @@ void
 	}
 	if (last_cmd)
 	{
-		(cmd->fdout) ? fds->fdout = dup(cmd->fdout) :
+		(cmd->is_fdout) ? fds->fdout = dup(cmd->fdout) :
 			(fds->fdout = dup(fds->tmpout));
 	}
 	else
@@ -39,7 +39,7 @@ void
 		fds->fdin = fdpipe[0];
 		fds->fdout = fdpipe[1];
 	}
-	if (!cmd->fdout)
+	if (!cmd->is_fdout)
 	{
 		dup2(fds->fdout, 1);
 		close(fds->fdout);
@@ -75,24 +75,29 @@ t_cmd
 {
 	if (cmd->args)
 		ft_wordtab_clear(cmd->args);
+	close(cmd->fdin);
+	close(cmd->fdout);
+	cmd->fdin = 0;
+	cmd->fdout = 0;
 	free(cmd);
 	return (0);
 }
 
 char
-	*get_cmd(char *cmd, char *path)
+	*get_cmd(char **cmd, char *path, char *dir_add)
 {
 	char	**paths;
 	int		i;
 	char	*cmd_name;
 	struct	stat buff;
+	char	*tmp;
 
 	paths = ft_split(path, ':');
 	i = 0;
 	while (paths[i])
 	{
 		cmd_name = ft_strjoin(paths[i], "/");
-		cmd_name = ft_ownrealloc(&ft_strjoin, &cmd_name, cmd);
+		cmd_name = ft_ownrealloc(&ft_strjoin, &cmd_name, *cmd);
 		stat(cmd_name, &buff);
 		if (buff.st_mode != 0)
 			break;
@@ -105,7 +110,19 @@ char
 		return (cmd_name);
 	}
 	ft_wordtab_clear(paths);
-	return (0);
+	if ((*cmd)[0] == '~' && !(*cmd)[1])
+	{
+		free(*cmd);
+		*cmd = ft_strdup(dir_add);
+	}
+	else if ((*cmd)[0] == '~' && (*cmd)[1] == '/')
+	{
+		tmp = ft_substr(*cmd, 1, ft_strlen(*cmd) - 1);
+		free(*cmd);
+		*cmd = ft_strjoin(dir_add, tmp);
+		free(tmp);
+	}
+	return (*cmd);
 }
 
 void
@@ -140,16 +157,16 @@ void
 }
 
 void
-	cmd_bin(char **args, t_list *envlst)
+	cmd_bin(char **args, t_list *envlst, char *dir_add)
 {
 	pid_t	ret;
 	char	**env;
 	char	*cmd;
 	int		h;
 
-	ret = fork();
 	env = getallenv(envlst);
-	cmd = get_cmd(args[0], ft_getenv("PATH", envlst));
+	cmd = get_cmd(args, ft_getenv("PATH", envlst), dir_add);
+	ret = fork();
 	if (ret == 0)
 	{
 		execve(cmd, args, env);
@@ -165,9 +182,34 @@ void
 		print_error2(args[0]);
 }
 
+void
+	ft_dot()
+{
+	g_error = 2;
+	ft_putendl_fd("minishell: .: filename argument required", 2);
+	ft_putendl_fd(".: usage: . filename [arguments]", 2);
+}
+
+void
+	ft_users()
+{
+	g_error = 126;
+	ft_putendl_fd("minishell: /Users: is a directory", 2);
+}
+
 int
 	cmd_execute(char **args, t_list *envlst, char *dir_add)
 {
+	char	*tmp;
+	size_t	i;
+
+	i = 0;
+	tmp = ft_strdup(args[0]);
+	while (tmp[i])
+	{
+		tmp[i] = ft_tolower(tmp[i]);
+		i++;
+	}
 	if (*args == 0)
 	{
 		free(*args);
@@ -187,8 +229,13 @@ int
 		ft_pwd();
 	else if (!ft_strncmp(args[0], "unset", 6))
 		ft_unset(args, &envlst);
+	else if (!ft_strncmp(args[0], ".", 2))
+		ft_dot();
+	else if (!ft_strncmp(args[0], "/Users", 7))
+		ft_users();
 	else
-		cmd_bin(args, envlst);
+		cmd_bin(args, envlst, dir_add);
+	free(tmp);
 	return (0);
 }
 

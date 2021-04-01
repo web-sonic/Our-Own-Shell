@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 13:58:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:56:59 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ int
 	ft_putchar(int c)
 {
 	return (write(1, &c, 1));
-}
-
-char
-	*ft_strldup(char *str, size_t len)
-{
-	char	*dst;
-
-	dst = ft_calloc(len, sizeof(char));
-	ft_strlcpy(dst, str, len);
-	dst[len] = 0;
-	return (dst);
 }
 
 char
@@ -53,10 +42,12 @@ int
 char
 	*mod_address(char *dir_add)
 {
+	char	*new_dir;
 	char	*str;
 
-	str = ft_strrchr(dir_add, '/');
+	new_dir = ft_strdup(dir_add);
+	str = ft_strrchr(new_dir, '/');
 	if (str)
 		*str = 0; 
-	return (dir_add);
+	return (new_dir);
 }

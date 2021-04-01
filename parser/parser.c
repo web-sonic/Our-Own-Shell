@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 15:47:16 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:05:06 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,26 @@ static t_cmd
 	cmd = malloc(sizeof(t_cmd));
 	cmd->args = ft_calloc(sizeof(char *), 1);
 	(cmd->args)[0] = 0;
-	cmd->fdin = 0;
-	cmd->fdout = 0;
+	cmd->fdin = -1;
+	cmd->fdout = -1;
 	cmd->add_fd = -1;
-
+	cmd->is_fdin = FALSE;
+	cmd->is_fdin = FALSE;
 	return (cmd);
 }
 
 static int
 	add_fdin(t_cmd *cmd, char *token)
 {
-	if (cmd->fdin)
+	if (cmd->is_fdin)
 		close(cmd->fdin);
-	if ((cmd->fdin = open(token, O_CREAT | O_RDONLY)) < 0)
+	if ((cmd->fdin = open(token, O_CREAT | O_RDONLY, S_IRWXU)) < 0)
 	{
 		g_error = errno;
-		file_error(strerror(errno));
+		file_error(token, strerror(errno));
 		return (0);
 	}
+	cmd->is_fdin = TRUE;
 	cmd->add_fd = -1;
 	return (1);
 }
@@ -45,26 +47,28 @@ static int
 static int
 	add_fdout(t_cmd *cmd, char *token)
 {
-	if (cmd->fdout)
+	if (cmd->is_fdout)
 		close(cmd->fdout);
 	if (cmd->add_fd == 1)
 	{
-		cmd->fdout = open(token, O_CREAT | O_WRONLY | O_TRUNC |O_APPEND);
+		cmd->fdout = open(token, O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, S_IRWXU);
 		if (cmd->fdout < 0)
 		{
 			g_error = errno;
-			file_error(strerror(errno));
+			file_error(token, strerror(errno));
 			return (0);
 		}
+		cmd->is_fdout = TRUE;
 		cmd->add_fd = -1;
 		return (1);
 	}
-	if ((cmd->fdout = open(token, O_CREAT | O_WRONLY |O_APPEND)) < 0)
+	if ((cmd->fdout = open(token, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU)) < 0)
 	{
 		g_error = errno;
-		file_error(strerror(errno));
+		file_error(token, strerror(errno));
 		return (0);
 	}
+	cmd->is_fdout = TRUE;
 	cmd->add_fd = -1;
 	return (1);
 }
@@ -116,7 +120,7 @@ static char
 	(*str)++;
 	if (!**str)
 		return (ft_calloc(sizeof(char), 1));
-	left_token = ft_strldup(*str, 2);
+	left_token = ft_substr(*str, 0, 1);
 	(*str)++;
 	if (quote)
 	{
@@ -154,7 +158,7 @@ static char
 	{
 		while(ft_isalnum((*str)[len]) || (*str)[len] == '_')
 			len++;
-		token = ft_strldup(*str, len + 1);
+		token = ft_substr(*str, 0, len);
 	}
 	(*str) += len;
 	return(ft_getenv(token, envlst));
@@ -207,7 +211,7 @@ char
 	len = 0;
 	while ((*str)[len] && !ft_strchr(stop_symbols, (*str)[len]))
 		len++;
-	left_token = ft_strldup(*str, len + 1);
+	left_token = ft_substr(*str, 0, len);
 	*str += len;
 	if (**str == BACKSLASH)
 		token = ft_strjoin(left_token, treat_backslash(str, quote, envlst));
@@ -232,9 +236,8 @@ char
 	len = 0;
 	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 		len++;
-	left_token = ft_strldup(*str, len + 1);
+	left_token = ft_substr(*str, 0, len);
 	(*str) += len;
-
 	if (**str == QUOTE || **str == DQUOTE)
 		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst));
 	else if (**str == BACKSLASH)
@@ -260,11 +263,11 @@ static char
 
 	if ((*str)[1] == GREAT)
 	{
-		token = ft_strldup(*str, 3);
+		token = ft_substr(*str, 0, 2);
 		*str += 2;
 	}
 	else
-		token = ft_strldup((*str)++, 2);
+		token = ft_substr((*str)++, 0, 1);
 	
 	return (token);
 }
@@ -277,6 +280,7 @@ t_cmd
 	t_bool	is_redirect;
 
 	cmd = init_cmd();
+	token = 0;
 	while (*str && *str != DIEZ)
 	{
 		while (*str && ft_strchr(SPACES, *str))
@@ -291,9 +295,14 @@ t_cmd
 			token = parse_token(&str, envlst);
 			is_redirect = FALSE;
 		}
-		if (*token)
+		if (token && *token)
 			if (add_token(cmd, token, is_redirect))
 				return (cmd_clear(cmd));
+	}
+	if (is_redirect)
+	{
+		error_parse(PARSE_ERROR, 0);
+		return(cmd_clear(cmd));
 	}
 	return (cmd);
 }

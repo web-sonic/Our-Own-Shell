@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 16:37:55 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 07:49:59 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,13 @@ void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
 t_list  *get_cmds(char *line);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),
 			char **s1, char *s2);
-char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char    *treat_quotes(char **str, int quote, t_list *envlst);
 t_list  *split_cmdlst(char *line, int stop_symbol);
-char	*ft_strldup(char *str, size_t len);
 char    *treat_str(char **str);
 char	**ft_wordtab_realloc(char **wordtab, char *str);
 t_list  *error_parse(char *str, int c);
-void	file_error(char *str);
+void	file_error(char *file, char *error);
 
 char	*readline(t_dlist **histlist, char *dir_add);
 void	check_signal(char **rem_str, char *str);

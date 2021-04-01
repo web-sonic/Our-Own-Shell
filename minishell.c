@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 17:55:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:47:48 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,12 @@ int
 	init_envlist(&envlst, env);
 	argv[0] += 2;
 	while (argc)
-	// int fd = open("tests/file_tests/cd_tests.txt", O_RDONLY);
-	// int i = 0;
-	// while (get_next_line(fd, &line) > 0)
 	{
-		// ft_putnbr_fd(++i, 1);
-		// ft_putendl_fd(line, 1);
-		 	line = readline(&histlist, dir_add);
+	 	line = readline(&histlist, dir_add);
 		if (line)
 		{
+			if (line[ft_strlen(line) - 1] == '\n')
+				line[ft_strlen(line) - 1] = 0;
 			cmd_lst = get_cmds(line);
 			if (cmd_lst)
 				execute(cmd_lst, envlst, mod_address(dir_add));
@@ -125,4 +122,3 @@ int
 // обработчик ошибок
 // обработка путей
 // /Users - отдельная ошибка
-// . - отдельная ошибка
