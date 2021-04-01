@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 13:51:11 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/01 17:20:45 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ int
 	else if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(args);
 	else if (!ft_strncmp(args[0], "cd", 3))
-		g_error = ft_cd(args, &envlst, dir_add);
+		g_error = ft_cd(args, envlst);
 	else if (!ft_strncmp(args[0], "env", 4))
 		ft_env(&envlst);
 	else if (!ft_strncmp(args[0], "exit", 5))
