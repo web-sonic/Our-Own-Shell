@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main_for_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 22:13:09 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 22:36:32 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,12 @@ int
 	dir_add = find_way();
 	init_histlist(&histlist, dir_add);
 	init_envlist(&envlst, env);
+	int fd = open("tests/file_tests/error_tests.txt", O_RDONLY);
 	argv[0] += 2;
-	while (argc)
+	int i = 0;
+	while (get_next_line(fd, &line) > 0)
 	{
-	 	line = readline(&histlist, dir_add);
+	 	ft_putnbr_fd(i++, 1);
 		if (line && !empty_line(line))
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
@@ -131,6 +133,7 @@ int
 			cmd_lst = get_cmds(line);
 			if (cmd_lst)
 				execute(cmd_lst, envlst, mod_address(dir_add));
+			free(line);
 		}
 	}
 	ft_dlstclear(&histlist, free);

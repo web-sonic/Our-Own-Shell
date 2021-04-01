@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 17:33:26 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 19:34:24 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void
 }
 
 int
-	cmd_execute(char **args, t_list *envlst)
+	cmd_execute(char **args, t_list *envlst, int pipe)
 {
 	char	*tmp;
 	size_t	i;
@@ -213,11 +213,11 @@ int
 	else if (!ft_strncmp(args[0], "exit", 5))
 		g_error = ft_exit(args);
 	else if (!ft_strncmp(args[0], "export", 7))
-		ft_export(args, envlst);
+		ft_export(args, envlst, pipe);
 	else if (!ft_strncmp(args[0], "pwd", 4))
 		ft_pwd();
 	else if (!ft_strncmp(args[0], "unset", 6))
-		ft_unset(args, &envlst);
+		ft_unset(args, &envlst, pipe);
 	else if (!ft_strncmp(args[0], ".", 2))
 		ft_dot();
 	else if (!ft_strncmp(args[0], "/Users", 7))
@@ -249,7 +249,7 @@ void
 			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			if (cmd_execute(cmd->args, envlst))
+			if (cmd_execute(cmd->args, envlst, last_cmd))
 				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}

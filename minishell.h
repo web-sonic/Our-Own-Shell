@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 17:32:55 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 19:35:00 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		ft_echo(char **line);
 int		ft_pwd(void);
 int		ft_exit(char **line);
 int		ft_env(t_list **envlst);
-int		ft_export(char **line, t_list *envlst);
-void	ft_unset(char **line, t_list **envlst);
+int		ft_export(char **line, t_list *envlst, int pipe);
+void	ft_unset(char **line, t_list **envlst, int pipe);
 int		ft_cd(char **line, t_list *envlst);
 void	*return_content(void *content);
 void	free_env(void *env);

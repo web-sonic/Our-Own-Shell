@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 13:18:59 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/01 19:35:45 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ char
 {
 	int		len;
 	t_env	*enviroment;
-	char	*str;
 
-	str = 0;
 	len = ft_strlen(name);
 	while(envlst)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 13:17:23 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/01 19:32:21 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int
 }
 
 int
-	ft_export(char **line, t_list *envlst)
+	ft_export(char **line, t_list *envlst, int pipe)
 {
 	int		i;
 	int		j;
@@ -97,6 +97,8 @@ int
 	tmp_lstenv = envlst;
 	if(!line[1])
 		return (print_env(tmp_lstenv));
+	if (pipe == 0)
+		return (0);
 	while (line[++i])
 	{
 		error = 0;

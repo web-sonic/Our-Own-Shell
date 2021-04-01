@@ -6,21 +6,21 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 18:11:12 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 19:29:48 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 void
-	ft_unset(char **line, t_list **envlst)
+	ft_unset(char **line, t_list **envlst, int pipe)
 {
 	t_env	*enviroment;
 	t_list	*tmp_lstenv;
 	t_list	*next_lstenv;
 	int		i;
 
-	if(!line[1])
+	if(!line[1] || pipe == 0)
 		return ;
 	enviroment = (*envlst)->content;
 	i = 0;
