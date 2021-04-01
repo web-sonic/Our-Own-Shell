@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 17:20:45 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 17:33:26 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void
 	dup2(fds->tmpout, 1);
 	close(fds->tmpin);
 	close(fds->tmpout);
+	close(fds->fdin);
+	close(fds->fdout);
 }
 
 t_cmd
@@ -79,18 +81,19 @@ t_cmd
 	close(cmd->fdout);
 	cmd->fdin = 0;
 	cmd->fdout = 0;
+	cmd->is_fdin = FALSE;
+	cmd->is_fdout = FALSE;
 	free(cmd);
 	return (0);
 }
 
 char
-	*get_cmd(char **cmd, char *path, char *dir_add)
+	*get_cmd(char **cmd, char *path)
 {
 	char	**paths;
 	int		i;
 	char	*cmd_name;
 	struct	stat buff;
-	char	*tmp;
 
 	paths = ft_split(path, ':');
 	i = 0;
@@ -110,18 +113,6 @@ char
 		return (cmd_name);
 	}
 	ft_wordtab_clear(paths);
-	if ((*cmd)[0] == '~' && !(*cmd)[1])
-	{
-		free(*cmd);
-		*cmd = ft_strdup(dir_add);
-	}
-	else if ((*cmd)[0] == '~' && (*cmd)[1] == '/')
-	{
-		tmp = ft_substr(*cmd, 1, ft_strlen(*cmd) - 1);
-		free(*cmd);
-		*cmd = ft_strjoin(dir_add, tmp);
-		free(tmp);
-	}
 	return (*cmd);
 }
 
@@ -157,15 +148,16 @@ void
 }
 
 void
-	cmd_bin(char **args, t_list *envlst, char *dir_add)
+	cmd_bin(char **args, t_list *envlst)
 {
 	pid_t	ret;
 	char	**env;
 	char	*cmd;
 	int		h;
 
+	h = 0;
 	env = getallenv(envlst);
-	cmd = get_cmd(args, ft_getenv("PATH", envlst), dir_add);
+	cmd = get_cmd(args, ft_getenv("PATH", envlst));
 	ret = fork();
 	if (ret == 0)
 	{
@@ -178,8 +170,8 @@ void
 	ft_wordtab_clear(env);
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
-	if (g_error > 1)
-		print_error2(args[0]);
+	if (g_error > 1 && g_error != 126 && g_error != 127)
+		print_error2(args[0]);	
 }
 
 void
@@ -198,31 +190,28 @@ void
 }
 
 int
-	cmd_execute(char **args, t_list *envlst, char *dir_add)
+	cmd_execute(char **args, t_list *envlst)
 {
 	char	*tmp;
 	size_t	i;
 
 	i = 0;
+	if (*args == 0)
+		return (1);
 	tmp = ft_strdup(args[0]);
 	while (tmp[i])
 	{
 		tmp[i] = ft_tolower(tmp[i]);
 		i++;
 	}
-	if (*args == 0)
-	{
-		free(*args);
-		return (1);
-	}
-	else if (!ft_strncmp(args[0], "echo", 5))
-		ft_echo(args);
+	if (!ft_strncmp(args[0], "echo", 5))
+		g_error = ft_echo(args);
 	else if (!ft_strncmp(args[0], "cd", 3))
 		g_error = ft_cd(args, envlst);
 	else if (!ft_strncmp(args[0], "env", 4))
 		ft_env(&envlst);
 	else if (!ft_strncmp(args[0], "exit", 5))
-		ft_exit(args);
+		g_error = ft_exit(args);
 	else if (!ft_strncmp(args[0], "export", 7))
 		ft_export(args, envlst);
 	else if (!ft_strncmp(args[0], "pwd", 4))
@@ -234,7 +223,7 @@ int
 	else if (!ft_strncmp(args[0], "/Users", 7))
 		ft_users();
 	else
-		cmd_bin(args, envlst, dir_add);
+		cmd_bin(args, envlst);
 	free(tmp);
 	return (0);
 }
@@ -254,16 +243,18 @@ void
 		last_cmd = FALSE;
 		while (pipe_lst)
 		{
-			if (!(cmd = parser(pipe_lst->content, envlst)))
+			if (!(cmd = parser(pipe_lst->content, envlst, dir_add)))
 				break ;
 			pipe_lst = pipe_lst->next;
 			if (!pipe_lst)
 				last_cmd = TRUE;
 			set_fds(&fds, cmd, last_cmd);
-			if (cmd_execute(cmd->args, envlst, dir_add))
+			if (cmd_execute(cmd->args, envlst))
 				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}
+		if (!cmd)
+			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
 	}

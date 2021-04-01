@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 13:49:01 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 18:11:12 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void
 				tmp_lstenv->next = next_lstenv->next;
 				ft_lstdelone(next_lstenv, &free_env);
 				next_lstenv = tmp_lstenv->next;
-				
 			}
 		}
 		tmp_lstenv = tmp_lstenv->next;
-		next_lstenv = next_lstenv->next;
+		// здесь сега
+		if (next_lstenv)
+			next_lstenv = next_lstenv->next;
 	}
 }

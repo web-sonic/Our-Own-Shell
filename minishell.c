@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 17:20:20 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 18:06:52 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,21 @@ void
 	ft_lstadd_back(envlst, ft_lstnew(enviroment));
 }
 
+int
+	empty_line(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i] && ft_strchr(SPACES, line[i]))
+		i++;
+	if (!line[i])
+	{
+		g_error = 0;
+		return (1);
+	}
+	return (0);
+}
 /* 
 ** @params: char **env: массив переменных окружения
 ** TODO: Имитирует работу шелла
@@ -103,7 +118,7 @@ int
 	while (argc)
 	{
 	 	line = readline(&histlist, dir_add);
-		if (line)
+		if (line && !empty_line(line))
 		{
 			if (line[ft_strlen(line) - 1] == '\n')
 				line[ft_strlen(line) - 1] = 0;
@@ -119,6 +134,3 @@ int
 //если курсор близко к краю терминала - не работает
 // изменение окна терминала починить
 // история как в баше (звездочки, изменения строк и т.д. и т.п.)
-// обработчик ошибок
-// обработка путей
-// /Users - отдельная ошибка

@@ -6,7 +6,7 @@
 /*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 17:21:53 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/01 18:02:39 by yu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,21 @@ static char
 	return (NULL);
 }
 static int
-	check_dir(t_list *envlst, char *dir_add)
+	check_dir(t_list *envlst, char *dir_add, char *old_line)
 {
 	t_list	*pwd_lst;
 	t_env	*enviroment;
 	char	*dir_pwd;
 	
 	if (chdir(dir_add) == -1)
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		(!old_line) ? ft_putstr_fd(dir_add, 2) : ft_putstr_fd(old_line, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 		return (1);
+	}
 	pwd_lst = envlst;
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
@@ -50,7 +57,7 @@ static int
 		}
 		pwd_lst = pwd_lst->next;
 	}
-	free (pwd_lst);
+	free (dir_pwd);
 	return (0);
 }
 
@@ -67,7 +74,7 @@ static int
 			ft_putendl_fd(" not set", 2);
 			return (1);
 	}
-	return (check_dir(envlst, dir_add));
+	return (check_dir(envlst, dir_add, 0));
 }
 
 
@@ -86,7 +93,7 @@ static int
 	}
 	else
 		dir_pwd = ft_strdup(dir_add);
-	rez = check_dir(envlst, dir_pwd);
+	rez = check_dir(envlst, dir_pwd, dir_add);
 	free (dir_pwd);
 	return (rez);
 }
@@ -105,22 +112,7 @@ int
 	if (rez == -1 && !ft_strncmp(line[1], "--", 3))
 		rez = ret_dir(envlst, "HOME");
 	tmp = line[1];
-	if (rez == -1 && line[1][0] == '~' && (line[1][1] == '\0' || line[1][1] == '/'))
-	{
-		rez = ret_dir(envlst,"HOME");
-		if (line[1][1] == '/')
-			rez = -1;
-		tmp += 2;
-	}
 	if (rez == -1)
 		rez = full_dir(envlst, tmp);
-	if (rez == 1)
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(line[1], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-	}
 	return (rez);
 }
