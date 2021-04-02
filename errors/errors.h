@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/28 15:56:27 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:40:26 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@
 # define NUM_ERROR_DIR 2
 # define NUM_ERROR_PARSE 258
 
+int		cd_error(char *dir_str, char *old_str);
+void	exit_error(char *line);
+int		export_error(char *str, int *error);
 
 #endif

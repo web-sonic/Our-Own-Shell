@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 19:35:00 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 18:46:50 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 # include <string.h>
 # include "./libft/libft.h"
 # include "structures.h"
-# include "errors.h"
+# include "./errors/errors.h"
 # include "lexer.h"
 # include "./gnl/get_next_line.h"
+# include "./function/function.h"
 
 # define BUF_STR 5
 
@@ -70,13 +71,6 @@ void	line_split(t_env *arr_arg, char *line);
 int		cmp_sort(t_env *cont, t_env *next);
 char	*mod_address(char *dir_add);
 
-int		ft_echo(char **line);
-int		ft_pwd(void);
-int		ft_exit(char **line);
-int		ft_env(t_list **envlst);
-int		ft_export(char **line, t_list *envlst, int pipe);
-void	ft_unset(char **line, t_list **envlst, int pipe);
-int		ft_cd(char **line, t_list *envlst);
 void	*return_content(void *content);
 void	free_env(void *env);
 void	line_split(t_env *arr_arg, char *line);

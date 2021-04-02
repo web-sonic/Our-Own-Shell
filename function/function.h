@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:45:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/02 18:47:20 by sgath            ###   ########.fr       */
+/*   Created: 2021/04/02 18:44:42 by sgath             #+#    #+#             */
+/*   Updated: 2021/04/02 18:45:58 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef FUNCTION_H
+# define FUNCTION_H
 
-void
-	signal_handler(int key)
-{
-	if (key == 2)
-	{
-		ft_putchar_fd('\n', 1);
-		g_error = 130;
-	}
-	if (key == 3)
-	{
-		ft_putendl_fd("Quit: 3", 1);
-		g_error = 131;
-	}
-}
+int		ft_echo(char **line);
+int		ft_pwd(void);
+int		ft_exit(char **line);
+int		ft_env(t_list **envlst);
+int		ft_export(char **line, t_list *envlst, int pipe);
+void	ft_unset(char **line, t_list **envlst, int pipe);
+int		ft_cd(char **line, t_list *envlst);
+
+#endif

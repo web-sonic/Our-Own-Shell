@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 19:35:45 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 18:26:41 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 void
 	line_split(t_env *arr_arg, char *line)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	if(!ft_strchr(line, '='))
+	if (!ft_strchr(line, '='))
 	{
-		arr_arg->value = ft_strdup(line);
-		arr_arg->argum = NULL;
+		arr_arg->val = ft_strdup(line);
+		arr_arg->arg = NULL;
 		arr_arg->equally = 0;
 	}
 	else
 	{
-		arr_arg->value = ft_substr(line, 0, super_strlen(0, '=', line));
+		arr_arg->val = ft_substr(line, 0, super_strlen(0, '=', line));
 		while (line[i] != '=')
 			i++;
-		arr_arg->argum = ft_substr(line, i + 1, super_strlen(i + 1, '\0', line));
+		arr_arg->arg = ft_substr(line, i + 1, super_strlen(i + 1, '\0', line));
 		arr_arg->equally = 1;
 	}
 }
@@ -37,13 +37,13 @@ void
 void
 	free_env(void *env)
 {
-	t_env *enviroment;
+	t_env	*envt;
 
-	enviroment = env;
-	if (enviroment->argum)
-		free(enviroment->argum);
-	free(enviroment->value);
-	free(enviroment);
+	envt = env;
+	if (envt->arg)
+		free(envt->arg);
+	free(envt->val);
+	free(envt);
 }
 
 void
@@ -53,17 +53,17 @@ void
 }
 
 char
-	*ft_getenv(const char *name, t_list	*envlst)
+	*ft_getenv(const char *name, t_list *envlst)
 {
 	int		len;
-	t_env	*enviroment;
+	t_env	*envt;
 
 	len = ft_strlen(name);
-	while(envlst)
+	while (envlst)
 	{
-		enviroment = envlst->content;
-		if(!ft_strncmp(name, enviroment->value, len + 1))
-			return (ft_strdup(enviroment->argum));
+		envt = envlst->content;
+		if (!ft_strncmp(name, envt->val, len + 1))
+			return (ft_strdup(envt->arg));
 		envlst = envlst->next;
 	}
 	return (ft_calloc(sizeof(char), 1));

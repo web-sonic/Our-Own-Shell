@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pact_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 11:56:59 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:25:05 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char
 int
 	super_strlen(int start, char symbol, char *str)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[start] != symbol && str[start++])
 		len++;
-	return(len);
+	return (len);
 }
 
 char
@@ -48,6 +48,6 @@ char
 	new_dir = ft_strdup(dir_add);
 	str = ft_strrchr(new_dir, '/');
 	if (str)
-		*str = 0; 
+		*str = 0;
 	return (new_dir);
 }

@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   readline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/31 11:44:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:34:18 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/* 
-** @params: t_str *reader: структура со строками, нужными для записи в листы
-**			struct termios *term: стандартные настройки терминала
-** TODO: cmnd_d: завершает работу с минишелом, если строка пустая
-*/
+
 void
 	cmnd_d(t_str *reader, struct termios *term)
 {
@@ -23,22 +19,16 @@ void
 	{
 		ft_putstr_fd("exit\n", 1);
 		dub_and_free(&reader->rem_str, "\n");
-		tcsetattr(0,  TCSANOW, term);
+		tcsetattr(0, TCSANOW, term);
 		exit(0);
 	}
 }
 
-/*
-** @params: struct termios *s_term:
-** TODO: running_term: измение параметров терминала
-** @return : 0 - если изменения терминала прошло успешно
-**			 1 - если при изменении терминала произошла ошибка
-*/
 int
 	running_term(struct termios *s_term)
 {
-	char	*temp_name;
-	struct termios term;
+	char			*temp_name;
+	struct termios	term;
 
 	temp_name = ft_strdup("xterm-256color");
 	if (!temp_name)
@@ -54,12 +44,6 @@ int
 	return (0);
 }
 
-/* 
-** @params: char **rem_str: строка, хранящаяя символы введеные с консоли
-**			char **tmp_str: строка для временного хранения не записонной строки в лист
-**			char **histlist: листы с командами
-** TODO: swap_argument_str_up: заменяет одну строку на другую
-*/
 static void
 	swap_argument_str_up(char **rem_str, char **tmp_str, t_dlist **histlist)
 {
@@ -79,12 +63,6 @@ static void
 	ft_putstr_fd(*rem_str, 1);
 }
 
-/*
-** @params: char **rem_str: строка, хранящаяя символы введеные с консоли
-**			char **tmp_str: строка для временного хранения не записонной строки в лист
-**			t_dlist **histlist: листы с командами
-** TODO: swap_argument_str_down: заменяет одну строку на другую
-*/
 static void
 	swap_argument_str_down(char **rem_str, char **tmp_str, t_dlist **histlist)
 {
@@ -95,7 +73,7 @@ static void
 	}
 	else
 	{
-		if	(!(*rem_str) || ft_strncmp(*rem_str, "", 1))
+		if (!(*rem_str) || ft_strncmp(*rem_str, "", 1))
 		{
 			if (*tmp_str)
 			{
@@ -110,23 +88,16 @@ static void
 	ft_putstr_fd(*rem_str, 1);
 }
 
-/* 
-** @params: int direction: направление стрелочек: 0 вверх, 1 вниз
-**			t_str *reader: структура со строками, нужными для записи в листы
-**			t_dlist **histlist: листы с командами
-** TODO: swap_argument_str_down: заменяет одну строку на другую
-*/
 void
 	swap_argument_str(int direction, t_str *reader, t_dlist **histlist)
 {
 	if (!(*histlist))
-		return;
-
+		return ;
 	tputs(restore_cursor, 1, ft_putchar);
 	tputs(delete_line, 1, ft_putchar);
 	ft_putstr_fd("minishell> ", 1);
 	if (direction == 0)
 		swap_argument_str_up(&reader->rem_str, &reader->tmp_str, histlist);
-	else if (direction ==1)
+	else if (direction == 1)
 		swap_argument_str_down(&reader->rem_str, &reader->tmp_str, histlist);
 }

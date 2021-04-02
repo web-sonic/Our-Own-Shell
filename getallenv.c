@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getallenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 18:44:33 by ctragula          #+#    #+#             */
-/*   Updated: 2021/03/31 11:59:17 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char
 	while (envlst)
 	{
 		var = envlst->content;
-		tmp = ft_strjoin(var->value, "=");
-		env[i] = ft_strjoin(tmp, var->argum);
+		tmp = ft_strjoin(var->val, "=");
+		env[i] = ft_strjoin(tmp, var->arg);
 		free(tmp);
 		i++;
 		envlst = envlst->next;

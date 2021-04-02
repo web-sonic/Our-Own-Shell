@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_for_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 22:36:32 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,25 @@ void
 {
 	int		i;
 	int		lvl;
-	t_env	*enviroment;
+	t_env	*envt;
 
 	i = -1;
 	while (env[++i])
 	{
-		enviroment = malloc(sizeof(t_env));
-		line_split(enviroment, env[i]);
-		if (!ft_strncmp("SHLVL", enviroment->value, 6))
+		envt = malloc(sizeof(t_env));
+		line_split(envt, env[i]);
+		if (!ft_strncmp("SHLVL", envt->val, 6))
 		{
-			lvl = ft_atoi(enviroment->argum);
-			enviroment->argum = ft_itoa(lvl + 1);
+			lvl = ft_atoi(envt-arg);
+			envt-arg = ft_itoa(lvl + 1);
 		}
-		ft_lstadd_back(envlst, ft_lstnew(enviroment));
+		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
-	enviroment = malloc(sizeof(t_env));
-	enviroment->argum = NULL;
-	enviroment->value = ft_strdup("OLDPWD");
-	enviroment->equally = 0;
-	ft_lstadd_back(envlst, ft_lstnew(enviroment));
+	envt = malloc(sizeof(t_env));
+	envt-arg = NULL;
+	envt->val = ft_strdup("OLDPWD");
+	envt->equally = 0;
+	ft_lstadd_back(envlst, ft_lstnew(envt));
 }
 
 int

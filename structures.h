@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 10:53:07 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct		s_str
 
 typedef struct		s_env
 {
-	char			*value;
-	char			*argum;
+	char			*val;
+	char			*arg;
 	int				equally;
 }					t_env;
 

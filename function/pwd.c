@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:02 by sgath             #+#    #+#             */
-/*   Updated: 2021/03/28 18:24:47 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/02 18:12:10 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int
 	ft_pwd(void)
 {
-	char *dir;
+	char	*dir;
 
 	dir = ft_calloc(sizeof(char), PATH_MAX);
 	if (!dir)
-		return(1);
+		return (1);
 	if (!getcwd(dir, PATH_MAX - 1))
 		return (1);
 	ft_putendl_fd(dir, 1);

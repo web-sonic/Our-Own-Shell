@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 19:32:21 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 18:11:51 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 int
 	cmp_sort(t_env *cont, t_env *next)
 {
-	return (ft_strncmp(cont->value, next->value, ft_strlen(cont->value) + 1));
+	return (ft_strncmp(cont->val, next->val, ft_strlen(cont->val) + 1));
 }
 
 static int
 	print_env(t_list *tmp_lstenv)
 {
-	t_env	*enviroment;
+	t_env	*envt;
 	t_list	*sort_lst;
 
 	sort_lst = ft_lstmap(tmp_lstenv, &return_content, free_env);
 	ft_lstsort(&sort_lst, &cmp_sort);
 	while (sort_lst)
 	{
-		enviroment = sort_lst->content;
+		envt = sort_lst->content;
 		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(enviroment->value, 1);
-		if(enviroment->equally == 1)
+		ft_putstr_fd(envt->val, 1);
+		if (envt->equally == 1)
 		{
 			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(enviroment->argum, 1);
+			ft_putstr_fd(envt->arg, 1);
 			ft_putchar_fd('"', 1);
 		}
 		ft_putchar_fd('\n', 1);
@@ -48,7 +48,7 @@ void
 {
 	int		add;
 	t_list	*tmp_lstenv;
-	t_env	*enviroment;
+	t_env	*envt;
 	t_env	*arr_arg;
 
 	arr_arg = malloc(sizeof(t_env));
@@ -57,13 +57,12 @@ void
 	add = 0;
 	while (tmp_lstenv && add == 0)
 	{
-		enviroment = tmp_lstenv->content;
-		if (!ft_strncmp(arr_arg->value, enviroment->value, ft_strlen(arr_arg->value) + 1))
+		envt = tmp_lstenv->content;
+		if (!ft_strncmp(arr_arg->val, envt->val, ft_strlen(arr_arg->val) + 1))
 		{
-			if (arr_arg->argum)
-				enviroment->equally = dub_and_free(&(enviroment->argum), arr_arg->argum);
+			if (arr_arg->arg)
+				envt->equally = dub_and_free(&(envt->arg), arr_arg->arg);
 			add = 1;
-			break ;
 		}
 		tmp_lstenv = tmp_lstenv->next;
 	}
@@ -72,15 +71,6 @@ void
 		tmp_lstenv = envlst;
 		ft_lstadd_back(&tmp_lstenv, ft_lstnew(arr_arg));
 	}
-}
-
-int
-	print_error(char *str)
-{
-	ft_putstr_fd("minishell: export: `", 1);
-	ft_putstr_fd(str, 1);
-	ft_putendl_fd("': not a valid identifier", 1);
-	return (1);
 }
 
 int
@@ -95,7 +85,7 @@ int
 	i = 0;
 	rez = 0;
 	tmp_lstenv = envlst;
-	if(!line[1])
+	if (!line[1])
 		return (print_env(tmp_lstenv));
 	if (pipe == 0)
 		return (0);
@@ -104,11 +94,9 @@ int
 		error = 0;
 		j = -1;
 		while (line[i][++j])
-			if (line[i][j] != '_' && !ft_isalnum(line[i][j]) && !ft_isalpha(line[i][0]))
-			{
-				error = print_error(line[i]);
-				rez = error;
-			}
+			if (line[i][j] != '_' && !ft_isalnum(line[i][j]) &&
+				ft_isalpha(line[i][0]))
+				rez = export_error(line[i], &error);
 		if (error != 1)
 			add_line(line[i], envlst);
 	}

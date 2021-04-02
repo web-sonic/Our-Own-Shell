@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yu <yu@student.42.fr>                      +#+  +:+       +#+         #
+#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/01 22:14:00 by yu               ###   ########.fr        #
+#    Updated: 2021/04/02 17:05:44 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main_for_test.c \
+SRCS =	minishell.c\
 		readline.c \
 		readline_utils.c \
 		utils_pact_1.c \
@@ -32,6 +32,7 @@ SRCS =	main_for_test.c \
 		./function/export.c \
 		./function/unset.c \
 		./function/cd.c \
+		./errors/error_ft.c \
 		getallenv.c \
 		signal_handler.c \
 		utils_env.c \
