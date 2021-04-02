@@ -1,3 +1,4 @@
+
 echo
 echo echo
 eCho 
@@ -43,7 +44,7 @@ echo '\" ' " \"\""
 echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
 echo "$USER""$USER""$USER"
 echo text"$USER"test
-echo '$USER' "$USER" "text \' text"
+echo '$USER' "$USER" "text \' text" ??????
 echo '$USER'
 echo $USER " "
 echo "$USER""Users/$USER/file""'$USER'"'$USER'

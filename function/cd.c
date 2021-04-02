@@ -6,44 +6,22 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/02 19:44:44 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char
-	*find_in_lst(t_list *envlst, char *name)
-{
-	t_env	*envt;
-
-	while (envlst)
-	{
-		envt = envlst->content;
-		if (!ft_strncmp(envt->val, name, ft_strlen(name) + 1))
-			return (envt->arg);
-		envlst = envlst->next;
-	}
-	return (NULL);
-}
-
-static int
-	check_dir(t_list *envlst, char *dir_add, char *old_line)
+static void
+	add_env(t_list *envlst, char *dir_pwd)
 {
 	t_list	*pwd_lst;
 	t_env	*envt;
-	char	*dir_pwd;
 
-	if (chdir(dir_add) == -1)
-		cd_error(dir_add, old_line);
 	pwd_lst = envlst;
-	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
-	getcwd(dir_pwd, PATH_MAX - 1);
 	while (pwd_lst)
 	{
 		envt = pwd_lst->content;
-		if (!ft_strncmp(envt->val, "PWD", 4))
-			dub_and_free(&(envt->arg), dir_add);
 		if (!ft_strncmp(envt->val, "OLDPWD", 7))
 		{
 			dub_and_free(&(envt->arg), dir_pwd);
@@ -51,6 +29,29 @@ static int
 		}
 		pwd_lst = pwd_lst->next;
 	}
+	pwd_lst = envlst;
+	while (pwd_lst)
+	{
+		envt = pwd_lst->content;
+		if (!ft_strncmp(envt->val, "PWD", 4))
+		{
+			getcwd(dir_pwd, PATH_MAX - 1);
+			dub_and_free(&(envt->arg), dir_pwd);
+		}
+		pwd_lst = pwd_lst->next;
+	}
+}
+
+static int
+	check_dir(t_list *envlst, char *dir_add, char *old_line)
+{
+	char	*dir_pwd;
+
+	if (chdir(dir_add) == -1)
+		return (cd_error(dir_add, old_line));
+	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
+	getcwd(dir_pwd, PATH_MAX - 1);
+	add_env(envlst, dir_pwd);
 	free(dir_pwd);
 	return (0);
 }
@@ -59,8 +60,18 @@ static int
 	ret_dir(t_list *envlst, char *name)
 {
 	char	*dir_add;
+	t_list	*tmp_lst;
+	t_env	*envt;
 
-	dir_add = find_in_lst(envlst, name);
+	dir_add = NULL;
+	tmp_lst = envlst;
+	while (tmp_lst)
+	{
+		envt = tmp_lst->content;
+		if (!ft_strncmp(envt->val, name, ft_strlen(name) + 1))
+			dir_add = envt->arg;
+		tmp_lst = tmp_lst->next;
+	}
 	if (!dir_add)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
@@ -77,7 +88,9 @@ static int
 	char	*dir_pwd;
 	int		rez;
 
-	if (dir_add[0] != '/')
+	if (!ft_strncmp(dir_add, "..", 3))
+		dir_pwd = ft_strdup(dir_add);
+	else if (dir_add[0] != '/')
 	{
 		dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 		getcwd(dir_pwd, PATH_MAX - 1);
@@ -100,6 +113,8 @@ int
 	rez = -1;
 	if (!line[1])
 		return (ret_dir(envlst, "HOME"));
+	if (!ft_strncmp(line[1], ".", 2))
+		rez = 0;
 	if (rez == -1 && !ft_strncmp(line[1], "-", 2))
 		rez = ret_dir(envlst, "OLDPWD");
 	if (rez == -1 && !ft_strncmp(line[1], "--", 3))

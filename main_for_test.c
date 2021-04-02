@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/02 19:54:37 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void
 		line_split(envt, env[i]);
 		if (!ft_strncmp("SHLVL", envt->val, 6))
 		{
-			lvl = ft_atoi(envt-arg);
-			envt-arg = ft_itoa(lvl + 1);
+			lvl = ft_atoi(envt->arg);
+			envt->arg = ft_itoa(lvl + 1);
 		}
 		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
 	envt = malloc(sizeof(t_env));
-	envt-arg = NULL;
+	envt->arg = NULL;
 	envt->val = ft_strdup("OLDPWD");
 	envt->equally = 0;
 	ft_lstadd_back(envlst, ft_lstnew(envt));
@@ -122,10 +122,8 @@ int
 	init_envlist(&envlst, env);
 	int fd = open("tests/file_tests/error_tests.txt", O_RDONLY);
 	argv[0] += 2;
-	int i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-	 	ft_putnbr_fd(i++, 1);
 		if (line && !empty_line(line))
 		{
 			if (line[ft_strlen(line) - 1] == '\n')

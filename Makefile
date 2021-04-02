@@ -6,11 +6,11 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/02 17:05:44 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/02 19:53:27 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	minishell.c\
+SRCS =	main_for_test.c\
 		readline.c \
 		readline_utils.c \
 		utils_pact_1.c \

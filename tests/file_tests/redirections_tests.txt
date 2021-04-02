@@ -1,4 +1,4 @@
-- Redirection part : For next tests, you will need : \\\033[0;33m echo, cd, execve, pipes and semicolons (;).
+
 ls -la > tmp/file ; cat tmp/file
 ifconfig | grep "192.168" > tmp/file ; cat tmp/file
 echo text > tmp/file text2 > tmp/file1 ; cat tmp/file tmp/file1
