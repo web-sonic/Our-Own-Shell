@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 19:29:48 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 08:25:49 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void
+int
 	ft_unset(char **line, t_list **envlst, int pipe)
 {
 	t_env	*enviroment;
@@ -21,7 +21,7 @@ void
 	int		i;
 
 	if(!line[1] || pipe == 0)
-		return ;
+		return (0);
 	enviroment = (*envlst)->content;
 	i = 0;
 	tmp_lstenv = *envlst;
@@ -49,8 +49,8 @@ void
 			}
 		}
 		tmp_lstenv = tmp_lstenv->next;
-		// здесь сега
 		if (next_lstenv)
 			next_lstenv = next_lstenv->next;
 	}
+	return (0);
 }

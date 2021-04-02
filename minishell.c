@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 22:13:09 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 10:46:56 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char
-	*find_way(void)
+	*get_homepath(void)
 {
 	char	*dir;
 	char	*str;
@@ -44,6 +44,7 @@ static void
 	int		i;
 	char	*line;
 	
+	*histlist = 0;
 	fd = open(dir_add, O_RDONLY | O_CREAT, 0755);
 	if (fd < 0)
 	{
@@ -51,8 +52,13 @@ static void
 		exit(1);
 	}
 	while ((i = get_next_line(fd, &line)) > 0)
+	{
 		if(line[0] != '\0')
 			ft_dlstadd_back(histlist, ft_dlstnew(line));
+		else
+			free(line);
+	}
+	free(line);
 	if (i == -1)
 		exit(1);
 	close(fd);
@@ -66,6 +72,7 @@ void
 	t_env	*enviroment;
 
 	i = -1;
+	*envlst = 0;
 	while (env[++i])
 	{
 		enviroment = malloc(sizeof(t_env));
@@ -73,10 +80,12 @@ void
 		if (!ft_strncmp("SHLVL", enviroment->value, 6))
 		{
 			lvl = ft_atoi(enviroment->argum);
+			free(enviroment->argum);
 			enviroment->argum = ft_itoa(lvl + 1);
 		}
 		ft_lstadd_back(envlst, ft_lstnew(enviroment));
 	}
+	free_env(enviroment);
 	enviroment = malloc(sizeof(t_env));
 	enviroment->argum = NULL;
 	enviroment->value = ft_strdup("OLDPWD");
@@ -84,7 +93,7 @@ void
 	ft_lstadd_back(envlst, ft_lstnew(enviroment));
 }
 
-int
+static int
 	empty_line(char *line)
 {
 	size_t	i;
@@ -95,11 +104,43 @@ int
 	if (!line[i])
 	{
 		g_error = 0;
+		if (!i)
+			free(line);
 		return (1);
 	}
 	return (0);
 }
-/* 
+
+void
+	clear_doublelst(void *content)
+{
+	t_list	*lst;
+
+	lst = content;
+	ft_lstclear(&lst, &free);
+}
+
+void
+	shell(t_dlist **histlist, t_list *envlst, char *dir_add)
+{
+	char	*line;
+	t_list	*cmd_lst;
+
+	line = readline(histlist, dir_add);
+	if (line && !empty_line(line))
+	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = 0;
+		cmd_lst = get_cmds(line);
+		if (cmd_lst)
+		{
+			execute(cmd_lst, envlst, mod_address(dir_add));
+			ft_lstclear(&cmd_lst, &clear_doublelst);
+		}
+	}
+}
+
+/*
 ** @params: char **env: массив переменных окружения
 ** TODO: Имитирует работу шелла
 ** @return 0
@@ -108,35 +149,24 @@ int
 	main(int argc, char **argv, char **env)
 {
 	t_dlist	*histlist;
-	char	*line;
 	char	*dir_add;
-	t_list	*cmd_lst;
 	t_list	*envlst;
 
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, &signal_handler);
-	histlist = 0;
-	envlst = 0;
-	dir_add = find_way();
+	dir_add = get_homepath();
 	init_histlist(&histlist, dir_add);
 	init_envlist(&envlst, env);
-	argv[0] += 2;
+	(void)argv[0];
 	while (argc)
-	{
-	 	line = readline(&histlist, dir_add);
-		if (line && !empty_line(line))
-		{
-			if (line[ft_strlen(line) - 1] == '\n')
-				line[ft_strlen(line) - 1] = 0;
-			cmd_lst = get_cmds(line);
-			if (cmd_lst)
-				execute(cmd_lst, envlst, mod_address(dir_add));
-		}
-	}
-	ft_dlstclear(&histlist, free);
+	 	shell(&histlist, envlst, dir_add);
 	return (0);
 }
 
 //если курсор близко к краю терминала - не работает
 // изменение окна терминала починить
 // история как в баше (звездочки, изменения строк и т.д. и т.п.)
+// поиск ошибок
+// выделение памяти
+// нормы
+// комментарии

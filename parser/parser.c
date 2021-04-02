@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 17:55:15 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/02 11:09:52 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,24 @@ static int
 }
 
 static int
+	check_redirect(char *token, int *flag)
+{
+	if (*flag != -1)
+	{
+		error_parse(PARSE_ERROR, token[0]);
+		free(token);
+		return (1);
+	}
+	if (token[0] == LOW)
+		*flag = 0;
+	if (token[0] == GREAT && !token[1])
+		*flag = 1;
+	else if (token[0] == GREAT)
+		*flag = 2;
+	return (0);
+}
+
+static int
 	add_token(t_cmd *cmd, char *token, t_bool is_redirect)
 {
 	t_bool	error;
@@ -81,17 +99,8 @@ static int
 	error = FALSE;
 	if (is_redirect)
 	{
-		if (cmd->add_fd != -1)
-		{
-			error_parse(PARSE_ERROR, token[0]);
+		if (check_redirect(token, &(cmd->add_fd)))
 			return (TRUE);
-		}
-		if (token[0] == LOW)
-			cmd->add_fd = 0;
-		if (token[0] == GREAT && !token[1])
-			cmd->add_fd = 1;
-		else if (token[0] == GREAT)
-			cmd->add_fd = 2;
 	}
 	else if (!cmd->add_fd)
 	{
@@ -105,7 +114,7 @@ static int
 	}
 	else 
 		cmd->args = ft_wordtab_realloc(cmd->args, token);
-	//free(token);
+	free(token);
 	*token = 0;
 	return (error);
 }
@@ -217,29 +226,29 @@ char
 	*treat_quotes(char **str, int quote, t_list *envlst, char *dir_addr)
 {
 	size_t	len;
-	char	*left_token;
+	char	*right_token;
 	char	*token;
 	char	*stop_symbols;
 
 	(*str)++;
-	if (quote == QUOTE)
-		stop_symbols = "'";
-	else
-		stop_symbols = "\\\"$";
+	stop_symbols = (quote == QUOTE) ? "'" : "\\\"$";
 	len = 0;
 	while ((*str)[len] && !ft_strchr(stop_symbols, (*str)[len]))
 		len++;
-	left_token = ft_substr(*str, 0, len);
+	token = ft_substr(*str, 0, len);
 	*str += len;
-	if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, quote, envlst, dir_addr));
-	else if (**str == DOLLAR)
-		token = ft_strjoin(left_token, treat_dollar(str, quote, envlst, 0));
-	else if (*(*str)++)
-		token = ft_strjoin(left_token, parse_token(str, envlst, dir_addr));
-	else
-		token = ft_calloc(sizeof(char), 1);
-	free(left_token);
+	if (**str)
+	{
+		if (**str == BACKSLASH)
+			right_token = treat_backslash(str, quote, envlst, dir_addr);
+		else if (**str == DOLLAR)
+			right_token = treat_dollar(str, quote, envlst, 0);
+		else
+			right_token = (*(*str)++) ? parse_token(str, envlst, dir_addr) :
+				ft_calloc(sizeof(char), 1);
+		token = ft_ownrealloc(&ft_strjoin, &token, right_token);
+		free(right_token);
+	}
 	return (token);
 }
 
@@ -249,22 +258,26 @@ char
 {
 	size_t	len;
 	char	*token;
-	char	*left_token;
+	char	*right_token;
 
 	len = 0;
 	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 		len++;
-	left_token = ft_substr(*str, 0, len);
+	token = ft_substr(*str, 0, len);
+	right_token = 0;
 	(*str) += len;
-	if (**str == QUOTE || **str == DQUOTE)
-		token = ft_strjoin(left_token, treat_quotes(str, **str, envlst, dir_addr));
-	else if (**str == BACKSLASH)
-		token = ft_strjoin(left_token, treat_backslash(str, 0, envlst, dir_addr));
-	else if (**str == DOLLAR || **str == '~')
-		token = ft_strjoin(left_token, treat_dollar(str, 0, envlst, dir_addr));
-	else
-		token = ft_strdup(left_token);
-	free(left_token);
+	if (**str && ft_strchr(SPEC_SYMBOLS, **str))
+	{
+		if (**str == QUOTE || **str == DQUOTE)
+			right_token = treat_quotes(str, **str, envlst, dir_addr);
+		else if (**str == BACKSLASH)
+			right_token = treat_backslash(str, 0, envlst, dir_addr);
+		else
+			right_token = treat_dollar(str, 0, envlst, dir_addr);
+		token = ft_ownrealloc(&ft_strjoin, &token, right_token);
+	}
+	if (right_token)
+		free(right_token);
 	return (token);
 }
 
@@ -298,9 +311,9 @@ t_cmd
 	t_bool	is_redirect;
 
 	cmd = init_cmd();
-	token = 0;
 	while (*str && *str != DIEZ)
 	{
+		token = 0;
 		while (*str && ft_strchr(SPACES, *str))
 			str++;
 		if (*str == GREAT || *str == LOW)
@@ -313,7 +326,7 @@ t_cmd
 			token = parse_token(&str, envlst, dir_addr);
 			is_redirect = FALSE;
 		}
-		if (token && *token)
+		if (token)
 			if (add_token(cmd, token, is_redirect))
 				return (cmd_clear(cmd));
 	}
