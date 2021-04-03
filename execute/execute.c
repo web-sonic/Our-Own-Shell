@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 18:37:51 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:06:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int
 		g_error = ft_echo(args);
 	else if (!ft_strncmp(cmd, "cd", 3))
 		g_error = ft_cd(args, envlst);
-	else if (!ft_strncmp(cmd, "env", 4))
+	else if (!ft_strncmp(cmd, "env", 4) && !args[1])
 		g_error = ft_env(&envlst);
 	else if (!ft_strncmp(cmd, "exit", 5))
 		g_error = ft_exit(args);

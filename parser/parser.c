@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 19:38:30 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:18:24 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ char
 		if (**str == QUOTE || **str == DQUOTE)
 			right_token = treat_quotes(str, **str, dir_addr);
 		else
-			right_token = (*(*str)++) ? parse_token(str, dir_addr) :
+			right_token = (**str) ? parse_token(str, dir_addr) :
 				ft_calloc(sizeof(char), 1);
 		token = ft_ownrealloc(&ft_strjoin, &token, right_token);
 		free(right_token);
