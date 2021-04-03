@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 17:45:50 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:38:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ char
 	while ((*str)[len] && !ft_strchr(stop_symbols, (*str)[len]))
 		len++;
 	token = ft_substr(*str, 0, len);
-	*str += len;
+	*str += len + 1;
 	if (**str)
 	{
 		if (**str == BACKSLASH)
