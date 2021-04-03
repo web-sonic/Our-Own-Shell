@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 18:23:31 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:37:51 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void
 		fds->fdin = fdpipe[0];
 		fds->fdout = fdpipe[1];
 	}
-	(!cmd->is_fdout) ? dup2(fds->fdout, 1) : dup2(cmd->fdout, 1);		
+	(!cmd->is_fdout) ? dup2(fds->fdout, 1) : dup2(cmd->fdout, 1);
 	if (cmd->fdout >= 0)
 		close(cmd->fdout);
 	if (cmd->fdin >= 0)
@@ -79,10 +79,10 @@ t_cmd
 char
 	*get_cmd(char **cmd, char *path)
 {
-	char	**paths;
-	int		i;
-	char	*cmd_name;
-	struct	stat buff;
+	char		**paths;
+	int			i;
+	char		*cmd_name;
+	struct stat	buff;
 
 	paths = ft_split(path, ':');
 	free(path);
@@ -93,7 +93,7 @@ char
 		cmd_name = ft_ownrealloc(&ft_strjoin, &cmd_name, *cmd);
 		stat(cmd_name, &buff);
 		if (buff.st_mode != 0)
-			break;
+			break ;
 		i++;
 		free(cmd_name);
 	}
@@ -121,20 +121,18 @@ void
 		}
 		else if (open(str, O_RDWR) < 0)
 		{
-			ft_putendl_fd(strerror(errno), 1);
+			ft_putendl_fd(strerror(errno), 2);
 			g_error = 127;
 		}
 		else
 		{
-			ft_putendl_fd("Permission denied", 2);
+			ft_putendl_fd("permission denied", 2);
 			g_error = 126;
 		}
+		return ;
 	}
-	else
-	{
-		ft_putendl_fd("command not found", 1);
-		g_error = 127;
-	}
+	ft_putendl_fd("command not found", 2);
+	g_error = 127;
 }
 
 void
@@ -161,7 +159,7 @@ void
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 	if (g_error > 1 && g_error != 126 && g_error != 127)
-		print_errors(args[0]);	
+		print_errors(args[0]);
 }
 
 void
@@ -185,7 +183,7 @@ char
 {
 	size_t	i;
 	char	*new_str;
-	
+
 	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	i = 0;
 	while (str[i])

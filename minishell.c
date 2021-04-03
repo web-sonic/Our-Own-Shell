@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 16:49:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 18:53:45 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,21 @@ static void
 }
 
 void
+	create_oldpwd(t_list **envlst, int oldpwd)
+{
+	t_env	*envt;
+
+	if (oldpwd)
+	{
+		envt = malloc(sizeof(t_env));
+		envt->val = ft_strdup("OLDPWD");
+		envt->arg = NULL;
+		envt->equally = 0;
+		ft_lstadd_back(envlst, ft_lstnew(envt));
+	}
+}
+
+void
 	init_envlist(t_list **envlst, char **env)
 {
 	int		i;
@@ -73,7 +88,6 @@ void
 	t_env	*envt;
 
 	i = -1;
-	*envlst = 0;
 	oldpwd = 0;
 	while (env[++i])
 	{
@@ -85,22 +99,14 @@ void
 			free(envt->arg);
 			envt->arg = ft_itoa(lvl + 1);
 		}
-		if (!ft_strncmp("OLDPWD", envt->val, 7))
+		if (!ft_strncmp("OLDPWD", envt->val, 7) && oldpwd == 1)
 		{
-			oldpwd = 1;
 			free(envt->arg);
 			envt->equally = 0;
 		}
 		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
-	if (oldpwd == 0)
-	{
-		envt = malloc(sizeof(t_env));
-		envt->val = ft_strdup("OLDPWD");
-		envt->arg = NULL;
-		envt->equally = 0;
-		ft_lstadd_back(envlst, ft_lstnew(envt));
-	}
+	create_oldpwd(envlst, oldpwd);
 }
 
 static int

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:14:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:53:28 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int
 	if (arg[1])
 		ft_putchar_fd(arg[1], 2);
 	ft_putendl_fd(": invalid option", 2);
-	ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] or export -p)", 2);
+	ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] \
+					or export -p)", 2);
 	return (2);
 }
