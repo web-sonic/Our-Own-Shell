@@ -6,26 +6,19 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 07:03:30 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 08:39:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:53:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* 
-** @params: char **str строка
-**			int quote тип кавычек
-** TODO: считает длину строки в кавычках
-** 		 учитывает экранирование
-** @return длина строки
-*/
 static size_t
 	skip_quotes(char *str, int quote)
 {
 	size_t	len;
 
 	len = 1;
-	while(str[len] && str[len] != quote)
+	while (str[len] && str[len] != quote)
 	{
 		if (str[len] == '\\' && str[len + 1] && quote != QUOTE)
 			len++;

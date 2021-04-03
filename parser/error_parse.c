@@ -6,18 +6,12 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:16 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 07:51:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:54:35 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* 
-** @params: char *str обрабатываемая строка
-**			t_list processes список команд в баше
-** TODO добавляет новый список команд в список 
-** @return: int корректность выполнения команды
-*/
 t_list
 	*error_parse(char *str, int c)
 {

@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 12:33:47 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:56:56 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void
 	int		fd;
 	int		i;
 	char	*line;
-	
+
 	*histlist = 0;
 	fd = open(dir_add, O_RDONLY | O_CREAT, 0755);
 	if (fd < 0)
@@ -53,7 +53,7 @@ static void
 	}
 	while ((i = get_next_line(fd, &line)) > 0)
 	{
-		if(line[0] != '\0')
+		if (line[0] != '\0')
 			ft_dlstadd_back(histlist, ft_dlstnew(line));
 		else
 			free(line);
@@ -137,18 +137,13 @@ void
 		if (cmd_lst)
 		{
 			execute(cmd_lst, envlst, mod_address(dir_add));
-			//ft_lstclear(&cmd_lst, &clear_doublelst);
+			ft_lstclear(&cmd_lst, &clear_doublelst);
 		}
 	}
 	if (magic_lst)
 		ft_lstclear(&magic_lst, &free);
 }
 
-/*
-** @params: char **env: массив переменных окружения
-** TODO: Имитирует работу шелла
-** @return 0
-*/
 int
 	main(int argc, char **argv, char **env)
 {
@@ -163,6 +158,6 @@ int
 	init_envlist(&envlst, env);
 	(void)argv[0];
 	while (argc)
-	 	shell(&histlist, envlst, dir_add);
+		shell(&histlist, envlst, dir_add);
 	return (0);
 }

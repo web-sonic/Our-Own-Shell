@@ -6,16 +6,13 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:08:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:38:13 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:55:36 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-/* 
-** константы для парсера
-*/
 # define SPACES " \t"
 # define QUOTE 39
 # define DQUOTE 34
@@ -28,4 +25,5 @@
 # define DIEZ 35
 # define STOP_SYMBOLS "\\\"'<> \t#~"
 # define SPEC_SYMBOLS "~\\\"'"
+
 #endif
