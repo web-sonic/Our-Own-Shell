@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 18:53:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:25:01 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void
 {
 	t_env	*envt;
 
-	if (oldpwd)
+	if (oldpwd == 0)
 	{
 		envt = malloc(sizeof(t_env));
 		envt->val = ft_strdup("OLDPWD");
@@ -92,15 +92,16 @@ void
 	while (env[++i])
 	{
 		envt = malloc(sizeof(t_env));
-		line_split(envt, env[i]);
+		line_split(envt, env[i], 0);
 		if (!ft_strncmp("SHLVL", envt->val, 6))
 		{
 			lvl = ft_atoi(envt->arg);
 			free(envt->arg);
 			envt->arg = ft_itoa(lvl + 1);
 		}
-		if (!ft_strncmp("OLDPWD", envt->val, 7) && oldpwd == 1)
+		if (!ft_strncmp("OLDPWD", envt->val, 7))
 		{
+			oldpwd = 1;
 			free(envt->arg);
 			envt->equally = 0;
 		}

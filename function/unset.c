@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 09:44:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:23:14 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ static void
 	}
 }
 
-void
+int
 	ft_unset(char **line, t_list **envlst, int pipe)
 {
 	t_env	*envt;
 	t_list	*tmp_lstenv;
 	t_list	*next_lstenv;
 	int		i;
+	int		rez;
 
+	rez = 0;
 	if (!line[1] || pipe == 0)
-		return ;
+		return (0);
 	envt = (*envlst)->content;
 	i = 0;
 	tmp_lstenv = *envlst;
@@ -59,6 +61,14 @@ void
 			ft_lstdelone((*envlst), &free_env);
 			*envlst = tmp_lstenv;
 		}
+		if (line[i][0] == '-' && line[i][1] == '\0')
+		{
+			ft_putendl_fd("minishell: unset: `-': not a valid identifier", 2);
+			rez = 1;
+		}
+		if (line[i][0] == '-' && line[i][1] != '\0')
+			return (flag_error(line[0], line[1]));
 	}
 	check_next_lst(tmp_lstenv, next_lstenv, line);
+	return (rez);
 }

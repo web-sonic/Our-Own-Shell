@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:53:28 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:14:19 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,24 @@ int
 	if (arg[1])
 		ft_putchar_fd(arg[1], 2);
 	ft_putendl_fd(": invalid option", 2);
-	ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] \
-					or export -p)", 2);
-	return (2);
+	if (!ft_strncmp(name, "export", 7))
+	{
+		ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] or export -p)", 2);
+		return (2);
+	}
+	else if (!ft_strncmp(name, "cd", 3))
+		ft_putendl_fd("cd: usage: cd [-L|-P] [dir]", 2);
+	else if (!ft_strncmp(name, "env", 4))
+	{
+		ft_putstr_fd("usage: env [-iv] [-P utilpath] [-S string] [-u name]", 2);
+		ft_putendl_fd("           [name=value ...] [utility [argument ...]]", 2);
+	}
+	else if (!ft_strncmp(name, "pwd", 4))
+		ft_putendl_fd("pwd: usage: pwd [-LP]", 2);
+	else if (!ft_strncmp(name, "unset", 6))
+	{
+		ft_putendl_fd("unset: usage: unset [-f] [-v] [name ...]", 2);
+		return (2);
+	}
+	return (1);
 }
