@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:51:57 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:36:18 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ char
 	{
 		if (**str == BACKSLASH)
 			right_token = treat_backslash(str, quote, dir_addr);
+		if (**str == QUOTE || **str == DQUOTE)
+			right_token = treat_quotes(str, **str, dir_addr);
 		else
 			right_token = (*(*str)++) ? parse_token(str, dir_addr) :
 				ft_calloc(sizeof(char), 1);

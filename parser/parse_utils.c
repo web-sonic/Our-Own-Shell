@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 07:03:30 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:53:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:48:29 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char
 	len = 0;
 	while ((*str)[len] && (*str)[len] != stop_symbol)
 	{
-		if (((*str)[len] == DQUOTE && is_quote) || (*str)[len] == QUOTE)
+		if ((*str)[len] == DQUOTE || ((*str)[len] == QUOTE && is_quote))
 		{
 			if (!(skip_len = skip_quotes(*str + len, (*str)[len])))
 				return (0);
