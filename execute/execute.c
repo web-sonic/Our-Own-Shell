@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 19:22:02 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 20:01:43 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ int
 	else if (!ft_strncmp(cmd, "cd", 3))
 		g_error = ft_cd(args, envlst, pipe);
 	else if (!ft_strncmp(cmd, "env", 4))
-		g_error = ft_env(&envlst);
+		g_error = ft_env(envlst);
 	else if (!ft_strncmp(cmd, "exit", 5))
 		g_error = ft_exit(args);
 	else if (!ft_strncmp(cmd, "export", 7))

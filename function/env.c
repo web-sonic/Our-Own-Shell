@@ -6,19 +6,19 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 17:34:00 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 20:01:52 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 int
-	ft_env(t_list **envlst)
+	ft_env(t_list *envlst)
 {
 	t_env	*envt;
 	t_list	*tmp_lstenv;
 
-	tmp_lstenv = *envlst;
+	tmp_lstenv = envlst;
 	while (tmp_lstenv)
 	{
 		envt = tmp_lstenv->content;

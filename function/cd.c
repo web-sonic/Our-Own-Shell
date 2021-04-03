@@ -6,14 +6,14 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 19:19:08 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 20:32:19 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void
-	add_env(t_list *envlst, char *dir_pwd)
+	add_env(t_list *envlst, char *dir_pwd, int pipe)
 {
 	t_list	*pwd_lst;
 	t_env	*envt;
@@ -43,15 +43,15 @@ static void
 }
 
 static int
-	check_dir(t_list *envlst, char *dir_add, char *old_line)
+	check_dir(t_list *envlst, char *dir_add, char *old_line, int pipe)
 {
 	char	*dir_pwd;
 
-	if (chdir(dir_add) == -1)
-		return (cd_error(dir_add, old_line));
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
-	add_env(envlst, dir_pwd);
+	if (chdir(dir_add) == -1)
+		return (cd_error(dir_add, old_line));
+	add_env(envlst, dir_pwd, pipe);
 	free(dir_pwd);
 	return (0);
 }
@@ -83,7 +83,7 @@ static int
 }
 
 static int
-	full_dir(t_list *envlst, char *dir_add)
+	full_dir(t_list *envlst, char *dir_add, int pipe)
 {
 	char	*dir_pwd;
 	int		rez;
@@ -99,7 +99,7 @@ static int
 	}
 	else
 		dir_pwd = ft_strdup(dir_add);
-	rez = check_dir(envlst, dir_pwd, dir_add);
+	rez = check_dir(envlst, dir_pwd, dir_add, pipe);
 	free(dir_pwd);
 	return (rez);
 }
@@ -111,20 +111,21 @@ int
 	char	*tmp;
 
 	rez = -1;
-	if (pipe == 0)
-		return (0);
-	if (!line[1])
+	if (!line[1] && pipe == 1)
 		return (ret_dir(envlst, "HOME"));
-	if (!ft_strncmp(line[1], ".", 2))
+	if (!ft_strncmp(line[1], ".", 2) && pipe == 1)
 		rez = 0;
-	if (rez == -1 && !ft_strncmp(line[1], "-", 2))
+	if (rez == -1 && !ft_strncmp(line[1], "-", 2) && pipe == 1)
 		rez = ret_dir(envlst, "OLDPWD");
-	if (line[1][0] == '-' && line[1][1] != 0)
+	if (line[1][0] == '-' && line[1][1] != 0 && pipe == 1)
 		rez = flag_error(line[0], line[1]);
-	if (rez == -1 && !ft_strncmp(line[1], "--", 3))
+	if (rez == -1 && !ft_strncmp(line[1], "--", 3) && pipe == 1)
 		rez = ret_dir(envlst, "HOME");
 	tmp = line[1];
 	if (rez == -1)
-		rez = full_dir(envlst, tmp);
+		rez = full_dir(envlst, tmp, pipe);
 	return (rez);
 }
+
+
+//если пайп директория не меняется!

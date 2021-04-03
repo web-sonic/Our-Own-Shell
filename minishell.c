@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 19:21:56 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 20:25:01 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void
 {
 	t_env	*envt;
 
-	if (oldpwd)
+	if (oldpwd == 0)
 	{
 		envt = malloc(sizeof(t_env));
 		envt->val = ft_strdup("OLDPWD");
@@ -99,8 +99,9 @@ void
 			free(envt->arg);
 			envt->arg = ft_itoa(lvl + 1);
 		}
-		if (!ft_strncmp("OLDPWD", envt->val, 7) && oldpwd == 1)
+		if (!ft_strncmp("OLDPWD", envt->val, 7))
 		{
+			oldpwd = 1;
 			free(envt->arg);
 			envt->equally = 0;
 		}
