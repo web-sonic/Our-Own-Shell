@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:12:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 09:42:29 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,24 @@ static int
 }
 
 static int
+	check_redirect(char *token, int *flag)
+{
+	if (*flag != -1)
+	{
+		error_parse(PARSE_ERROR, token[0]);
+		free(token);
+		return (1);
+	}
+	if (token[0] == LOW)
+		*flag = 0;
+	if (token[0] == GREAT && !token[1])
+		*flag = 1;
+	else if (token[0] == GREAT)
+		*flag = 2;
+	return (0);
+}
+
+static int
 	add_token(t_cmd *cmd, char *token, t_bool is_redirect)
 {
 	t_bool	error;
@@ -81,17 +99,8 @@ static int
 	error = FALSE;
 	if (is_redirect)
 	{
-		if (cmd->add_fd != -1)
-		{
-			error_parse(PARSE_ERROR, token[0]);
+		if (check_redirect(token, &(cmd->add_fd)))
 			return (TRUE);
-		}
-		if (token[0] == LOW)
-			cmd->add_fd = 0;
-		if (token[0] == GREAT && !token[1])
-			cmd->add_fd = 1;
-		else if (token[0] == GREAT)
-			cmd->add_fd = 2;
 	}
 	else if (!cmd->add_fd)
 	{
@@ -105,7 +114,7 @@ static int
 	}
 	else 
 		cmd->args = ft_wordtab_realloc(cmd->args, token);
-	//free(token);
+	free(token);
 	*token = 0;
 	return (error);
 }
@@ -172,19 +181,16 @@ char
 	*treat_quotes(char **str, int quote, char *dir_addr)
 {
 	size_t	len;
-	char	*left_token;
+	char	*right_token;
 	char	*token;
 	char	*stop_symbols;
 
 	(*str)++;
-	if (quote == QUOTE)
-		stop_symbols = "'";
-	else
-		stop_symbols = "\\\"$";
+	stop_symbols = (quote == QUOTE) ? "'" : "\\\"$";
 	len = 0;
 	while ((*str)[len] && !ft_strchr(stop_symbols, (*str)[len]))
 		len++;
-	left_token = ft_substr(*str, 0, len);
+	token = ft_substr(*str, 0, len);
 	*str += len;
 	if (**str)
 	{
@@ -204,12 +210,13 @@ char
 {
 	size_t	len;
 	char	*token;
-	char	*left_token;
+	char	*right_token;
 
 	len = 0;
 	while ((*str)[len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 		len++;
-	left_token = ft_substr(*str, 0, len);
+	token = ft_substr(*str, 0, len);
+	right_token = 0;
 	(*str) += len;
 	if (**str && ft_strchr(SPEC_SYMBOLS, **str))
 	{
@@ -303,7 +310,6 @@ t_cmd
 	t_cmd	*cmd;
 
 	cmd = init_cmd();
-	token = 0;
 	while (*str && *str != DIEZ)
 	{
 		token = 0;

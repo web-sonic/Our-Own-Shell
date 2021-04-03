@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:12:39 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 09:44:25 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,12 @@ void
 	{
 		dup2(cmd->fdin, 0);
 		close(cmd->fdin);
-		close(fds->fdin);
 	}
 	else
-	{
 		dup2(fds->fdin, 0);
-		close(fds->fdin);
-	}
 	if (last_cmd)
 	{
+		close(fds->fdin);
 		(cmd->is_fdout) ? fds->fdout = dup(cmd->fdout) :
 			(fds->fdout = dup(fds->tmpout));
 	}
@@ -72,11 +69,25 @@ void
 	close(fds->fdout);
 }
 
+void	ft_wordtab_clears(char **tab_lst)
+{
+	int	count;
+
+	count = 0;
+	while (tab_lst[count])
+	{
+		free(tab_lst[count]);
+		count++;
+	}
+	free(tab_lst[count]);
+	free(tab_lst);
+}
+
 t_cmd
 	*cmd_clear(t_cmd *cmd)
 {
 	if (cmd->args)
-		ft_wordtab_clear(cmd->args);
+		ft_wordtab_clears(cmd->args);
 	close(cmd->fdin);
 	close(cmd->fdout);
 	cmd->fdin = 0;
@@ -96,6 +107,7 @@ char
 	struct	stat buff;
 
 	paths = ft_split(path, ':');
+	free(path);
 	i = 0;
 	while (paths[i])
 	{
@@ -131,7 +143,7 @@ void
 		}
 		else if (open(str, O_RDWR) < 0)
 		{
-			ft_putendl_fd(strerror(errno), 2);
+			ft_putendl_fd(strerror(errno), 1);
 			g_error = 127;
 		}
 		else
@@ -166,8 +178,8 @@ void
 	}
 	else
 		waitpid(ret, &h, 0);
-	g_error = h / 256;
 	ft_wordtab_clear(env);
+	g_error = h / 256;
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 	if (g_error > 1 && g_error != 126 && g_error != 127)
@@ -175,56 +187,72 @@ void
 }
 
 void
-	ft_dot()
+	exceptions(char c)
 {
-	g_error = 2;
-	ft_putendl_fd("minishell: .: filename argument required", 2);
-	ft_putendl_fd(".: usage: . filename [arguments]", 2);
+	if (c == '.')
+	{
+		g_error = 2;
+		ft_putendl_fd("minishell: .: filename argument required", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
+	}
+	else
+	{
+		g_error = 126;
+		ft_putendl_fd("minishell: /Users: is a directory", 2);
+	}
 }
 
-void
-	ft_users()
+char
+	*ft_strtolower(char *str)
 {
-	g_error = 126;
-	ft_putendl_fd("minishell: /Users: is a directory", 2);
+	size_t	i;
+	char	*new_str;
+	
+	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	i = 0;
+	while (str[i])
+	{
+		new_str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	return (new_str);
 }
 
 int
-	cmd_execute(char **args, t_list *envlst, int pipe)
+	validate_redirects(t_cmd *cmd)
 {
-	char	*tmp;
-	size_t	i;
+	if (cmd->is_fdin || cmd->is_fdout)
+		return (0);
+	return (1);
+}
 
-	i = 0;
+int
+	cmd_execute(char **args, t_list *envlst, int pipe, t_cmd *cnd)
+{
+	char	*cmd;
+
 	if (*args == 0)
-		return (1);
-	tmp = ft_strdup(args[0]);
-	while (tmp[i])
-	{
-		tmp[i] = ft_tolower(tmp[i]);
-		i++;
-	}
-	if (!ft_strncmp(args[0], "echo", 5))
+		return (validate_redirects(cnd));
+	cmd = ft_strtolower(args[0]);
+	if (!ft_strncmp(cmd, "echo", 5))
 		g_error = ft_echo(args);
-	else if (!ft_strncmp(args[0], "cd", 3))
+	else if (!ft_strncmp(cmd, "cd", 3))
 		g_error = ft_cd(args, envlst);
-	else if (!ft_strncmp(args[0], "env", 4))
-		ft_env(&envlst);
-	else if (!ft_strncmp(args[0], "exit", 5))
+	else if (!ft_strncmp(cmd, "env", 4))
+		g_error = ft_env(&envlst);
+	else if (!ft_strncmp(cmd, "exit", 5))
 		g_error = ft_exit(args);
-	else if (!ft_strncmp(args[0], "export", 7))
-		ft_export(args, envlst, pipe);
-	else if (!ft_strncmp(args[0], "pwd", 4))
-		ft_pwd();
-	else if (!ft_strncmp(args[0], "unset", 6))
+	else if (!ft_strncmp(cmd, "export", 7))
+		g_error = ft_export(args, envlst, pipe);
+	else if (!ft_strncmp(cmd, "pwd", 4))
+		g_error = ft_pwd();
+	else if (!ft_strncmp(cmd, "unset", 6))
 		ft_unset(args, &envlst, pipe);
-	else if (!ft_strncmp(args[0], ".", 2))
-		ft_dot();
-	else if (!ft_strncmp(args[0], "/Users", 7))
-		ft_users();
+	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7))
+		exceptions(args[0][0]);
 	else
 		cmd_bin(args, envlst);
-	free(tmp);
+	free(cmd);
 	return (0);
 }
 
@@ -240,16 +268,12 @@ void
 	{
 		pipe_lst = cmd_lst->content;
 		init_fd(&fds);
-		last_cmd = FALSE;
-		while (pipe_lst)
+		while (pipe_lst && (cmd = parser(pipe_lst->content, envlst, dir_add)))
 		{
-			if (!(cmd = parser(pipe_lst->content, envlst, dir_add)))
-				break ;
 			pipe_lst = pipe_lst->next;
-			if (!pipe_lst)
-				last_cmd = TRUE;
+			last_cmd = (!pipe_lst) ? TRUE : FALSE;
 			set_fds(&fds, cmd, last_cmd);
-			if (cmd_execute(cmd->args, envlst, last_cmd))
+			if (cmd_execute(cmd->args, envlst, last_cmd, cmd))
 				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}
@@ -258,4 +282,5 @@ void
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
 	}
+	free(dir_add);
 }
