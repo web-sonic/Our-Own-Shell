@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:45:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 12:33:47 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void
 		if (cmd_lst)
 		{
 			execute(cmd_lst, envlst, mod_address(dir_add));
-			ft_lstclear(&cmd_lst, &clear_doublelst);
+			//ft_lstclear(&cmd_lst, &clear_doublelst);
 		}
 	}
 	if (magic_lst)

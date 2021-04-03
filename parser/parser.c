@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:42:29 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 13:25:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,14 +256,16 @@ static char
 }
 
 char
-	*treat_dollar(char **str)
+	*treat_dollar(char **str, t_bool *is_quest)
 {
 	char	*token;
 	int		len;
 
+	*is_quest = FALSE;
 	if(**str == '?')
 	{
 		(*str)++;
+		*is_quest = TRUE;
 		return (ft_itoa(g_error));
 	}
 	len = 0;
@@ -284,17 +286,20 @@ char
 	char	*left_token;
 	char	*right_token;
 	char	*new_str;
-	char	*dollar_val;
 	char	*dollar_arg;
+	t_bool	is_quest;
 
 	left_token = goto_stopsymbol(&str, DOLLAR, FALSE);
 	if (*str == 0)
 		return (left_token);
-	dollar_arg = treat_dollar(&str);
-	dollar_val = ft_getenv(dollar_arg, envlst);
+	dollar_arg = treat_dollar(&str, &is_quest);
+	if (is_quest)
+		right_token = ft_strdup(dollar_arg);
+	else
+		right_token = ft_getenv(dollar_arg, envlst);
+	left_token = ft_ownrealloc(&ft_strjoin, &left_token, right_token);
 	free(dollar_arg);
-	left_token = ft_ownrealloc(&ft_strjoin, &left_token, dollar_val);
-	free(dollar_val);
+	free(right_token);
 	right_token = parse_vars(str, envlst);
 	new_str = ft_strjoin(left_token, right_token);
 	free(left_token);
