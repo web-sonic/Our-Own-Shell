@@ -6,14 +6,14 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 13:25:55 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:51:57 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static t_cmd
-	*init_cmd()
+	*init_cmd(void)
 {
 	t_cmd	*cmd;
 
@@ -51,7 +51,8 @@ static int
 		close(cmd->fdout);
 	if (cmd->add_fd == 1)
 	{
-		cmd->fdout = open(token, O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, S_IRWXU);
+		cmd->fdout =
+			open(token, O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, S_IRWXU);
 		if (cmd->fdout < 0)
 		{
 			g_error = errno;
@@ -112,7 +113,7 @@ static int
 		if (!add_fdout(cmd, token))
 			error = TRUE;
 	}
-	else 
+	else
 		cmd->args = ft_wordtab_realloc(cmd->args, token);
 	free(token);
 	*token = 0;
@@ -143,7 +144,7 @@ static char
 	token = ft_strjoin(left_token, right_token);
 	free(left_token);
 	free(right_token);
-	return(token);
+	return (token);
 }
 
 char
@@ -167,16 +168,9 @@ char
 	token = ft_strjoin(left_token, right_token);
 	free(left_token);
 	free(right_token);
-	return(token);
+	return (token);
 }
 
-/*
-** @params: char **str обрабатываемая строка
-** 			int quote тип кавычек
-** TODO: обрабатывает аргумент с кавычками в строке
-** и сдивагет строку на следующую лексему
-** @return char *token полученный аргумент
-*/
 char
 	*treat_quotes(char **str, int quote, char *dir_addr)
 {
@@ -233,12 +227,6 @@ char
 	return (token);
 }
 
-/*
-** @params: char **str, t_list **tokens
-** TODO: записывает в новую строку редирект
-**	и сдивагет строку на следующую лексему
-** @return char* : строка редирект
-*/
 static char
 	*add_redirect(char **str)
 {
@@ -251,7 +239,6 @@ static char
 	}
 	else
 		token = ft_substr((*str)++, 0, 1);
-	
 	return (token);
 }
 
@@ -262,7 +249,7 @@ char
 	int		len;
 
 	*is_quest = FALSE;
-	if(**str == '?')
+	if (**str == '?')
 	{
 		(*str)++;
 		*is_quest = TRUE;
@@ -273,7 +260,7 @@ char
 		len++;
 	if (!len)
 		return (ft_strdup("$"));
-	while(ft_isalnum((*str)[len]) || (*str)[len] == '_')
+	while (ft_isalnum((*str)[len]) || (*str)[len] == '_')
 		len++;
 	token = ft_substr(*str, 0, len);
 	(*str) += len;
@@ -304,7 +291,7 @@ char
 	new_str = ft_strjoin(left_token, right_token);
 	free(left_token);
 	free(right_token);
-	return(new_str);
+	return (new_str);
 }
 
 t_cmd
@@ -329,7 +316,7 @@ t_cmd
 	if (is_redirect)
 	{
 		error_parse(PARSE_ERROR, 0);
-		return(cmd_clear(cmd));
+		return (cmd_clear(cmd));
 	}
 	return (cmd);
 }

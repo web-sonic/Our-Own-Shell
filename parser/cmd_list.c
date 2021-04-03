@@ -6,18 +6,12 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:42:17 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:54:14 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* 
-** @params: t_list **cmd_lst указатель на список
-** TODO: разбивает строку каждого элемента в списке на список
-** 		 по пайпу.
-** @return NULL
-*/
 static void
 	get_pipes_lst(t_list *cmd_lst, t_list **magic_lst)
 {
@@ -32,13 +26,6 @@ static void
 	}
 }
 
-/* 
-** @params: char *line строка
-**			int stop_symbol символ, по которому делится строка
-** TODO: разбивает строку на последовательность 
-**		команд, редиректов, флагов и аргументов
-** @return t_list *lst_cmd список команд
-*/
 t_list
 	*split_cmdlst(char *line, int stop_symbol, t_list **magic_lst)
 {
@@ -66,12 +53,6 @@ t_list
 	return (cmd_lst);
 }
 
-/* 
-** @params: char *line
-** TODO: разбивает строку на последовательность 
-**		команд, редиректов, флагов и аргументов
-** @return t_list *lst_cmd список команд
-*/
 t_list
 	*get_cmds(char *line, t_list **magic_lst)
 {
