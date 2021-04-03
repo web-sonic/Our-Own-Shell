@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/02 05:50:20 by ctragula         ###   ########.fr        #
+#    Updated: 2021/04/03 07:09:12 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS =	readline.c \
 		signal_handler.c \
 		utils_env.c \
 		minishell.c \
+		parser/parse_utils.c \
 		#main_for_test.c \
 
 LIB =	libft/libft.a 
