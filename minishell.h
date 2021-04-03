@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu <yu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/01 19:35:00 by yu               ###   ########.fr       */
+/*   Updated: 2021/04/03 09:12:35 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ t_dlist	*ft_dlstnew(void *content);
 int	    ft_dlstsize(t_dlist *lst);
 void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
 
-t_list  *get_cmds(char *line);
+t_list  *get_cmds(char *line, t_list **magic_lst);
 char    *ft_ownrealloc(char *(*f)(const char *, const char *),
 			char **s1, char *s2);
 char    *treat_str(char **str);
-char    *treat_quotes(char **str, int quote, t_list *envlst, char *dir_addr);
-t_list  *split_cmdlst(char *line, int stop_symbol);
+char    *treat_quotes(char **str, int quote, char *dir_addr);
+t_list  *split_cmdlst(char *line, int stop_symbol, t_list **magic_lst);
 char    *treat_str(char **str);
 char	**ft_wordtab_realloc(char **wordtab, char *str);
 t_list  *error_parse(char *str, int c);
@@ -83,9 +83,11 @@ void	line_split(t_env *arr_arg, char *line);
 
 void    execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst, char *dir_addr);
-char    *parse_token(char **str, t_list *envlst, char *dir_addr);
+char    *parse_token(char **str, char *dir_addr);
 char	**getallenv(t_list *envlst);
 void	signal_handler(int key);
 t_cmd	*cmd_clear(t_cmd *cmd);
+void	skip_spaces(char **str, char *spaces);
+char	*goto_stopsymbol(char **str, char stop_symbol, t_bool is_quote);
 
 #endif
