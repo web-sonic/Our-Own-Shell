@@ -4,7 +4,9 @@ export | grep "SHLVL"
 export | grep "OLDPWD"
 export | grep "PWD"
 export $? ; echo $?
-export TEST ; echo $TEST
+
+export TEST ; echo $TEST sega
+
 export TEST= ; echo $TEST
 export TEST=123 ; echo $TEST
 export ___TEST=123 ; echo $TEST
