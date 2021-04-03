@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:44:25 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:23:31 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void
 	int	fdpipe[2];
 
 	if (cmd->is_fdin)
-	{
 		dup2(cmd->fdin, 0);
-		close(cmd->fdin);
-	}
 	else
 		dup2(fds->fdin, 0);
 	if (last_cmd)
@@ -36,17 +33,12 @@ void
 		fds->fdin = fdpipe[0];
 		fds->fdout = fdpipe[1];
 	}
-	if (!cmd->is_fdout)
-	{
-		dup2(fds->fdout, 1);
-		close(fds->fdout);
-	}
-	else
-	{
-		dup2(cmd->fdout, 1);
-		close(fds->fdout);
+	(!cmd->is_fdout) ? dup2(fds->fdout, 1) : dup2(cmd->fdout, 1);		
+	if (cmd->fdout >= 0)
 		close(cmd->fdout);
-	}
+	if (cmd->fdin >= 0)
+		close(cmd->fdin);
+	close(fds->fdout);
 }
 
 static void
@@ -69,25 +61,11 @@ void
 	close(fds->fdout);
 }
 
-void	ft_wordtab_clears(char **tab_lst)
-{
-	int	count;
-
-	count = 0;
-	while (tab_lst[count])
-	{
-		free(tab_lst[count]);
-		count++;
-	}
-	free(tab_lst[count]);
-	free(tab_lst);
-}
-
 t_cmd
 	*cmd_clear(t_cmd *cmd)
 {
 	if (cmd->args)
-		ft_wordtab_clears(cmd->args);
+		ft_wordtab_clear(cmd->args);
 	close(cmd->fdin);
 	close(cmd->fdout);
 	cmd->fdin = 0;
@@ -129,7 +107,7 @@ char
 }
 
 void
-	print_error2(char *str)
+	print_errors(char *str)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
@@ -183,7 +161,7 @@ void
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 	if (g_error > 1 && g_error != 126 && g_error != 127)
-		print_error2(args[0]);	
+		print_errors(args[0]);	
 }
 
 void

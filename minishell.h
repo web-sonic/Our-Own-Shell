@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 15:57:54 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:13:18 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ char	**getallenv(t_list *envlst);
 void	signal_handler(int key);
 t_cmd	*cmd_clear(t_cmd *cmd);
 void	skip_spaces(char **str, char *spaces);
-char	*goto_stopsymbol(char **str, char stop_symbol, t_bool is_quote);
+char	*goto_stopsymbol(char **str, char stop_symbol);
 
 #endif

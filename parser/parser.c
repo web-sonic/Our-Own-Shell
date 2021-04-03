@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 16:36:18 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:45:50 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,30 @@ char
 }
 
 char
-	*parse_vars(char *str, t_list *envlst)
+	*goto_dollar(char **str, int *is_quote)
+{
+	char	*token;
+	size_t	len;
+
+	len = 0;
+	while ((*str)[len] && ((*str)[len] != DOLLAR || *is_quote == 1))
+	{
+		if (((*str)[len] == QUOTE && *is_quote == 1) ||
+			((*str)[len] == DQUOTE && *is_quote == 2))
+			*is_quote = 0;
+		else if ((*str)[len] == QUOTE && *is_quote == 0)
+			*is_quote = 1;
+		else if ((*str)[len] == DQUOTE && *is_quote == 0)
+			*is_quote = 2;
+		len++;
+	}
+	token = ft_substr(*str, 0, len);
+	*str += len;
+	return (token);
+}
+
+char
+	*parse_vars(char *str, t_list *envlst, int *is_quote)
 {
 	char	*left_token;
 	char	*right_token;
@@ -278,9 +301,11 @@ char
 	char	*dollar_arg;
 	t_bool	is_quest;
 
-	left_token = goto_stopsymbol(&str, DOLLAR, FALSE);
+	left_token = goto_dollar(&str, is_quote);
 	if (*str == 0)
 		return (left_token);
+	if (*str)
+		str++;
 	dollar_arg = treat_dollar(&str, &is_quest);
 	if (is_quest)
 		right_token = ft_strdup(dollar_arg);
@@ -289,7 +314,7 @@ char
 	left_token = ft_ownrealloc(&ft_strjoin, &left_token, right_token);
 	free(dollar_arg);
 	free(right_token);
-	right_token = parse_vars(str, envlst);
+	right_token = parse_vars(str, envlst, is_quote);
 	new_str = ft_strjoin(left_token, right_token);
 	free(left_token);
 	free(right_token);
@@ -328,8 +353,10 @@ t_cmd
 {
 	t_cmd	*cmd;
 	char	*tmp;
+	int		quote;
 
-	tmp = parse_vars(str, envlst);
+	quote = 0;
+	tmp = parse_vars(str, envlst, &quote);
 	cmd = parse_cmd(tmp, dir_addr);
 	free(tmp);
 	return (cmd);

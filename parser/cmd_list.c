@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:54:14 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:13:39 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_list
 			ft_lstclear(&cmd_lst, &free);
 			return (error_parse(PARSE_ERROR, stop_symbol));
 		}
-		token = goto_stopsymbol(&line, stop_symbol, TRUE);
+		token = goto_stopsymbol(&line, stop_symbol);
 		if (!token)
 			return (error_parse(PARSE_ERROR, 0));
 		if (!(*token) && *line)
