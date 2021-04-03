@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 18:26:41 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 15:11:15 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ char
 	{
 		envt = envlst->content;
 		if (!ft_strncmp(name, envt->val, len + 1))
-			return (ft_strdup(envt->arg));
+		{
+			if (envt->arg)
+				return (ft_strdup(envt->arg));
+			else
+				return (ft_calloc(sizeof(char), 1));
+		}
 		envlst = envlst->next;
 	}
 	return (ft_calloc(sizeof(char), 1));
