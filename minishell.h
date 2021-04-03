@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 15:57:54 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:15:38 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ void	swap_argument_str(int direction, t_str *reader, t_dlist **histlist);
 void	cmnd_d(t_str *reader, struct termios *term);
 int		super_strlen(int start, char symbol, char *str);
 char	*ft_getenv(const char *name, t_list *envlst);
-void	line_split(t_env *arr_arg, char *line);
+void	line_split(t_env *arr_arg, char *line, int plus);
 int		cmp_sort(t_env *cont, t_env *next);
 char	*mod_address(char *dir_add);
 
 void	*return_content(void *content);
 void	free_env(void *env);
-void	line_split(t_env *arr_arg, char *line);
 
 void	execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst, char *dir_addr);

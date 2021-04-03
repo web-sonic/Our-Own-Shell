@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 09:44:25 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:01:49 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int
 	if (!ft_strncmp(cmd, "echo", 5))
 		g_error = ft_echo(args);
 	else if (!ft_strncmp(cmd, "cd", 3))
-		g_error = ft_cd(args, envlst);
+		g_error = ft_cd(args, envlst, pipe);
 	else if (!ft_strncmp(cmd, "env", 4))
 		g_error = ft_env(&envlst);
 	else if (!ft_strncmp(cmd, "exit", 5))

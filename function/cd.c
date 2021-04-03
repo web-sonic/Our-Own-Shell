@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 19:44:44 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 16:54:10 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,14 @@ static int
 }
 
 int
-	ft_cd(char **line, t_list *envlst)
+	ft_cd(char **line, t_list *envlst, int pipe)
 {
 	int		rez;
 	char	*tmp;
 
 	rez = -1;
+	if (pipe == 0)
+		return (0);
 	if (!line[1])
 		return (ret_dir(envlst, "HOME"));
 	if (!ft_strncmp(line[1], ".", 2))

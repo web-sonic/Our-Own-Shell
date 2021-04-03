@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 16:45:58 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 18:26:23 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int
 }
 
 void
-	add_line(char *line, t_list *envlst)
+	add_line(char *line, t_list *envlst, int plus)
 {
 	int		add;
 	t_list	*tmp_lstenv;
@@ -52,7 +52,7 @@ void
 	t_env	*arr_arg;
 
 	arr_arg = malloc(sizeof(t_env));
-	line_split(arr_arg, line);
+	line_split(arr_arg, line, plus);
 	tmp_lstenv = envlst;
 	add = 0;
 	while (tmp_lstenv && add == 0)
@@ -61,7 +61,13 @@ void
 		if (!ft_strncmp(arr_arg->val, envt->val, ft_strlen(arr_arg->val) + 1))
 		{
 			if (arr_arg->arg)
-				envt->equally = dub_and_free(&(envt->arg), arr_arg->arg);
+			{
+				if (plus == 0)
+					dub_and_free(&(envt->arg), arr_arg->arg);
+				else
+					envt->arg = ft_ownrealloc(&ft_strjoin, &(envt->arg), arr_arg->arg);
+				envt->equally = 1;
+			}
 			add = 1;
 		}
 		tmp_lstenv = tmp_lstenv->next;
@@ -80,39 +86,35 @@ int
 	int		j;
 	int		rez;
 	int		error;
-	t_list	*tmp_lstenv;
+	int		plus;
 
 	i = 0;
 	rez = 0;
-	tmp_lstenv = envlst;
 	if (!line[1])
-		return (print_env(tmp_lstenv));
+		return (print_env(envlst));
 	if (pipe == 0)
 		return (0);
 	while (line[++i] && rez != 2)
 	{
+		plus = 0;
 		error = 0;
 		j = -1;
-		if (ft_isdigit(line[i][0]))
-		{
-			error = export_error(line[i]);
-			rez = error;
-		}
+		if (ft_isdigit(line[i][0]) || line[i][0] == '=')
+			error = export_error(line[i], &error);
 		if (error == 0 && line[1][0] == '-' && line[1][1])
-		{
-			error = flag_error(line[0], line[1]);
-			rez = error;
-		}	
+			rez = flag_error(line[0], line[1], &error);
 		while (error != 2 && line[i][++j] && line[i][j] != '=' && error == 0)
 		{
 			if (!(line[i][j] == '_' || ft_isalnum(line[i][j])))
 			{
-				error = export_error(line[i]);
-				rez = error;
+				if (line[i][j] == '+' && line[i][j + 1] == '=')
+					plus = 1;
+				else
+					rez = export_error(line[i], &error);
 			}
 		}
 		if (error == 0 && rez != 2)
-			add_line(line[i], envlst);
+			add_line(line[i], envlst, plus);
 	}
 	return (rez);
 }

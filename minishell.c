@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 16:49:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 18:16:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void
 	while (env[++i])
 	{
 		envt = malloc(sizeof(t_env));
-		line_split(envt, env[i]);
+		line_split(envt, env[i], 0);
 		if (!ft_strncmp("SHLVL", envt->val, 6))
 		{
 			lvl = ft_atoi(envt->arg);
