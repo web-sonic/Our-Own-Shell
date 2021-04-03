@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 18:08:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 16:30:26 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 09:38:13 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # define BACKSLASH 92
 # define DOLLAR 36
 # define DIEZ 35
-# define STOP_SYMBOLS "\\\"'<> \t$#~"
+# define STOP_SYMBOLS "\\\"'<> \t#~"
+# define SPEC_SYMBOLS "~\\\"'"
 #endif
