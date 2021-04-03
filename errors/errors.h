@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/02 19:36:45 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 16:16:07 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 int		cd_error(char *dir_str, char *old_str);
 void	exit_error(char *line);
-int		export_error(char *str, int *error);
+int		export_error(char *str);
+int		flag_error(char *name, char *arg);
 
 #endif
