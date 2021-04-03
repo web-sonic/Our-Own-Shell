@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:25:05 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 19:20:43 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void
 }
 
 int
-	export_error(char *str, int *error)
+	export_error(char *str)
 {
-	*error = 1;
 	ft_putstr_fd("minishell: export: `", 1);
 	ft_putstr_fd(str, 1);
 	ft_putendl_fd("': not a valid identifier", 1);
@@ -42,15 +41,23 @@ int
 }
 
 int
-	flag_error(char *name, char *arg, int *error)
+	flag_error(char *name, char *arg)
 {
-	*error = 1;
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": -", 2);
 	if (arg[1])
 		ft_putchar_fd(arg[1], 2);
 	ft_putendl_fd(": invalid option", 2);
-	ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] or export -p)", 2);
-	return (2);
+	//ft_putstr_fd(name, 2);
+	if (!ft_strncmp(name, "export", 7))
+	{
+		ft_putendl_fd("export: usage: export [-nf] [name[=value] ...] or export -p)", 2);
+		return (2);
+	}
+	else if (!ft_strncmp(name, "cd", 3))
+	{
+		ft_putendl_fd("cd: usage: cd [-L|-P] [dir]", 2);
+		return (1);
+	}
 }

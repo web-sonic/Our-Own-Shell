@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:26:23 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 18:58:22 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,15 @@ int
 		error = 0;
 		j = -1;
 		if (ft_isdigit(line[i][0]) || line[i][0] == '=')
-			error = export_error(line[i], &error);
+		{
+			error = export_error(line[i]);
+			rez = error;
+		}
 		if (error == 0 && line[1][0] == '-' && line[1][1])
-			rez = flag_error(line[0], line[1], &error);
+		{
+			error = flag_error(line[0], line[1]);
+			rez = error;
+		}
 		while (error != 2 && line[i][++j] && line[i][j] != '=' && error == 0)
 		{
 			if (!(line[i][j] == '_' || ft_isalnum(line[i][j])))
@@ -110,7 +116,10 @@ int
 				if (line[i][j] == '+' && line[i][j + 1] == '=')
 					plus = 1;
 				else
-					rez = export_error(line[i], &error);
+				{
+					error = export_error(line[i]);
+					rez = error;
+				}
 			}
 		}
 		if (error == 0 && rez != 2)

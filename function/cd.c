@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 16:54:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 19:19:08 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int
 		rez = 0;
 	if (rez == -1 && !ft_strncmp(line[1], "-", 2))
 		rez = ret_dir(envlst, "OLDPWD");
+	if (line[1][0] == '-' && line[1][1] != 0)
+		rez = flag_error(line[0], line[1]);
 	if (rez == -1 && !ft_strncmp(line[1], "--", 3))
 		rez = ret_dir(envlst, "HOME");
 	tmp = line[1];
