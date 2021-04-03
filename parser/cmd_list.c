@@ -6,35 +6,11 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:08:42 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/01 07:08:51 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/03 09:12:34 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/* 
-** @params: char *line строка
-**			int quote тип кавычек
-** TODO: считает длину строки в кавычках
-** 		 учитывает экранирование
-** @return длина строки
-*/
-static size_t
-	skip_quotes(char *line, int quote)
-{
-	size_t	len;
-
-	len = 1;
-	while(line[len] && line[len] != quote)
-	{
-		if (line[len] == '\\' && line[len + 1] && quote != QUOTE)
-			len++;
-		len++;
-	}
-	if (!line[len])
-		return (0);
-	return (len);
-}
 
 /* 
 ** @params: t_list **cmd_lst указатель на список
@@ -43,17 +19,16 @@ static size_t
 ** @return NULL
 */
 static void
-	get_pipes_lst(t_list **cmd_lst)
+	get_pipes_lst(t_list *cmd_lst, t_list **magic_lst)
 {
-	t_list	*tmp_lst;
-	char	*str;
+	char	*magic;
 
-	tmp_lst = *cmd_lst;
-	while (tmp_lst)
+	while (cmd_lst)
 	{
-		str = tmp_lst->content;
-		tmp_lst->content = split_cmdlst(str, PIPE);
-		tmp_lst = tmp_lst->next;
+		magic = cmd_lst->content;
+		cmd_lst->content = split_cmdlst(magic, PIPE, NULL);
+		cmd_lst = cmd_lst->next;
+		ft_lstadd_back(magic_lst, ft_lstnew(magic));
 	}
 }
 
@@ -65,47 +40,29 @@ static void
 ** @return t_list *lst_cmd список команд
 */
 t_list
-	*split_cmdlst(char *line, int stop_symbol)
+	*split_cmdlst(char *line, int stop_symbol, t_list **magic_lst)
 {
 	t_list	*cmd_lst;
 	char	*token;
-	size_t	len;
-	size_t	skip_len;
 
 	cmd_lst = 0;
 	while (*line)
 	{
-		len = 0;
-		while (line[len] && ft_strchr(SPACES, line[len]))
-			len++;
-		if (len != 0)
+		skip_spaces(&line, SPACES);
+		if (*line == stop_symbol)
 		{
-			line += len;
-			len = 0;
-		}
-		if (line[len] == stop_symbol)
+			ft_lstclear(&cmd_lst, &free);
 			return (error_parse(PARSE_ERROR, stop_symbol));
-		while (line[len] && line[len] != stop_symbol)
-		{
-			if (line[len] == QUOTE || line[len] == DQUOTE)
-			{
-				if (!(skip_len = skip_quotes(line + len, line[len])))
-					return (error_parse(PARSE_ERROR, 0));
-				len += skip_len + 1;
-			}
-			else if (line[len] == BACKSLASH && line[len + 1])
-				len += 2;
-			else
-				len++;
 		}
-		token = ft_substr(line, 0, len);
-		line += (line[len]) ? len + 1 : len;
+		token = goto_stopsymbol(&line, stop_symbol, TRUE);
+		if (!token)
+			return (error_parse(PARSE_ERROR, 0));
 		if (!(*token) && *line)
 			return (error_parse(PARSE_ERROR, stop_symbol));
 		ft_lstadd_back(&cmd_lst, ft_lstnew(token));
 	}
 	if (stop_symbol == SEMICOLON)
-		get_pipes_lst(&cmd_lst);
+		get_pipes_lst(cmd_lst, magic_lst);
 	return (cmd_lst);
 }
 
@@ -116,10 +73,10 @@ t_list
 ** @return t_list *lst_cmd список команд
 */
 t_list
-	*get_cmds(char *line)
+	*get_cmds(char *line, t_list **magic_lst)
 {
 	t_list	*cmd_lst;
 
-	cmd_lst = split_cmdlst(line, SEMICOLON);
+	cmd_lst = split_cmdlst(line, SEMICOLON, magic_lst);
 	return (cmd_lst);
 }

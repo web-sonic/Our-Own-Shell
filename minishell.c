@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/02 18:47:46 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/03 09:18:40 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,44 @@ int
 	return (0);
 }
 
+void
+	clear_doublelst(void *content)
+{
+	t_list	*lst;
+
+	lst = content;
+	ft_lstclear(&lst, &free);
+}
+
+void
+	shell(t_dlist **histlist, t_list *envlst, char *dir_add)
+{
+	char	*line;
+	t_list	*cmd_lst;
+	t_list	*magic_lst;
+
+	magic_lst = 0;
+	line = readline(histlist, dir_add);
+	if (line && !empty_line(line))
+	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = 0;
+		cmd_lst = get_cmds(line, &magic_lst);
+		if (cmd_lst)
+		{
+			execute(cmd_lst, envlst, mod_address(dir_add));
+			ft_lstclear(&cmd_lst, &clear_doublelst);
+		}
+	}
+	if (magic_lst)
+		ft_lstclear(&magic_lst, &free);
+}
+
+/*
+** @params: char **env: массив переменных окружения
+** TODO: Имитирует работу шелла
+** @return 0
+*/
 int
 	main(int argc, char **argv, char **env)
 {

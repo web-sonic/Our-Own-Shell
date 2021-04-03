@@ -3,15 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/02 19:53:27 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/03 09:17:50 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main_for_test.c\
-		readline.c \
+SRCS =	readline.c \
 		readline_utils.c \
 		utils_pact_1.c \
 		utils_pact_2.c \
@@ -36,6 +35,9 @@ SRCS =	main_for_test.c\
 		getallenv.c \
 		signal_handler.c \
 		utils_env.c \
+		minishell.c \
+		parser/parse_utils.c \
+		#main_for_test.c \
 
 LIB =	libft/libft.a 
 
