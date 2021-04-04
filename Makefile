@@ -6,7 +6,7 @@
 #    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/03 18:14:21 by ctragula         ###   ########.fr        #
+#    Updated: 2021/04/04 05:27:56 by ctragula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ SRCS =	readline.c \
 		utils_pact_2.c \
 		parser/cmd_list.c \
 		parser/error_parse.c \
-		execute/execute.c \
+		parser/parse_utils.c \
 		parser/parser.c \
+		execute/execute.c \
 		./dlists/ft_dlstclear.c \
 		./dlists/ft_dlstadd_back.c \
 		./dlists/ft_dlstnew.c \
@@ -32,11 +33,12 @@ SRCS =	readline.c \
 		./function/unset.c \
 		./function/cd.c \
 		./errors/error_ft.c \
+		./errors/exceptions.c \
 		getallenv.c \
 		signal_handler.c \
 		utils_env.c \
 		minishell.c \
-		parser/parse_utils.c \
+		libftplus/ft_strtolower.c \
 		#main_for_test.c \
 
 LIB =	libft/libft.a 

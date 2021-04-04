@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 20:34:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 05:28:11 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,38 +162,6 @@ void
 		print_errors(args[0]);
 }
 
-void
-	exceptions(char c)
-{
-	if (c == '.')
-	{
-		g_error = 2;
-		ft_putendl_fd("minishell: .: filename argument required", 2);
-		ft_putendl_fd(".: usage: . filename [arguments]", 2);
-	}
-	else
-	{
-		g_error = 126;
-		ft_putendl_fd("minishell: /Users: is a directory", 2);
-	}
-}
-
-char
-	*ft_strtolower(char *str)
-{
-	size_t	i;
-	char	*new_str;
-
-	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
-	i = 0;
-	while (str[i])
-	{
-		new_str[i] = ft_tolower(str[i]);
-		i++;
-	}
-	return (new_str);
-}
-
 int
 	validate_redirects(t_cmd *cmd)
 {
@@ -202,8 +170,8 @@ int
 	return (1);
 }
 
-int
-	cmd_execute(char **args, t_list *envlst, int pipe, t_cmd *cnd)
+static int
+	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
 	char	*cmd;
 
@@ -233,7 +201,7 @@ int
 }
 
 void
-	execute(t_list *cmd_lst, t_list *envlst, char *dir_add)
+	exec(t_list *cmd_lst, t_list *envlst, char *dir_add)
 {
 	t_cmd		*cmd;
 	t_fdstruct	fds;

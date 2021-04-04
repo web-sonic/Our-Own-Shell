@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:28:40 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 05:28:34 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	*mod_address(char *dir_add);
 void	*return_content(void *content);
 void	free_env(void *env);
 
-void	execute(t_list *cmd_lst, t_list *envlst, char *dir_add);
 t_cmd	*parser(char *str, t_list *envlst, char *dir_addr);
 char	*parse_token(char **str, char *dir_addr);
 char	**getallenv(t_list *envlst);
@@ -83,4 +82,10 @@ t_cmd	*cmd_clear(t_cmd *cmd);
 void	skip_spaces(char **str, char *spaces);
 char	*goto_stopsymbol(char **str, char stop_symbol);
 
+//
+void	exec(t_list *cmd_lst, t_list *envlst, char *dir_add);
+
+//libftplus
+char	*ft_strtolower(char *str);
+void	exceptions(char c);
 #endif
