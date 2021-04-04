@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 14:42:08 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 20:17:55 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void
 	}
 	else
 	{
-		plus == 0 ? (arr_arg->val = ft_substr(line, 0, super_strlen(0, '=', line))) :
-		(arr_arg->val = ft_substr(line, 0, super_strlen(0, '+', line)));
+		plus == 0 ? (arr_arg->val = ft_substr(line, 0, super_strlen(0, '=',
+			line))) : (arr_arg->val = ft_substr(line, 0, super_strlen(0, '+',
+			line)));
 		while (line[i] != '=')
 			i++;
 		arr_arg->arg = ft_substr(line, i + 1, super_strlen(i + 1, '\0', line));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 06:31:29 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:13:05 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ void
 			free(envt->arg);
 			envt->arg = ft_itoa(lvl + 1);
 		}
-		if (!ft_strncmp("OLDPWD", envt->val, 7))
+		if (!ft_strncmp("OLDPWD", envt->val, 7) && (oldpwd = 1))
 		{
-			oldpwd = 1;
 			free(envt->arg);
 			envt->equally = 0;
 		}

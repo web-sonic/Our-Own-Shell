@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 15:32:46 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 20:19:37 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ typedef struct		s_exp
 	int				error;
 	int				plus;
 }					t_exp;
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 18:38:37 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 20:09:11 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void
 	!ft_strncmp(reader->line_term, "\e[D", 4) ||
 	!ft_strncmp(reader->line_term, "\t", 3) || !ft_strncmp(reader->line_term,
 	"\f", 3) || !ft_strncmp(reader->line_term, "\v", 3) ||
-	!ft_strncmp(reader->line_term, "\13", 4))
+	!ft_strncmp(reader->line_term, "\13", 4) ||
+	!ft_strncmp(reader->line_term, "\033[1;2", 6))
 		reader->line_term[0] = 0;
 	else
 	{

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:15:29 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 08:57:17 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:10:30 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "../minishell.h"
+# include "../minishell.h"
 
 # define SPACES " \t"
 # define QUOTE 39

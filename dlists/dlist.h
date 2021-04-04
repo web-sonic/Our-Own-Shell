@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   dlist.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:18:41 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 06:19:30 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:13:36 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DLIST_H
 # define DLIST_H
 
-#include "../minishell.h"
+# include "../minishell.h"
 
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
 t_dlist	*ft_dlstnew(void *content);

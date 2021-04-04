@@ -6,21 +6,25 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/04 15:55:41 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/04 20:21:56 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	readline.c \
 		readline_utils.c \
 		minishell_utils.c \
-		parser/cmd_list.c \
-		parser/parse_utils.c \
-		parser/parser.c \
-		parser/treates.c \
-		parser/parse_dollar.c \
-		parser/parse_fds.c \
-		execute/execute.c \
-		execute/fds.c \
+		init.c \
+		utils_env.c \
+		minishell.c \
+		signal_handler.c \
+		./parser/cmd_list.c \
+		./parser/parse_utils.c \
+		./parser/parser.c \
+		./parser/treates.c \
+		./parser/parse_dollar.c \
+		./parser/parse_fds.c \
+		./execute/execute.c \
+		./execute/fds.c \
 		./dlists/ft_dlstclear.c \
 		./dlists/ft_dlstadd_back.c \
 		./dlists/ft_dlstnew.c \
@@ -38,16 +42,13 @@ SRCS =	readline.c \
 		./errors/error_ft.c \
 		./errors/exceptions.c \
 		./errors/error_parse.c \
-		signal_handler.c \
-		utils_env.c \
-		minishell.c \
-		libftplus/ft_strtolower.c \
-		libftplus/ft_dupfree.c \
-		libftplus/ft_ownrealloc.c \
-		libftplus/ft_putchar.c \
-		libftplus/ft_wordtab_realloc.c \
-		libftplus/ft_str_realloc.c \
-		init.c \
+		./libftplus/ft_strtolower.c \
+		./libftplus/ft_dupfree.c \
+		./libftplus/ft_ownrealloc.c \
+		./libftplus/ft_putchar.c \
+		./libftplus/ft_wordtab_realloc.c \
+		./libftplus/ft_str_realloc.c \
+		./libftplus/ft_isonlyprint.c \
 		#main_for_test.c \
 
 LIB =	libft/libft.a 
