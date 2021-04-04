@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 06:03:31 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 10:52:28 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,27 @@ int
 void
 	print_errors(char *str)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	if (strchr(str, '/'))
+	int	fd;
+
+	if (ft_strncmp("./minishell", str, 12))
 	{
-		if (open(str, O_RDONLY | O_DIRECTORY) >= 0)
+		fd = open(str, O_RDONLY | O_DIRECTORY);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": ", 2);
+		if (strchr(str, '/'))
 		{
-			ft_putendl_fd("is directory.", 2);
-			g_error = 126;
+			if (fd >= 0)
+				ft_putendl_fd("is directory.", 2);
+			else if (fd < 0)
+				ft_putendl_fd(strerror(errno), 2);
+			else
+				ft_putendl_fd("permission denied", 2);
+			close(fd);
+			g_error = (fd < 0) ? 126 : NUM_COMMAND_NOT_FOUND;
+			return ;
 		}
-		else if (open(str, O_RDWR) < 0)
-		{
-			ft_putendl_fd(strerror(errno), 2);
-			g_error = NUM_COMMAND_NOT_FOUND;
-		}
-		else
-		{
-			ft_putendl_fd("permission denied", 2);
-			g_error = 126;
-		}
-		return ;
+		ft_putendl_fd("command not found", 2);
+		g_error = NUM_COMMAND_NOT_FOUND;
 	}
-	ft_putendl_fd("command not found", 2);
-	g_error = NUM_COMMAND_NOT_FOUND;
 }
