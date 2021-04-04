@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 05:44:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 17:59:00 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int
 	else if (!ft_strncmp(cmd, "export", 7))
 		g_error = ft_export(args, envlst, pipe);
 	else if (!ft_strncmp(cmd, "pwd", 4))
-		g_error = ft_pwd();
+		g_error = ft_pwd(args);
 	else if (!ft_strncmp(cmd, "unset", 6))
 		ft_unset(args, &envlst, pipe);
 	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7))

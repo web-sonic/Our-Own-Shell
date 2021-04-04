@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/02 18:44:42 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 17:58:30 by sgath            ###   ########.fr       */
+/*   Created: 2021/04/04 15:27:00 by sgath             #+#    #+#             */
+/*   Updated: 2021/04/04 17:31:23 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../minishell.h"
 
-int		ft_echo(char **line);
-int		ft_pwd(char **line);
-int		ft_exit(char **line);
-int		ft_env(t_list *envlst);
-int		ft_export(char **line, t_list *envlst, int pipe);
-int		ft_unset(char **line, t_list **envlst, int pipe);
-int		ft_cd(char **line, t_list *envlst, int pipe);
-void	check_line_export(char *line, t_exp *exp);
+void
+	check_line_export(char *line, t_exp *exp)
+{
+	int	j;
 
-#endif
+	j = -1;
+	while (line[++j] && line[j] != '=' && exp->error == 0)
+	{
+		if (!(line[j] == '_' || ft_isalnum(line[j])))
+		{
+			if (line[j] == '+' && line[j + 1] == '=')
+				exp->plus = 1;
+			else
+				exp->error = export_error(line);
+		}
+	}
+}

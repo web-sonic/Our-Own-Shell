@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/04 13:48:30 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/04 15:55:41 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS =	readline.c \
 		./builtins/export.c \
 		./builtins/unset.c \
 		./builtins/cd.c \
+		./builtins/export_utils.c \
 		./errors/error_ft.c \
 		./errors/exceptions.c \
 		./errors/error_parse.c \

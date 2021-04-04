@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 05:39:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 17:50:39 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # define NUM_COMMAND_NOT_FOUND 127
 # define NUM_ERROR_DIR 2
 # define NUM_ERROR_PARSE 258
+
+# define FLAG_ERROR_EXPORT "export: usage: export [-nf] [name[=value] ...] or export -p)"
+# define FLAG_ERROR_CD "cd: usage: cd [-L|-P] [dir]"
+# define FLAG_ERROR_ENV1 "usage: env [-iv] [-P utilpath] [-S string] [-u name]"
+# define FLAG_ERROR_ENV2 "           [name=value ...] [utility [argument ...]]"
+# define FLAG_ERROR_PWD "pwd: usage: pwd [-LP]"
+# define FLAG_ERROR_UNSET "unset: usage: unset [-f] [-v] [name ...]"
 
 int		cd_error(char *dir_str, char *old_str);
 void	exit_error(char *line);

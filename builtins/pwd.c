@@ -6,14 +6,14 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:02 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 18:12:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 18:01:29 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 int
-	ft_pwd(void)
+	ft_pwd(char **line)
 {
 	char	*dir;
 
@@ -22,6 +22,11 @@ int
 		return (1);
 	if (!getcwd(dir, PATH_MAX - 1))
 		return (1);
+	if (line[1])
+	{
+		if (line[1][0] == '-' && line[1][1] != '\0' && line[1][1] != '-')
+			return (flag_error(line[0], line[1]));
+	}
 	ft_putendl_fd(dir, 1);
 	free(dir);
 	return (0);

@@ -4,7 +4,6 @@
 .DS_Store
 *.d
 *.o
-minishell
 minishell_tester
 line_edition
 .vscode
