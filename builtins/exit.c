@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 13:46:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 13:51:52 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ static int
 	if (i == (int)ft_strlen(line))
 	{
 		n = super_atoi(line);
+		if (line[0] == '+')
+			i--;
 		if (i == ft_nbrlen(n, 10))
 			exit(n);
 	}
 	exit_error(line);
-	return (255);
+	exit(255);
 }
 
 int
@@ -74,9 +76,9 @@ int
 	if (line[1] && line[2])
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
-		return (1);
+		exit(1);
 	}
 	else if (!line[2] && line[1])
-		return (check_argum_exit(line[1]));
+		check_argum_exit(line[1]);
 	exit(n);
 }
