@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 06:31:29 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 18:29:43 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void
 		{
 			lvl = ft_atoi(envt->arg);
 			free(envt->arg);
+			envt->arg = 0;
 			envt->arg = ft_itoa(lvl + 1);
 		}
 		if (!ft_strncmp("OLDPWD", envt->val, 7))
 		{
 			oldpwd = 1;
 			free(envt->arg);
+			envt->arg = 0;
 			envt->equally = 0;
 		}
 		ft_lstadd_back(envlst, ft_lstnew(envt));
