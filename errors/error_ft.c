@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 17:50:51 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 19:35:27 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void
 	exit_error(char *line)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(line, 1);
+	ft_putstr_fd(line, 2);
 	ft_putendl_fd(": numeric argument required", 2);
 }
 
@@ -50,19 +50,19 @@ int
 	ft_putendl_fd(": invalid option", 2);
 	if (!ft_strncmp(name, "export", 7))
 	{
-		ft_putendl_fd(FLAG_ERROR_EXPORT, 2);
+		ft_putstr_fd(name, 2);
+		ft_putendl_fd(FLAG_ERROR_EXP, 2);
 		return (2);
 	}
-	else if (!ft_strncmp(name, "cd", 3))
-		ft_putendl_fd(FLAG_ERROR_CD, 2);
-	else if (!ft_strncmp(name, "env", 4))
+	(!ft_strncmp(name, "cd", 3)) ? ft_putendl_fd(FLAG_ERROR_CD, 2) : 0;
+	if (!ft_strncmp(name, "env", 4))
 	{
 		ft_putstr_fd(FLAG_ERROR_ENV1, 2);
 		ft_putendl_fd(FLAG_ERROR_ENV2, 2);
 	}
-	else if (!ft_strncmp(name, "pwd", 4))
+	if (!ft_strncmp(name, "pwd", 4))
 		ft_putendl_fd(FLAG_ERROR_PWD, 2);
-	else if (!ft_strncmp(name, "unset", 6))
+	if (!ft_strncmp(name, "unset", 6))
 	{
 		ft_putendl_fd(FLAG_ERROR_UNSET, 2);
 		return (2);

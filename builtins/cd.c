@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 18:55:05 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 19:54:03 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int
 
 	dir_pwd = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(dir_pwd, PATH_MAX - 1);
+	if (!dir_add)
+		dir_add = dir_pwd;
 	if (chdir(dir_add) == -1)
 	{
 		free(dir_pwd);
@@ -117,7 +119,7 @@ int
 	if (!line[1])
 		return (ret_dir(envlst, pipe, "HOME"));
 	if (!ft_strncmp(line[1], ".", 2))
-		rez = 0;
+		rez = check_dir(envlst, NULL, NULL, pipe);
 	if (rez == -1 && !ft_strncmp(line[1], "-", 2))
 		rez = ret_dir(envlst, pipe, "OLDPWD");
 	if (line[1][0] == '-' && line[1][1] != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 16:12:04 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 20:20:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int
 
 	exp.i = 0;
 	exp.rez = 0;
-	if (pipe == 0)
+	if (pipe == 0 && line[1])
 		return (0);
 	if (!line[1])
 		return (print_env(envlst));
