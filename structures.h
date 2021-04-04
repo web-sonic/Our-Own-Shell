@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:58:37 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 14:03:44 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,15 @@ typedef struct		s_fdstruct
 	int				fdin;
 	int				fdout;
 }					t_fdstruct;
+
+typedef struct		s_exp
+{
+	int				i;
+	int				j;
+	int				rez;
+	int				error;
+	int				plus;
+}					t_exp;
+
 
 #endif
