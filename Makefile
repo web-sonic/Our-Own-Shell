@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
+#    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/04 09:21:30 by ctragula         ###   ########.fr        #
+#    Updated: 2021/04/04 13:43:20 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS =	readline.c \
 		./builtins/pwd.c \
 		./builtins/export.c \
 		./builtins/unset.c \
-		./function/cd.c \
+		./builtins/cd.c \
 		./errors/error_ft.c \
 		./errors/exceptions.c \
 		./errors/error_parse.c \

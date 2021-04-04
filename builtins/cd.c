@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 05:43:12 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 13:45:32 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void
-	add_env(t_list *envlst, char *dir_pwd, int pipe)
+	add_env(t_list *envlst, char *dir_pwd)
 {
 	t_list	*pwd_lst;
 	t_env	*envt;
@@ -51,13 +51,13 @@ static int
 	getcwd(dir_pwd, PATH_MAX - 1);
 	if (chdir(dir_add) == -1)
 		return (cd_error(dir_add, old_line));
-	add_env(envlst, dir_pwd, pipe);
+	pipe == 1 ? add_env(envlst, dir_pwd) : chdir(dir_pwd);
 	free(dir_pwd);
 	return (0);
 }
 
 static int
-	ret_dir(t_list *envlst, char *name)
+	ret_dir(t_list *envlst, int pipe, char *name)
 {
 	char	*dir_add;
 	t_list	*tmp_lst;
@@ -79,7 +79,7 @@ static int
 		ft_putendl_fd(" not set", 2);
 		return (1);
 	}
-	return (check_dir(envlst, dir_add, 0, 1));
+	return (check_dir(envlst, dir_add, 0, pipe));
 }
 
 static int
@@ -111,16 +111,16 @@ int
 	char	*tmp;
 
 	rez = -1;
-	if (!line[1] && pipe == 1)
-		return (ret_dir(envlst, "HOME"));
-	if (!ft_strncmp(line[1], ".", 2) && pipe == 1)
+	if (!line[1])
+		return (ret_dir(envlst, pipe, "HOME"));
+	if (!ft_strncmp(line[1], ".", 2))
 		rez = 0;
-	if (rez == -1 && !ft_strncmp(line[1], "-", 2) && pipe == 1)
-		rez = ret_dir(envlst, "OLDPWD");
-	if (line[1][0] == '-' && line[1][1] != 0 && pipe == 1)
+	if (rez == -1 && !ft_strncmp(line[1], "-", 2))
+		rez = ret_dir(envlst, pipe, "OLDPWD");
+	if (line[1][0] == '-' && line[1][1] != 0)
 		rez = flag_error(line[0], line[1]);
-	if (rez == -1 && !ft_strncmp(line[1], "--", 3) && pipe == 1)
-		rez = ret_dir(envlst, "HOME");
+	if (rez == -1 && !ft_strncmp(line[1], "--", 3))
+		rez = ret_dir(envlst, pipe, "HOME");
 	tmp = line[1];
 	if (rez == -1)
 		rez = full_dir(envlst, tmp, pipe);

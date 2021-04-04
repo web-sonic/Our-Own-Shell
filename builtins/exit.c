@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 09:41:30 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 13:46:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int
 	long long	n;
 
 	i = 0;
-	if (line[i] == '-')
+	if (line[i] == '-' || line[i] == '+')
 		i++;
 	while (line[i] && ft_isdigit(line[i]))
 		i++;

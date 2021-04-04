@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 20:32:19 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 13:27:40 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int
 		ft_putendl_fd(" not set", 2);
 		return (1);
 	}
-	return (check_dir(envlst, dir_add, 0));
+	return (check_dir(envlst, dir_add, 0, 1));
 }
 
 static int
@@ -111,15 +111,15 @@ int
 	char	*tmp;
 
 	rez = -1;
-	if (!line[1] && pipe == 1)
+	if (pipe == 1 && !line[1])
 		return (ret_dir(envlst, "HOME"));
-	if (!ft_strncmp(line[1], ".", 2) && pipe == 1)
+	if (pipe == 1 && !ft_strncmp(line[1], ".", 2))
 		rez = 0;
-	if (rez == -1 && !ft_strncmp(line[1], "-", 2) && pipe == 1)
+	if (pipe == 1 && rez == -1 && !ft_strncmp(line[1], "-", 2))
 		rez = ret_dir(envlst, "OLDPWD");
-	if (line[1][0] == '-' && line[1][1] != 0 && pipe == 1)
+	if (pipe == 1 && line[1][0] == '-' && line[1][1] != 0)
 		rez = flag_error(line[0], line[1]);
-	if (rez == -1 && !ft_strncmp(line[1], "--", 3) && pipe == 1)
+	if (pipe == 1 && rez == -1 && !ft_strncmp(line[1], "--", 3))
 		rez = ret_dir(envlst, "HOME");
 	tmp = line[1];
 	if (rez == -1)
