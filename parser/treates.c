@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:04:44 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 09:19:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 10:14:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ char
 	(*str)++;
 	if (!**str)
 		return (ft_calloc(sizeof(char), 1));
-	left_token = ft_substr(*str, 0, 1);
+	else if (quote == DQUOTE && !ft_strchr("$\\\"", **str))
+		left_token = ft_substr((*str) - 1, 0, 2);
+	else
+		left_token = ft_substr(*str, 0, 1);
 	(*str)++;
 	if (quote)
 	{

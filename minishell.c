@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 07:21:48 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 10:21:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int
 		i++;
 	if (!line[i])
 	{
-		g_error = 0;
 		if (!i)
 			free(line);
 		return (1);
