@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:15:08 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 19:23:52 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 19:54:03 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static int
 	if (!dir_add)
 		dir_add = dir_pwd;
 	if (chdir(dir_add) == -1)
+	{
+		free(dir_pwd);
 		return (cd_error(dir_add, old_line));
+	}
 	pipe == 1 ? add_env(envlst, dir_pwd) : chdir(dir_pwd);
 	free(dir_pwd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 20:17:55 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 20:22:47 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ char
 	{
 		var = envlst->content;
 		tmp = ft_strjoin(var->val, "=");
-		env[i] = ft_strjoin(tmp, var->arg);
+		if (var->arg)
+			env[i] = ft_strjoin(tmp, var->arg);
+		else
+			env[i] = ft_strdup(tmp);
 		free(tmp);
 		i++;
 		envlst = envlst->next;
