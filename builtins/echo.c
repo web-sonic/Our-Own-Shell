@@ -3,47 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 09:39:39 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 19:14:58 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static int
-	count_arr(char **str)
+	check_flag_n(char *line)
 {
-	int	count;
+	int i;
+	int flag;
 
-	count = 0;
-	while (str[count])
-		count++;
-	return (count);
+	i = 1;
+	flag = 0;
+	if (line[0] == '-' && line[1] == 'n')
+	{
+		flag = 1;
+		while (line[++i] && flag == 1)
+			if (line[i] != 'n')
+				flag = 0;
+	}
+	return (flag);
 }
 
 int
 	ft_echo(char **line)
 {
-	int	count;
 	int	i;
 	int	n_flag;
 
-	i = 1;
-	count = count_arr(line);
+	i = 0;
 	n_flag = 0;
-	if (count != 1)
+	if (!line[1])
+		return (0);
+	while (line[++i])
 	{
-		while (line[i] && !ft_strncmp(line[i], "-n", 2))
-		{
+		if (check_flag_n(line[i]) != 0)
 			n_flag = 1;
-			i++;
-		}
-		while (i < count)
+		else
 		{
 			ft_putstr_fd(line[i], 1);
-			if (line[i++ + 1])
+			if (line[i + 1])
 				ft_putstr_fd(" ", 1);
 		}
 	}

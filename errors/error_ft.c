@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 17:50:51 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 18:07:57 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void
 	exit_error(char *line)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(line, 1);
+	ft_putstr_fd(line, 2);
 	ft_putendl_fd(": numeric argument required", 2);
 }
 
@@ -50,6 +50,7 @@ int
 	ft_putendl_fd(": invalid option", 2);
 	if (!ft_strncmp(name, "export", 7))
 	{
+		ft_putstr_fd(name, 2);
 		ft_putendl_fd(FLAG_ERROR_EXPORT, 2);
 		return (2);
 	}

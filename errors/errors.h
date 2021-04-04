@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 17:50:39 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 18:05:49 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define NUM_ERROR_DIR 2
 # define NUM_ERROR_PARSE 258
 
-# define FLAG_ERROR_EXPORT "export: usage: export [-nf] [name[=value] ...] or export -p)"
+# define FLAG_ERROR_EXPORT ": usage: export [-nf] [name[=value] ...] or export -p)"
 # define FLAG_ERROR_CD "cd: usage: cd [-L|-P] [dir]"
 # define FLAG_ERROR_ENV1 "usage: env [-iv] [-P utilpath] [-S string] [-u name]"
 # define FLAG_ERROR_ENV2 "           [name=value ...] [utility [argument ...]]"
