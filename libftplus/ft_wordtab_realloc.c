@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pact_2.c                                     :+:      :+:    :+:   */
+/*   ft_wordtab_realloc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 15:33:17 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/02 18:33:32 by sgath            ###   ########.fr       */
+/*   Created: 2021/04/04 06:42:41 by ctragula          #+#    #+#             */
+/*   Updated: 2021/04/04 06:42:54 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int
-	dub_and_free(char **rem_str, char *str)
-{
-	if (*rem_str)
-		free(*rem_str);
-	*rem_str = ft_strdup(str);
-	return (1);
-}
-
-void
-	write_new_symbol_str(char **rem_str, char *str)
-{
-	char	*tmp;
-	int		i;
-
-	i = -1;
-	while (str[++i])
-		if (!ft_isprint(str[i]) && str[i] != '\n')
-			return ;
-	if (!(*rem_str))
-		*rem_str = ft_strdup(str);
-	else
-	{
-		tmp = ft_strjoin(*rem_str, str);
-		free(*rem_str);
-		*rem_str = tmp;
-	}
-}
+#include "../minishell.h"
 
 char
 	**ft_wordtab_realloc(char **wordtab, char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/03 18:28:36 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 06:44:42 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,26 @@ char
 		envlst = envlst->next;
 	}
 	return (ft_calloc(sizeof(char), 1));
+}
+
+char
+	**getallenv(t_list *envlst)
+{
+	char	**env;
+	t_env	*var;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	env = ft_calloc(sizeof(char *), ft_lstsize(envlst) + 1);
+	while (envlst)
+	{
+		var = envlst->content;
+		tmp = ft_strjoin(var->val, "=");
+		env[i] = ft_strjoin(tmp, var->arg);
+		free(tmp);
+		i++;
+		envlst = envlst->next;
+	}
+	return (env);
 }

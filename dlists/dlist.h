@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getallenv.c                                        :+:      :+:    :+:   */
+/*   dlist.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/30 18:44:33 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:55:09 by ctragula         ###   ########.fr       */
+/*   Created: 2021/04/04 06:18:41 by ctragula          #+#    #+#             */
+/*   Updated: 2021/04/04 06:19:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef DLIST_H
+# define DLIST_H
 
-char
-	**getallenv(t_list *envlst)
-{
-	char	**env;
-	t_env	*var;
-	char	*tmp;
-	int		i;
+#include "../minishell.h"
 
-	i = 0;
-	env = ft_calloc(sizeof(char *), ft_lstsize(envlst) + 1);
-	while (envlst)
-	{
-		var = envlst->content;
-		tmp = ft_strjoin(var->val, "=");
-		env[i] = ft_strjoin(tmp, var->arg);
-		free(tmp);
-		i++;
-		envlst = envlst->next;
-	}
-	return (env);
-}
+void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
+t_dlist	*ft_dlstnew(void *content);
+int		ft_dlstsize(t_dlist *lst);
+void	ft_dlstclear(t_dlist **lst, void (*del)(void*));
+
+#endif

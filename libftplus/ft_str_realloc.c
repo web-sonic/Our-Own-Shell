@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtolower.c                                    :+:      :+:    :+:   */
+/*   ft_write_new_symbol_str.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/04 05:22:25 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 06:28:56 by ctragula         ###   ########.fr       */
+/*   Created: 2021/04/04 06:41:43 by ctragula          #+#    #+#             */
+/*   Updated: 2021/04/04 06:41:53 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char
-	*ft_strtolower(char *str)
+void
+	write_new_symbol_str(char **rem_str, char *str)
 {
-	size_t	i;
-	char	*new_str;
+	char	*tmp;
+	int		i;
 
-	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
+		if (!ft_isprint(str[i]) && str[i] != '\n')
+			return ;
+	if (!(*rem_str))
+		*rem_str = ft_strdup(str);
+	else
 	{
-		new_str[i] = ft_tolower(str[i]);
-		i++;
+		tmp = ft_strjoin(*rem_str, str);
+		free(*rem_str);
+		*rem_str = tmp;
 	}
-	return (new_str);
 }

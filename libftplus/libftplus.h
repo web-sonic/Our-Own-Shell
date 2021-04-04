@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   libftplus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 18:08:04 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 15:55:36 by ctragula         ###   ########.fr       */
+/*   Created: 2021/04/04 06:44:13 by ctragula          #+#    #+#             */
+/*   Updated: 2021/04/04 06:48:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef LIBFTPLUS_H
+# define LIBFTPLUS_H
 
-# define SPACES " \t"
-# define QUOTE 39
-# define DQUOTE 34
-# define PIPE 124
-# define SEMICOLON 59
-# define GREAT 62
-# define LOW 60
-# define BACKSLASH 92
-# define DOLLAR 36
-# define DIEZ 35
-# define STOP_SYMBOLS "\\\"'<> \t#~"
-# define SPEC_SYMBOLS "~\\\"'"
+#include "../minishell.h"
+char	*ft_ownrealloc(char *(*f)(const char *, const char *),
+			char **s1, char *s2);
+char	**ft_wordtab_realloc(char **wordtab, char *str);
+int		ft_putchar(int c);
+int		dub_and_free(char **rem_str, char *str);
+void	write_new_symbol_str(char **rem_str, char *str);
+char	*ft_strtolower(char *str);
 
 #endif

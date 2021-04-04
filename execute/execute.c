@@ -6,60 +6,11 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 05:28:11 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 05:44:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void
-	set_fds(t_fdstruct *fds, t_cmd *cmd, t_bool last_cmd)
-{
-	int	fdpipe[2];
-
-	if (cmd->is_fdin)
-		dup2(cmd->fdin, 0);
-	else
-		dup2(fds->fdin, 0);
-	if (last_cmd)
-	{
-		close(fds->fdin);
-		(cmd->is_fdout) ? fds->fdout = dup(cmd->fdout) :
-			(fds->fdout = dup(fds->tmpout));
-	}
-	else
-	{
-		pipe(fdpipe);
-		fds->fdin = fdpipe[0];
-		fds->fdout = fdpipe[1];
-	}
-	(!cmd->is_fdout) ? dup2(fds->fdout, 1) : dup2(cmd->fdout, 1);
-	if (cmd->fdout >= 0)
-		close(cmd->fdout);
-	if (cmd->fdin >= 0)
-		close(cmd->fdin);
-	close(fds->fdout);
-}
-
-static void
-	init_fd(t_fdstruct *fds)
-{
-	fds->tmpin = dup(0);
-	fds->tmpout = dup(1);
-	fds->fdin = dup(fds->tmpin);
-	fds->fdout = dup(fds->tmpout);
-}
-
-void
-	unset_fd(t_fdstruct *fds)
-{
-	dup2(fds->tmpin, 0);
-	dup2(fds->tmpout, 1);
-	close(fds->tmpin);
-	close(fds->tmpout);
-	close(fds->fdin);
-	close(fds->fdout);
-}
 
 t_cmd
 	*cmd_clear(t_cmd *cmd)
@@ -76,7 +27,7 @@ t_cmd
 	return (0);
 }
 
-char
+static char
 	*get_cmd(char **cmd, char *path)
 {
 	char		**paths;
@@ -106,36 +57,7 @@ char
 	return (*cmd);
 }
 
-void
-	print_errors(char *str)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	if (strchr(str, '/'))
-	{
-		if (open(str, O_RDONLY | O_DIRECTORY) >= 0)
-		{
-			ft_putendl_fd("is directory.", 2);
-			g_error = 126;
-		}
-		else if (open(str, O_RDWR) < 0)
-		{
-			ft_putendl_fd(strerror(errno), 2);
-			g_error = 127;
-		}
-		else
-		{
-			ft_putendl_fd("permission denied", 2);
-			g_error = 126;
-		}
-		return ;
-	}
-	ft_putendl_fd("command not found", 2);
-	g_error = 127;
-}
-
-void
+static void
 	cmd_bin(char **args, t_list *envlst)
 {
 	pid_t	ret;
@@ -162,14 +84,6 @@ void
 		print_errors(args[0]);
 }
 
-int
-	validate_redirects(t_cmd *cmd)
-{
-	if (cmd->is_fdin || cmd->is_fdout)
-		return (0);
-	return (1);
-}
-
 static int
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
@@ -181,7 +95,7 @@ static int
 	if (!ft_strncmp(cmd, "echo", 5))
 		g_error = ft_echo(args);
 	else if (!ft_strncmp(cmd, "cd", 3))
-		g_error = ft_cd(args, envlst);
+		g_error = ft_cd(args, envlst, pipe);
 	else if (!ft_strncmp(cmd, "env", 4) && !args[1])
 		g_error = ft_env(envlst);
 	else if (!ft_strncmp(cmd, "exit", 5))
@@ -217,7 +131,7 @@ void
 			pipe_lst = pipe_lst->next;
 			last_cmd = (!pipe_lst) ? TRUE : FALSE;
 			set_fds(&fds, cmd, last_cmd);
-			if (cmd_execute(cmd->args, envlst, last_cmd, cmd))
+			if (cmd_exec(cmd->args, envlst, last_cmd, cmd))
 				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}

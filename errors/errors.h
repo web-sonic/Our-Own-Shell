@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/03 18:57:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/04 05:39:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ int		cd_error(char *dir_str, char *old_str);
 void	exit_error(char *line);
 int		export_error(char *str);
 int		flag_error(char *name, char *arg);
+void	print_errors(char *str);
+void	exceptions(char c);
+t_list	*error_parse(char *str, int c);
+void	file_error(char *file, char *error);
 
 #endif
