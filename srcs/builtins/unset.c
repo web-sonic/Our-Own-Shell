@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 14:47:57 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:59:34 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void
 }
 
 static int
-	check_line_unset(char *line)
+	check_line_uns(char *line)
 {
 	int i;
 	int rez;
@@ -48,7 +48,7 @@ static int
 	rez = 0;
 	while (line[++i] && rez == 0)
 	{
-		if (line[i] != '_' && !ft_isalpha(line[i]))
+		if (line[i] != '_' && !ft_isalnum(line[i]))
 			rez = 1;
 	}
 	return (rez);
@@ -71,8 +71,8 @@ static int
 			ft_lstdelone(tmp_lstenv, &free_env);
 			tmp_lstenv = next_lstenv;
 		}
-		if (ft_isdigit(line[i][0]) || line[i][0] == '=' ||
-		(line[i][0] == '-' && line[i][1] == '\0') || check_line_unset(line[i]) != 0)
+		if (ft_isdigit(line[i][0]) || line[i][0] == '=' || (line[i][0] == '-'
+			&& line[i][1] == '\0') || check_line_uns(line[i]) != 0)
 			rez = valid_error(line[0], line[i]);
 		if (line[i][0] == '-' && line[i][1] != '\0')
 			rez = flag_error(line[0], line[1]);

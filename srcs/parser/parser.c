@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 14:44:58 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/05 14:55:27 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char
 	while ((*str)[++len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 	{
 		if (((*str)[len] == '~' || (*str)[len] == '#') &&
-			 (!len || (*str)[len - 1] == ' '))
+			(!len || (*str)[len - 1] == ' '))
 			break ;
 	}
 	token = ft_substr(*str, 0, len);
