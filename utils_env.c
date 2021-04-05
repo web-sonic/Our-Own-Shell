@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 20:22:47 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 12:45:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,30 @@ void
 
 	envt = env;
 	if (envt->arg)
+	{
 		free(envt->arg);
+		envt->arg = 0;
+	}
 	free(envt->val);
+	envt->val = 0;
 	free(envt);
+	envt = 0;
 }
 
 void
 	*return_content(void *content)
 {
-	return (content);
+	t_env	*old_env;
+	t_env	*new_env;
+
+	old_env = content;
+	new_env = malloc(sizeof(t_env));
+	new_env->arg = 0;
+	if (old_env->arg)
+		new_env->arg = ft_strdup(old_env->arg);
+	new_env->val = ft_strdup(old_env->val);
+	new_env->equally = old_env->equally;
+	return (new_env);
 }
 
 char
@@ -89,13 +104,16 @@ char
 	while (envlst)
 	{
 		var = envlst->content;
-		tmp = ft_strjoin(var->val, "=");
-		if (var->arg)
-			env[i] = ft_strjoin(tmp, var->arg);
-		else
-			env[i] = ft_strdup(tmp);
-		free(tmp);
-		i++;
+		if (var->val)
+		{
+			tmp = ft_strjoin(var->val, "=");
+			if (var->arg)
+				env[i] = ft_strjoin(tmp, var->arg);
+			else
+				env[i] = ft_strdup(tmp);
+			free(tmp);
+			i++;
+		}
 		envlst = envlst->next;
 	}
 	return (env);
