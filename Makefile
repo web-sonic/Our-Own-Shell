@@ -6,85 +6,84 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/04 20:21:56 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/05 12:42:02 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	readline.c \
-		readline_utils.c \
-		minishell_utils.c \
-		init.c \
-		utils_env.c \
-		minishell.c \
-		signal_handler.c \
-		./parser/cmd_list.c \
-		./parser/parse_utils.c \
-		./parser/parser.c \
-		./parser/treates.c \
-		./parser/parse_dollar.c \
-		./parser/parse_fds.c \
-		./execute/execute.c \
-		./execute/fds.c \
-		./dlists/ft_dlstclear.c \
-		./dlists/ft_dlstadd_back.c \
-		./dlists/ft_dlstnew.c \
-		./dlists/ft_dlstsize.c \
-		./gnl/get_next_line.c \
-		./gnl/get_next_line_utils.c \
-		./builtins/echo.c \
-		./builtins/env.c \
-		./builtins/exit.c \
-		./builtins/pwd.c \
-		./builtins/export.c \
-		./builtins/unset.c \
-		./builtins/cd.c \
-		./builtins/export_utils.c \
-		./errors/error_ft.c \
-		./errors/exceptions.c \
-		./errors/error_parse.c \
-		./libftplus/ft_strtolower.c \
-		./libftplus/ft_dupfree.c \
-		./libftplus/ft_ownrealloc.c \
-		./libftplus/ft_putchar.c \
-		./libftplus/ft_wordtab_realloc.c \
-		./libftplus/ft_str_realloc.c \
-		./libftplus/ft_isonlyprint.c \
-		#main_for_test.c \
+SRCS =	./srcs/readline.c \
+		./srcs/readline_utils.c \
+		./srcs/minishell_utils.c \
+		./srcs/init.c \
+		./srcs/utils_env.c \
+		./srcs/minishell.c \
+		./srcs/signal_handler.c \
+		./srcs/parser/cmd_list.c \
+		./srcs/parser/parse_utils.c \
+		./srcs/parser/parser.c \
+		./srcs/parser/treates.c \
+		./srcs/parser/parse_dollar.c \
+		./srcs/parser/parse_fds.c \
+		./srcs/execute/execute.c \
+		./srcs/execute/fds.c \
+		./srcs/dlists/ft_dlstclear.c \
+		./srcs/dlists/ft_dlstadd_back.c \
+		./srcs/dlists/ft_dlstnew.c \
+		./srcs/dlists/ft_dlstsize.c \
+		./srcs/gnl/get_next_line.c \
+		./srcs/gnl/get_next_line_utils.c \
+		./srcs/builtins/echo.c \
+		./srcs/builtins/env.c \
+		./srcs/builtins/exit.c \
+		./srcs/builtins/pwd.c \
+		./srcs/builtins/export.c \
+		./srcs/builtins/unset.c \
+		./srcs/builtins/cd.c \
+		./srcs/builtins/export_utils.c \
+		./srcs/errors/error_ft.c \
+		./srcs/errors/exceptions.c \
+		./srcs/errors/error_parse.c \
+		./srcs/libftplus/ft_strtolower.c \
+		./srcs/libftplus/ft_dupfree.c \
+		./srcs/libftplus/ft_ownrealloc.c \
+		./srcs/libftplus/ft_putchar.c \
+		./srcs/libftplus/ft_wordtab_realloc.c \
+		./srcs/libftplus/ft_str_realloc.c \
+		./srcs/libftplus/ft_isonlyprint.c \
 
-LIB =	libft/libft.a 
+LIB =	./srcs/libft/libft.a 
 
-HEADERS =	minishell.h \
-			structures.h \
-			parser/parser.h \
-			libftplus/libftplus.h \
-			gnl/get_next_line.h \
-			errors/errors.h \
-			dlists/dlist.h \
-			builtins/builtins.h \
+HEADERS =	./includes/minishell.h \
+			./includes/structures.h \
+			./srcs/parser/parser.h \
+			./srcs/libftplus/libftplus.h \
+			./srcs/gnl/get_next_line.h \
+			./srcs/errors/errors.h \
+			./srcs/dlists/dlist.h \
+			./srcs/builtins/builtins.h \
 
 NAME = minishell
 
 CC = gcc -g -Wall -Wextra -ltermcap
 #-Werror
 
-FLAGS = -ltermcap  -L libft/ -lft
+FLAGS = -ltermcap  -L srcs/libft/ -lft
 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
 $(NAME): $(SRCS) $(HEADERS)
-	$(MAKE) bonus -C libft
+	$(MAKE) bonus -C srcs/libft
 	$(CC) $(SRCS) $(FLAGS) -o $@
 
 all: $(NAME)
 
 clean:
-	$(MAKE) clean -C libft
+	$(MAKE) clean -C srcs/libft
 
 fclean:
 	$(RM) $(NAME)
-	$(MAKE) fclean -C libft
+	$(MAKE) fclean -C srcs/libft
 
 re: fclean all
 
