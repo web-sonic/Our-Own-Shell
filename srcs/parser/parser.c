@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:44:14 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:44:58 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char
 	len = -1;
 	while ((*str)[++len] && !ft_strchr(STOP_SYMBOLS, (*str)[len]))
 	{
-		if ((*str)[len] == '~' && (!len || (*str)[len - 1] == ' '))
+		if (((*str)[len] == '~' || (*str)[len] == '#') &&
+			 (!len || (*str)[len - 1] == ' '))
 			break ;
 	}
 	token = ft_substr(*str, 0, len);
@@ -32,10 +33,9 @@ char
 	{
 		if (**str == QUOTE || **str == DQUOTE)
 			right_token = treat_quotes(str, **str, dir_addr);
-		else if (**str == BACKSLASH)
-			right_token = treat_backslash(str, 0, dir_addr);
 		else
-			right_token = treat_tilda(str, dir_addr);
+			right_token = (**str == BACKSLASH) ?
+				treat_backslash(str, 0, dir_addr) : treat_tilda(str, dir_addr);
 		token = ft_ownrealloc(&ft_strjoin, &token, right_token);
 		free(right_token);
 	}

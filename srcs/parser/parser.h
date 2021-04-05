@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:15:29 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:43:47 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:41:13 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define BACKSLASH 92
 # define DOLLAR 36
 # define DIEZ 35
-# define STOP_SYMBOLS "\\\"'<>\t# "
+# define STOP_SYMBOLS "\\\"'<>\t "
 # define SPEC_SYMBOLS "\\\"'~"
 
 char	*treat_dollar(char **str, t_bool *is_quest);

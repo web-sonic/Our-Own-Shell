@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:53:33 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:33:27 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,31 @@ static int
 		}
 		(*envt)->equally = 1;
 	}
+	free_env(arr_arg);
 	return (1);
 }
 
 static void
-	add_line(char *line, t_list *envlst, int plus)
+	add_line(char *line, t_list **envlst, int plus)
 {
 	int		add;
-	t_list	*tmp_lstenv;
 	t_env	*envt;
 	t_env	*arr_arg;
+	t_list	*tmp_lst;
 
 	arr_arg = malloc(sizeof(t_env));
 	line_split(arr_arg, line, plus);
-	tmp_lstenv = envlst;
 	add = 0;
-	while (tmp_lstenv && add == 0)
+	tmp_lst = *envlst;
+	while (tmp_lst && add == 0)
 	{
-		envt = tmp_lstenv->content;
+		envt = tmp_lst->content;
 		if (!ft_strncmp(arr_arg->val, envt->val, ft_strlen(arr_arg->val) + 1))
 			add = add_arg(arr_arg, &envt, plus);
-		tmp_lstenv = tmp_lstenv->next;
+		tmp_lst = tmp_lst->next;
 	}
 	if (add == 0)
-	{
-		tmp_lstenv = envlst;
-		ft_lstadd_back(&tmp_lstenv, ft_lstnew(arr_arg));
-	}
+		ft_lstadd_back(envlst, ft_lstnew(arr_arg));
 }
 
 int
@@ -111,7 +109,7 @@ int
 			exp.error = flag_error(line[0], line[1]);
 		check_line_export(line[exp.i], &exp);
 		if (exp.error == 0)
-			add_line(line[exp.i], envlst, exp.plus);
+			add_line(line[exp.i], &envlst, exp.plus);
 		exp.rez = exp.error;
 	}
 	return (exp.rez);
