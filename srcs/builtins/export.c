@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:53:33 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:27:07 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ int
 	{
 		exp.plus = 0;
 		exp.error = 0;
-		if (ft_isdigit(line[exp.i][0]) || line[exp.i][0] == '=')
-			exp.error = export_error(line[exp.i]);
+		if (ft_isdigit(line[exp.i][0]) || line[exp.i][0] == '=' ||
+			(line[exp.i][0] == '-' && line[exp.i][1] == '\0'))
+			exp.error = valid_error(line[0], line[exp.i]);
 		if (exp.error == 0 && line[1][0] == '-' && line[1][1])
 			exp.error = flag_error(line[0], line[1]);
 		check_line_export(line[exp.i], &exp);

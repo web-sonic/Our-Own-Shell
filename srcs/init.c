@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:48:57 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 13:51:30 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,13 @@ void
 		if (line[0] != '\0')
 			ft_dlstadd_back(histlist, ft_dlstnew(line));
 		else
+		{
 			free(line);
+			line = 0;
+		}
 	}
 	free(line);
+	line = 0;
 	if (i == -1)
 		exit(1);
 	close(fd);

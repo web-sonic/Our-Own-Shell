@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:27:00 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:47:25 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 14:46:45 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void
 			if (line[j] == '+' && line[j + 1] == '=')
 				exp->plus = 1;
 			else
-				exp->error = export_error(line);
+				exp->error = valid_error("export", line);
 		}
 	}
 }
