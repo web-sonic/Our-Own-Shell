@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/04 20:22:43 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 12:15:26 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,31 @@ static void
 	}
 }
 
+static void
+	check_value_lst(t_env **envt, int *oldpwd)
+{
+	int	lvl;
+
+	if (!ft_strncmp("SHLVL", (*envt)->val, 6))
+	{
+		lvl = ft_atoi((*envt)->arg);
+		free((*envt)->arg);
+		(*envt)->arg = 0;
+		(*envt)->arg = ft_itoa(lvl + 1);
+	}
+	if (!ft_strncmp("OLDPWD", (*envt)->val, 7))
+	{
+		*oldpwd = 1;
+		free((*envt)->arg);
+		(*envt)->arg = 0;
+		(*envt)->equally = 0;
+	}
+}
+
 void
 	init_envlist(t_list **envlst, char **env)
 {
 	int		i;
-	int		lvl;
 	int		oldpwd;
 	t_env	*envt;
 
@@ -41,19 +61,7 @@ void
 	{
 		envt = malloc(sizeof(t_env));
 		line_split(envt, env[i], 0);
-		if (!ft_strncmp("SHLVL", envt->val, 6))
-		{
-			lvl = ft_atoi(envt->arg);
-			free(envt->arg);
-			envt->arg = 0;
-			envt->arg = ft_itoa(lvl + 1);
-		}
-		if (!ft_strncmp("OLDPWD", envt->val, 7) && (oldpwd = 1))
-		{
-			free(envt->arg);
-			envt->arg = 0;
-			envt->equally = 0;
-		}
+		check_value_lst(&envt, &oldpwd);
 		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
 	create_oldpwd(envlst, oldpwd);
