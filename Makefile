@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/05 12:42:02 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/05 14:45:44 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,9 @@ SRCS =	./srcs/readline.c \
 		./srcs/builtins/cd.c \
 		./srcs/builtins/export_utils.c \
 		./srcs/errors/error_ft.c \
+		./srcs/errors/error_flag.c \
+		./srcs/errors/error_parser.c \
 		./srcs/errors/exceptions.c \
-		./srcs/errors/error_parse.c \
 		./srcs/libftplus/ft_strtolower.c \
 		./srcs/libftplus/ft_dupfree.c \
 		./srcs/libftplus/ft_ownrealloc.c \
