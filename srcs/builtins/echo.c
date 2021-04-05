@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:16:56 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:47:11 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 15:52:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
-	while (check_flag_n(line[i]) != 0)
+	while (line[i] && check_flag_n(line[i]) != 0)
 	{
 		n_flag = 1;
 		i++;
