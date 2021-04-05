@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 20:20:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:32:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ static int
 {
 	t_env	*envt;
 	t_list	*sort_lst;
+	t_list	*tmp_lst;
 
 	sort_lst = ft_lstmap(tmp_lstenv, &return_content, free_env);
 	ft_lstsort(&sort_lst, &cmp_sort);
-	while (sort_lst)
+	tmp_lst = sort_lst;
+	while (tmp_lst)
 	{
 		envt = sort_lst->content;
 		ft_putstr_fd("declare -x ", 1);
@@ -38,8 +40,9 @@ static int
 			ft_putchar_fd('"', 1);
 		}
 		ft_putchar_fd('\n', 1);
-		sort_lst = sort_lst->next;
+		tmp_lst = tmp_lst->next;
 	}
+	ft_lstclear(&sort_lst, &free_env);
 	return (0);
 }
 

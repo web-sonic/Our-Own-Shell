@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/04 06:49:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:26:14 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int		validate_redirects(t_cmd *cmd);
 void	init_histlist(t_dlist **histlist, char *dir_add);
 t_cmd	*init_cmd(void);
 void	init_envlist(t_list **envlst, char **env);
+void	clear_doublelst(void *content);
 
 #endif
