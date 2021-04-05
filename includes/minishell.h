@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:39:16 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 15:25:22 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # include "../srcs/dlists/dlist.h"
 # include "../srcs/libftplus/libftplus.h"
 
-# define BUF_STR 5
+# define BUF_STR 10
 
 int		g_error;
 
