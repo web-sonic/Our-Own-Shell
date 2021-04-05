@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:47:30 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 12:53:33 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int
 	tmp_lst = sort_lst;
 	while (tmp_lst)
 	{
-		envt = sort_lst->content;
+		envt = tmp_lst->content;
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(envt->val, 1);
 		if (envt->equally == 1)
