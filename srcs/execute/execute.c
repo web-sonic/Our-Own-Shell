@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:48:10 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/05 15:28:24 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,10 @@ void
 				error_parse(PARSE_ERROR, 0);
 			cmd_clear(cmd);
 		}
-		if (!cmd)
-			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
+		if (!cmd && !cmd_lst)
+			break ;
 	}
 	free(dir_add);
 }
