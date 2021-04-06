@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 15:28:01 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:32:27 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int
 	t_env	*envt;
 	t_list	*sort_lst;
 	t_list	*tmp_lst;
-
 
 	sort_lst = ft_lstmap(tmp_lstenv, &return_content, free_env);
 	ft_lstsort(&sort_lst, &cmp_sort);

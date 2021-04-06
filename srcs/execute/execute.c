@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 16:19:31 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:27:57 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static char
 		free(cmd_name);
 	}
 	ft_wordtab_clear(paths);
-	if (buff.st_mode)	
+	if (buff.st_mode)
 		return (cmd_name);
-	return (validate_cmd(*cmd));
+	return (validate_cmd(*cmd, buff));
 }
 
 static void
@@ -67,9 +67,11 @@ static void
 	cmd = get_cmd(args, ft_getenv("PATH", envlst));
 	ret = (cmd) ? fork() : -1;
 	if (ret == 0)
+	{
 		if (execve(cmd, args, env) == -1)
 			exit(0);
-	else if(ret > 0)
+	}
+	else if (ret > 0)
 		wait(&h);
 	ft_wordtab_clear(env);
 	if (ret > 0)

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 15:17:11 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:34:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static int
 	envt = tmp_lstenv->content;
 	while (line[++i] && rez != 2)
 	{
-
 		if (ft_isdigit(line[i][0]) || line[i][0] == '=' || (line[i][0] == '-'
 			&& line[i][1] == '\0') || check_line_uns(line[i]) != 0)
 			rez = valid_error(line[0], line[i]);
@@ -83,7 +82,6 @@ static int
 			break ;
 		}
 	}
-
 	return (rez);
 }
 

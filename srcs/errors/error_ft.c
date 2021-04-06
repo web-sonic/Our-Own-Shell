@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 14:12:34 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 16:26:21 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ int
 }
 
 char
-	*validate_cmd(char *cmd)
+	*validate_cmd(char *cmd, struct stat buff)
 {
-	struct stat	buff;
-	int			h;
+	int	h;
 
 	h = 0;
 	if (!ft_strchr(cmd, '/'))
