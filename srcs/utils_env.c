@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 13:11:33 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 14:51:36 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/06 14:40:25 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ void
 		free(envt->arg);
 		envt->arg = 0;
 	}
+	if (envt->val)
+	{
 	free(envt->val);
 	envt->val = 0;
+	}
 	free(envt);
-	envt = 0;
+	env = 0;
 }
 
 void

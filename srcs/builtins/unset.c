@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 13:47:25 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 14:39:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,30 @@ static int
 	envt = tmp_lstenv->content;
 	while (line[++i] && rez != 2)
 	{
-		if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1))
-		{
-			ft_lstdelone(tmp_lstenv, &free_env);
-			tmp_lstenv = next_lstenv;
-		}
+
 		if (ft_isdigit(line[i][0]) || line[i][0] == '=' || (line[i][0] == '-'
 			&& line[i][1] == '\0') || check_line_uns(line[i]) != 0)
 			rez = valid_error(line[0], line[i]);
 		if (line[i][0] == '-' && line[i][1] != '\0')
 			rez = flag_error(line[0], line[1]);
+		if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1))
+		{
+			ft_lstdelone(tmp_lstenv, &free_env);
+			tmp_lstenv = next_lstenv;
+			break ;
+		}
 	}
+
 	return (rez);
 }
 
 int
 	ft_unset(char **line, t_list **envlst, int pipe)
 {
-	t_list	*tmp_lstenv;
-	t_list	*next_lstenv;
-
 	if (!line[1] || pipe == 0)
 		return (0);
 	if (!(*envlst) || !(*envlst)->next)
 		return (0);
-	tmp_lstenv = *envlst;
-	next_lstenv = (*envlst)->next;
 	if (check_first_lst(*envlst, (*envlst)->next, line) != 0)
 		return (1);
 	check_next_lst(*envlst, (*envlst)->next, line);
