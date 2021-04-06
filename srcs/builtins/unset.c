@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 14:59:34 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 13:47:25 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int
 	t_list	*next_lstenv;
 
 	if (!line[1] || pipe == 0)
+		return (0);
+	if (!(*envlst) || !(*envlst)->next)
 		return (0);
 	tmp_lstenv = *envlst;
 	next_lstenv = (*envlst)->next;

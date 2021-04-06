@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 14:19:28 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 13:19:52 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	print_errors(char *str);
 void	exceptions(char c);
 t_list	*error_parse(char *str, int c);
 void	file_error(char *file, char *error);
+int		empty_lst(char *name);
 
 #endif

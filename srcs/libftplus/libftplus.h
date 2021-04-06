@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:44:13 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:45:32 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 12:51:49 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	dub_and_free(char **rem_str, char *str);
 void	write_new_symbol_str(char **rem_str, char *str);
 char	*ft_strtolower(char *str);
 int		ft_isonlyprint(int c);
+int		ft_digit(char *str);
 
 #endif

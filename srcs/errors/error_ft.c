@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 14:43:33 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 13:19:40 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,14 @@ int
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(str, 1);
 	ft_putendl_fd("': not a valid identifier", 1);
+	return (1);
+}
+
+int
+	empty_lst(char *name)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(name, 2);
+	ft_putendl_fd(": No such file or directory", 2);
 	return (1);
 }

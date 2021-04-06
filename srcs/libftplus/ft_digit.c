@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_digit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 13:20:26 by sgath            ###   ########.fr       */
+/*   Created: 2021/04/06 12:48:48 by sgath             #+#    #+#             */
+/*   Updated: 2021/04/06 12:58:36 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 int
-	ft_env(t_list *envlst)
+	ft_digit(char *str)
 {
-	t_env	*envt;
-	t_list	*tmp_lstenv;
+	int digit;
+	int i;
 
-	if (!envlst)
-	{
-		return (empty_lst("env"));
-	}
-	tmp_lstenv = envlst;
-	while (tmp_lstenv)
-	{
-		envt = tmp_lstenv->content;
-		if (envt->val)
-		{
-			tmp_lstenv = tmp_lstenv->next;
-			if (envt->equally == 1)
-			{
-				ft_putstr_fd(envt->val, 1);
-				ft_putchar_fd('=', 1);
-				ft_putendl_fd(envt->arg, 1);
-			}
-		}
-	}
-	return (0);
+	i = -1;
+	digit = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[++i] && digit == 0)
+			if (!ft_isdigit(str[i]))
+				digit = 1;
+	return (digit);
 }

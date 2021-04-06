@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/05 14:45:44 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/06 12:52:23 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS =	./srcs/readline.c \
 		./srcs/libftplus/ft_wordtab_realloc.c \
 		./srcs/libftplus/ft_str_realloc.c \
 		./srcs/libftplus/ft_isonlyprint.c \
+		./srcs/libftplus/ft_digit.c \
 
 LIB =	./srcs/libft/libft.a 
 

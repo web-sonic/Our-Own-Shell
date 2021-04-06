@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 12:39:37 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 12:57:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,16 @@ long long
 static int
 	check_argum_exit(char *line)
 {
-	int			i;
+	int			len;
 	long long	n;
 
-	i = 0;
-	if (line[i] == '-' || line[i] == '+')
-		i++;
-	while (line[i] && ft_isdigit(line[i]))
-		i++;
-	if (i == (int)ft_strlen(line))
+	if (!ft_digit(line))
 	{
 		n = super_atoi(line);
+		len = ft_strlen(line);
 		if (line[0] == '+')
-			i--;
-		if (i == ft_nbrlen(n, 10))
+			len--;
+		if (len == ft_nbrlen(n, 10))
 			exit(n);
 	}
 	exit_error(line);
@@ -68,15 +64,18 @@ int
 	ft_exit(char **line)
 {
 	int			i;
+	int			digit;
 	long long	n;
 
-	i = 0;
+	i = -1;
 	n = 0;
+	digit = 0;
 	ft_putendl_fd("exit", 1);
 	if (line[1] && line[2])
 	{
-		while ()
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		if (!ft_digit(line[1]))
+			return (1);
 		exit(1);
 	}
 	else if (!line[2] && line[1])
