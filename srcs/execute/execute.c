@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 15:31:36 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:33:55 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char
 		free(cmd_name);
 	}
 	ft_wordtab_clear(paths);
-	if (buff.st_mode)	
+	if (buff.st_mode)
 		return (cmd_name);
 	return (validate_cmd(*cmd));
 }
@@ -71,7 +71,7 @@ static void
 		execve(cmd, args, env);
 		exit(errno);
 	}
-	else if(ret > 0)
+	else if (ret > 0)
 		waitpid(ret, &h, 0);
 	ft_wordtab_clear(env);
 	g_error = (h >= 256) ? h / 256 : g_error;
