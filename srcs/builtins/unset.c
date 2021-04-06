@@ -3,38 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 14:39:00 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:17:11 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static void
-	check_next_lst(t_list *tmp_lstenv, t_list *next_lstenv, char **line)
+	check_next_lst(t_list *lstenv, char **line)
 {
 	int		i;
 	t_env	*envt;
+	t_list	*prew;
+	t_list	*next;
 
-	while (next_lstenv)
+	i = 0;
+	while (line[++i])
 	{
-		i = 0;
-		envt = next_lstenv->content;
-		while (line[++i])
+		prew = lstenv;
+		next = lstenv->next;
+		while (next)
 		{
+			envt = next->content;
 			if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1))
 			{
-				tmp_lstenv->next = next_lstenv->next;
-				ft_lstdelone(next_lstenv, &free_env);
-				next_lstenv = tmp_lstenv->next;
+				prew->next = next->next;
+				ft_lstdelone(next, &free_env);
+				next = 0;
 				break ;
 			}
+			if (next)
+				next = next->next;
+			prew = prew->next;
 		}
-		tmp_lstenv = tmp_lstenv->next;
-		if (next_lstenv)
-			next_lstenv = next_lstenv->next;
 	}
 }
 
@@ -88,10 +92,10 @@ int
 {
 	if (!line[1] || pipe == 0)
 		return (0);
-	if (!(*envlst) || !(*envlst)->next)
+	if (!(*envlst))
 		return (0);
 	if (check_first_lst(*envlst, (*envlst)->next, line) != 0)
 		return (1);
-	check_next_lst(*envlst, (*envlst)->next, line);
+	check_next_lst(*envlst, line);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:45 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 13:20:26 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:30:16 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int
 	t_env	*envt;
 	t_list	*tmp_lstenv;
 
-	if (!envlst)
-	{
-		return (empty_lst("env"));
-	}
 	tmp_lstenv = envlst;
 	while (tmp_lstenv)
 	{
