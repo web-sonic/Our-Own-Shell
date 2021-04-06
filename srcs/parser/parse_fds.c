@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:11:41 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:44:26 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:40:17 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int
 {
 	if (cmd->is_fdin)
 		close(cmd->fdin);
-	if ((cmd->fdin = open(token, O_CREAT | O_RDONLY, S_IRWXU)) < 0)
+	if ((cmd->fdin = open(token, O_RDONLY, S_IRWXU)) < 0)
 	{
-		g_error = errno;
+		g_error = 1;
 		file_error(token, strerror(errno));
 		return (0);
 	}
