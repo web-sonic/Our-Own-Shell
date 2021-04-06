@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 15:28:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:56:21 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,10 @@ static char
 		i++;
 		free(cmd_name);
 	}
-	if (paths[i])
-	{
-		ft_wordtab_clear(paths);
-		return (cmd_name);
-	}
 	ft_wordtab_clear(paths);
-	return (*cmd);
+	if (buff.st_mode)	
+		return (cmd_name);
+	return (validate_cmd(*cmd));
 }
 
 static void
@@ -68,20 +65,18 @@ static void
 	h = 0;
 	env = getallenv(envlst);
 	cmd = get_cmd(args, ft_getenv("PATH", envlst));
-	ret = fork();
+	ret = (cmd) ? fork() : -1;
 	if (ret == 0)
 	{
 		execve(cmd, args, env);
 		exit(errno);
 	}
-	else
+	else if(ret > 0)
 		waitpid(ret, &h, 0);
 	ft_wordtab_clear(env);
-	g_error = h / 256;
+	g_error = (h >= 256) ? h / 256 : g_error;
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
-	if (g_error > 1 && g_error != 126 && g_error != 127)
-		print_errors(args[0]);
 }
 
 static int
