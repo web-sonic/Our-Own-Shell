@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 05:32:18 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:47:56 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 14:04:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void
 		dup2(cmd->fdin, 0);
 	else
 		dup2(fds->fdin, 0);
+	close(fds->fdin);
 	if (last_cmd)
-	{
-		close(fds->fdin);
 		(cmd->is_fdout) ? fds->fdout = dup(cmd->fdout) :
 			(fds->fdout = dup(fds->tmpout));
-	}
 	else
 	{
 		pipe(fdpipe);

@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/06 12:52:23 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/06 14:11:57 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,8 @@ HEADERS =	./includes/minishell.h \
 
 NAME = minishell
 
-CC = gcc -g -Wall -Wextra -ltermcap
-#-Werror
+CC = gcc -g -Wall -Wextra -Werror -ltermcap
+
 
 FLAGS = -ltermcap  -L srcs/libft/ -lft
 

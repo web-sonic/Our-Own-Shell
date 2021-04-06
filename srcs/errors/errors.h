@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 13:19:52 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 14:12:50 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		cd_error(char *dir_str, char *old_str);
 void	exit_error(char *line);
 int		valid_error(char *name, char *str);
 int		flag_error(char *name, char *arg);
-void	print_errors(char *str);
+char	*validate_cmd(char *cmd);
 void	exceptions(char c);
 t_list	*error_parse(char *str, int c);
 void	file_error(char *file, char *error);

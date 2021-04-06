@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 13:19:40 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 14:12:34 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,35 @@ int
 	ft_putstr_fd(name, 2);
 	ft_putendl_fd(": No such file or directory", 2);
 	return (1);
+}
+
+char
+	*validate_cmd(char *cmd)
+{
+	struct stat	buff;
+	int			h;
+
+	h = 0;
+	if (!ft_strchr(cmd, '/'))
+	{
+		file_error(cmd, "command not found");
+		h = NUM_COMMAND_NOT_FOUND;
+	}
+	else if (stat(cmd, &buff) < 0)
+	{
+		file_error(cmd, strerror(errno));
+		h = NUM_COMMAND_NOT_FOUND;
+	}
+	else if (!(buff.st_mode & S_IXUSR))
+	{
+		file_error(cmd, "Permission denied");
+		h = 126;
+	}
+	else if (buff.st_mode & S_IFDIR)
+	{
+		file_error(cmd, "is a directory");
+		h = 126;
+	}
+	g_error = h;
+	return ((h > 0) ? 0 : cmd);
 }
