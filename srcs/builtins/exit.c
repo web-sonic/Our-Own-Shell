@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:47:21 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/06 12:39:37 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int
 	ft_putendl_fd("exit", 1);
 	if (line[1] && line[2])
 	{
+		while ()
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		exit(1);
 	}
