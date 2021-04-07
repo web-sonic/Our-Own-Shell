@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:11:41 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 15:40:17 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:31:35 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int
 	{
 		g_error = 1;
 		file_error(token, strerror(errno));
-		return (0);
+		return (1);
 	}
 	cmd->is_fdin = TRUE;
 	cmd->add_fd = -1;
