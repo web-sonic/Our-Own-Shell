@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 16:27:57 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:39:24 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,12 @@ void
 	{
 		pipe_lst = cmd_lst->content;
 		init_fd(&fds);
-		while (pipe_lst && (cmd = parser(pipe_lst->content, envlst, dir_add)))
+		while (pipe_lst)
 		{
+			cmd = parser(pipe_lst->content, envlst, dir_add);
 			pipe_lst = pipe_lst->next;
+			if (!cmd)
+				continue ;
 			last_cmd = (!pipe_lst) ? TRUE : FALSE;
 			set_fds(&fds, cmd, last_cmd);
 			if (cmd_exec(cmd->args, envlst, last_cmd, cmd))
@@ -133,8 +136,6 @@ void
 		}
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
-		if (!cmd && !cmd_lst)
-			break ;
 	}
 	free(dir_add);
 }
