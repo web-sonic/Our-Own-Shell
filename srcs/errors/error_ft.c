@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 16:26:21 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:41:18 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": `", 2);
-	ft_putstr_fd(str, 1);
-	ft_putendl_fd("': not a valid identifier", 1);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
 	return (1);
 }
 

@@ -6,14 +6,14 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:09:06 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 15:34:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/08 16:47:27 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static void
-	check_next_lst(t_list *lstenv, char **line)
+	check_next_lst(t_list *lstenv, char **line, int pipe)
 {
 	int		i;
 	t_env	*envt;
@@ -28,15 +28,15 @@ static void
 		while (next)
 		{
 			envt = next->content;
-			if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1))
+			if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1)
+			&& pipe == 1)
 			{
 				prew->next = next->next;
 				ft_lstdelone(next, &free_env);
 				next = 0;
 				break ;
 			}
-			if (next)
-				next = next->next;
+			next = (next) ? next->next : next;
 			prew = prew->next;
 		}
 	}
@@ -59,7 +59,8 @@ static int
 }
 
 static int
-	check_first_lst(t_list *tmp_lstenv, t_list *next_lstenv, char **line)
+	check_first_lst(t_list *tmp_lstenv, t_list *next_lstenv, char **line,
+	int pipe)
 {
 	int		i;
 	int		rez;
@@ -75,7 +76,8 @@ static int
 			rez = valid_error(line[0], line[i]);
 		if (line[i][0] == '-' && line[i][1] != '\0')
 			rez = flag_error(line[0], line[1]);
-		if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1))
+		if (!ft_strncmp(line[i], envt->val, ft_strlen(envt->val) + 1) &&
+		pipe == 1)
 		{
 			ft_lstdelone(tmp_lstenv, &free_env);
 			tmp_lstenv = next_lstenv;
@@ -88,12 +90,12 @@ static int
 int
 	ft_unset(char **line, t_list **envlst, int pipe)
 {
-	if (!line[1] || pipe == 0)
+	if (!line[1] && pipe == 0)
 		return (0);
 	if (!(*envlst))
 		return (0);
-	if (check_first_lst(*envlst, (*envlst)->next, line) != 0)
+	if (check_first_lst(*envlst, (*envlst)->next, line, pipe) != 0)
 		return (1);
-	check_next_lst(*envlst, line);
+	check_next_lst(*envlst, line, pipe);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 05:32:18 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/08 15:01:59 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:48:34 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void
 	int	i;
 
 	i = 0;
-	while((fds->tmp_fds)[i] >= 0)
+	while ((fds->tmp_fds)[i] >= 0)
 		i++;
 	(fds->tmp_fds)[i] = fds->fdout;
 	(fds->tmp_fds)[i + 1] = -1;
@@ -52,7 +52,6 @@ void
 	close(fds->fdout);
 }
 
-
 void
 	init_fd(t_fdstruct *fds)
 {
@@ -69,7 +68,7 @@ void
 	int	i;
 
 	i = 0;
-	while(fds->tmp_fds[i] >= 0)
+	while (fds->tmp_fds[i] >= 0)
 		close((fds->tmp_fds)[i++]);
 	dup2(fds->tmpin, 0);
 	dup2(fds->tmpout, 1);
@@ -77,7 +76,6 @@ void
 	close(fds->tmpout);
 	close(fds->fdin);
 	close(fds->fdout);
-
 }
 
 int

@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 15:32:27 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/08 16:37:05 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,8 @@ int
 
 	exp.i = 0;
 	exp.rez = 0;
-	if (pipe == 0 && line[1])
-		return (0);
 	if (!line[1])
-		return (print_env(envlst));
+		return (pipe == 0 ? 0 : print_env(envlst));
 	while (line[++(exp.i)] && exp.rez != 2)
 	{
 		exp.plus = 0;
@@ -109,7 +107,7 @@ int
 		if (exp.error == 0 && line[1][0] == '-' && line[1][1])
 			exp.error = flag_error(line[0], line[1]);
 		check_line_export(line[exp.i], &exp);
-		if (exp.error == 0)
+		if (exp.error == 0 && pipe == 1)
 			add_line(line[exp.i], &envlst, exp.plus);
 		exp.rez = exp.error;
 	}
