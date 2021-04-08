@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:58 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/08 16:37:05 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/08 16:50:09 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int
 	exp.rez = 0;
 	if (!line[1])
 		return (pipe == 0 ? 0 : print_env(envlst));
+	if (!envlst)
+		return (0);
 	while (line[++(exp.i)] && exp.rez != 2)
 	{
 		exp.plus = 0;
