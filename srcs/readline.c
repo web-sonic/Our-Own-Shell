@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:42:35 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/08 18:06:49 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ static void
 	}
 }
 
+static int
+	check_norm_print(t_str *reader)
+{
+	if (!ft_strncmp(reader->line_term, "\e[C", 4) ||
+	!ft_strncmp(reader->line_term, "\e[D", 4) ||
+	!ft_strncmp(reader->line_term, "\x1c", 4))
+		return (1);
+	if (!ft_strncmp(reader->line_term, "\t", 3) ||
+	!ft_strncmp(reader->line_term, "\f", 3))
+		return (1);
+	if (!ft_strncmp(reader->line_term, "\v", 3) ||
+	!ft_strncmp(reader->line_term, "\13", 4))
+		return (1);
+	if (!ft_strncmp(reader->line_term, "\033[1;2", 6) ||
+	!ft_strncmp(reader->line_term, "\033[3;2", 6))
+		return (1);
+	return (0);
+}
+
 static void
 	puts_line(t_str *reader, t_dlist **histlist, struct termios	*term)
 {
@@ -47,12 +66,7 @@ static void
 		delete_last_symbol_str(&reader->rem_str);
 	else if (!ft_strncmp(reader->line_term, "\4", 3))
 		cmnd_d(reader, term);
-	else if (!ft_strncmp(reader->line_term, "\e[C", 4) ||
-	!ft_strncmp(reader->line_term, "\e[D", 4) ||
-	!ft_strncmp(reader->line_term, "\t", 3) || !ft_strncmp(reader->line_term,
-	"\f", 3) || !ft_strncmp(reader->line_term, "\v", 3) ||
-	!ft_strncmp(reader->line_term, "\13", 4) ||
-	!ft_strncmp(reader->line_term, "\033[1;2", 6))
+	else if (check_norm_print(reader) == 1)
 		reader->line_term[0] = 0;
 	else
 	{
