@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 15:25:22 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/12 17:07:11 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define BUF_STR 10
 
 int		g_error;
+pid_t	g_signal;
 
 t_list	*split_cmdlst(char *line, int stop_symbol, t_list **magic_lst);
 char	*readline(t_dlist **histlist, char *dir_add);
