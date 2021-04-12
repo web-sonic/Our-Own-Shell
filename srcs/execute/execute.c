@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 18:38:53 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:09:59 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static char
 		i++;
 		free(cmd_name);
 	}
-	//if (!paths[0] && !buff.st_mode && (g_error = 127))
-	//	file_error(cmd[0], "No such file or directory");
 	ft_wordtab_clear(paths);
 	if (buff.st_mode)
 		return (cmd_name);
@@ -83,6 +81,7 @@ static void
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 }
+
 static int
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
@@ -113,30 +112,43 @@ static int
 	return (0);
 }
 
+int
+	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst, char *dir_add)
+{
+	t_bool		l_cmd;
+	t_cmd		*cmd;
+	
+	while (pipe_lst)
+	{
+		cmd = parser(pipe_lst->content, envlst, dir_add);
+		pipe_lst = pipe_lst->next;
+		if (!cmd)
+			continue ;
+		l_cmd = (!pipe_lst) ? TRUE : FALSE;
+		set_fds(fds, cmd, l_cmd);
+		if (cmd_exec(cmd->args, envlst, l_cmd, cmd))
+		error_parse(PARSE_ERROR, 0);
+		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 0 : 1;
+		cmd_clear(cmd);
+	}
+	if (l_cmd)
+		return (1);
+	else
+		return (0);
+}
+
 void
 	exec(t_list *cmd_lst, t_list *envlst, char *dir_add)
 {
-	t_cmd		*cmd;
 	t_fdstruct	fds;
-	t_bool		last_cmd;
 	t_list		*pipe_lst;
 
 	while (cmd_lst)
 	{
 		pipe_lst = cmd_lst->content;
 		init_fd(&fds);
-		while (pipe_lst)
-		{
-			cmd = parser(pipe_lst->content, envlst, dir_add);
-			pipe_lst = pipe_lst->next;
-			if (!cmd)
-				continue ;
-			last_cmd = (!pipe_lst) ? TRUE : FALSE;
-			set_fds(&fds, cmd, last_cmd);
-			if (cmd_exec(cmd->args, envlst, last_cmd, cmd))
-				error_parse(PARSE_ERROR, 0);
-			cmd_clear(cmd);
-		}
+		if (pipe_loop(pipe_lst, &fds, envlst, dir_add))
+			break;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
 	}
