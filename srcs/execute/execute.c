@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 17:18:55 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:28:45 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void
 		if (execve(cmd, args, env) == -1)
 			exit(0);
 	}
+	else if (ret < 0 && (g_error = 127))
+		file_error(args[0], "No such file or directory");
 	else if (ret > 0)
 		wait(&h);
 	ft_wordtab_clear(env);
