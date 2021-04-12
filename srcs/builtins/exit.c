@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:08:30 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 12:57:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/12 19:13:39 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ int
 {
 	int			i;
 	int			digit;
-	long long	n;
 
 	i = -1;
-	n = 0;
 	digit = 0;
 	ft_putendl_fd("exit", 1);
 	if (line[1] && line[2])
@@ -80,5 +78,5 @@ int
 	}
 	else if (!line[2] && line[1])
 		check_argum_exit(line[1]);
-	exit(n);
+	exit(0);
 }

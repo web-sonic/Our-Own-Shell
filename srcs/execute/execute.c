@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 19:12:30 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:24:12 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,12 @@ static int
 }
 
 int
-	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst, char *dir_add)
+	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst,
+	char *dir_add)
 {
-	t_bool		l_cmd;
-	t_cmd		*cmd;
-	
+	t_bool	l_cmd;
+	t_cmd	*cmd;
+
 	while (pipe_lst)
 	{
 		cmd = parser(pipe_lst->content, envlst, dir_add);
@@ -127,7 +128,7 @@ int
 		l_cmd = (!pipe_lst) ? TRUE : FALSE;
 		set_fds(fds, cmd, l_cmd);
 		if (cmd_exec(cmd->args, envlst, l_cmd, cmd))
-		error_parse(PARSE_ERROR, 0);
+			error_parse(PARSE_ERROR, 0);
 		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
 		cmd_clear(cmd);
 	}
@@ -145,7 +146,7 @@ void
 		pipe_lst = cmd_lst->content;
 		init_fd(&fds);
 		if (pipe_loop(pipe_lst, &fds, envlst, dir_add))
-			break;
+			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
 	}

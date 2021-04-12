@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/12 18:38:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:18:19 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char
 	h = 0;
 	if (!ft_strchr(cmd, '/'))
 	{
-		(path) ? file_error(cmd, "command not found") : 
+		(path) ? file_error(cmd, "command not found") :
 		file_error(cmd, "No such file or directory");
 		h = NUM_COMMAND_NOT_FOUND;
 	}
@@ -73,11 +73,8 @@ char
 		file_error(cmd, "Permission denied");
 		h = 126;
 	}
-	else if (buff.st_mode & S_IFDIR)
-	{
+	else if (buff.st_mode & S_IFDIR && (h = 126))
 		file_error(cmd, "is a directory");
-		h = 126;
-	}
 	g_error = h;
 	return ((h > 0) ? 0 : cmd);
 }

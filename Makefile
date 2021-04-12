@@ -6,7 +6,7 @@
 #    By: sgath <sgath@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/20 12:49:41 by sgath             #+#    #+#              #
-#    Updated: 2021/04/06 15:59:04 by sgath            ###   ########.fr        #
+#    Updated: 2021/04/12 19:22:43 by sgath            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =	./srcs/readline.c \
 		./srcs/parser/parse_fds.c \
 		./srcs/execute/execute.c \
 		./srcs/execute/fds.c \
+		./srcs/execute/execute_utils.c \
 		./srcs/dlists/ft_dlstclear.c \
 		./srcs/dlists/ft_dlstadd_back.c \
 		./srcs/dlists/ft_dlstnew.c \

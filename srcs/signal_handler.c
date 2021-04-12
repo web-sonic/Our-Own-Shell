@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:45:27 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 17:17:19 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:20:54 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void
 	signal_handler(int key)
 {
 	int n;
+
 	wait(&n);
 	if (n == 2 || n == 3)
 	{

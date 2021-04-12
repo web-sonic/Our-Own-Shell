@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/12 18:57:33 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:22:12 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void	init_histlist(t_dlist **histlist, char *dir_add);
 t_cmd	*init_cmd(void);
 void	init_envlist(t_list **envlst, char **env);
 void	clear_doublelst(void *content);
+int		pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst,
+		char *dir_add);
 
 #endif
