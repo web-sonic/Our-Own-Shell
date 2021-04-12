@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 19:24:12 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/12 19:26:08 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_cmd
-	*cmd_clear(t_cmd *cmd)
-{
-	if (cmd->args)
-		ft_wordtab_clear(cmd->args);
-	close(cmd->fdin);
-	close(cmd->fdout);
-	cmd->fdin = 0;
-	cmd->fdout = 0;
-	cmd->is_fdin = FALSE;
-	cmd->is_fdout = FALSE;
-	free(cmd);
-	return (0);
-}
 
 static char
 	*get_cmd(char **cmd, char *path)
@@ -112,7 +97,7 @@ static int
 	return (0);
 }
 
-int
+static int
 	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst,
 	char *dir_add)
 {
