@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 18:05:40 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:31:02 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static char
 	free(path);
 	i = 0;
 	cmd_name = 0;
-	if (!paths[i] && (g_error = 127))
-		file_error(cmd[0], "No such file or directory");
 	while (paths[i])
 	{
 		cmd_name = ft_strjoin(paths[i], "/");
@@ -51,6 +49,8 @@ static char
 		i++;
 		free(cmd_name);
 	}
+	if (!paths[0] && !buff.st_mode && (g_error = 127))
+		file_error(cmd[0], "No such file or directory");
 	ft_wordtab_clear(paths);
 	if (buff.st_mode)
 		return (cmd_name);
@@ -82,7 +82,6 @@ static void
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 }
-//обработать ошибку!
 static int
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
