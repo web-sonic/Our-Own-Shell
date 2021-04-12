@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 19:09:59 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:12:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,10 @@ int
 		set_fds(fds, cmd, l_cmd);
 		if (cmd_exec(cmd->args, envlst, l_cmd, cmd))
 		error_parse(PARSE_ERROR, 0);
-		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 0 : 1;
+		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
 		cmd_clear(cmd);
 	}
-	if (l_cmd)
-		return (1);
-	else
-		return (0);
+	return (l_cmd);
 }
 
 void
