@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 18:31:02 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:38:53 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static char
 	char		*cmd_name;
 	struct stat	buff;
 
+	buff.st_mode = 0;
 	paths = ft_split(path, ':');
 	free(path);
 	i = 0;
@@ -49,12 +50,12 @@ static char
 		i++;
 		free(cmd_name);
 	}
-	if (!paths[0] && !buff.st_mode && (g_error = 127))
-		file_error(cmd[0], "No such file or directory");
+	//if (!paths[0] && !buff.st_mode && (g_error = 127))
+	//	file_error(cmd[0], "No such file or directory");
 	ft_wordtab_clear(paths);
 	if (buff.st_mode)
 		return (cmd_name);
-	return (validate_cmd(*cmd, buff));
+	return (validate_cmd(*cmd, buff, paths[0]));
 }
 
 static void

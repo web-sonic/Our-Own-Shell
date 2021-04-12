@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/08 16:41:18 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/12 18:38:02 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ int
 }
 
 char
-	*validate_cmd(char *cmd, struct stat buff)
+	*validate_cmd(char *cmd, struct stat buff, char *path)
 {
 	int	h;
 
 	h = 0;
 	if (!ft_strchr(cmd, '/'))
 	{
-		file_error(cmd, "command not found");
+		(path) ? file_error(cmd, "command not found") : 
+		file_error(cmd, "No such file or directory");
 		h = NUM_COMMAND_NOT_FOUND;
 	}
 	else if (stat(cmd, &buff) < 0)
