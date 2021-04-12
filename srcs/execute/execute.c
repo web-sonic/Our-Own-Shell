@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 17:17:44 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:18:55 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char
 	paths = ft_split(path, ':');
 	free(path);
 	i = 0;
+	cmd_name = 0;
 	while (paths[i])
 	{
 		cmd_name = ft_strjoin(paths[i], "/");
@@ -76,10 +77,10 @@ static void
 	ft_wordtab_clear(env);
 	if (ret > 0 && g_error != 130 && g_error != 131)
 		g_error = h / 256;
-	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
+	else if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
 }
-
+//обработать ошибку!
 static int
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
