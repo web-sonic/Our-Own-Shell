@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/06 14:32:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:21:50 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static void
-	create_lst(t_list **envlst, int oldpwd, int shlvl)
+	create_lst(t_list **envlst, int oldpwd, int shlvl, int pwd)
 {
 	t_env	*envt;
 
@@ -33,10 +33,19 @@ static void
 		envt->equally = 1;
 		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
+	if (pwd == 0)
+	{
+		envt = malloc(sizeof(t_env));
+		envt->val = ft_strdup("PWD");
+		envt-> arg = ft_calloc(sizeof(char), PATH_MAX);
+		getcwd(envt->arg, PATH_MAX - 1);
+		envt->equally = 1;
+		ft_lstadd_back(envlst, ft_lstnew(envt));
+	}
 }
 
 static void
-	check_value_lst(t_env **envt, int *oldpwd, int *shlvl)
+	check_value_lst(t_env **envt, int *oldpwd, int *shlvl, int *pwd)
 {
 	int	lvl;
 
@@ -46,9 +55,9 @@ static void
 		if (!ft_digit((*envt)->arg))
 		{
 			lvl = ft_atoi((*envt)->arg);
-			free((*envt)->arg);
-			(*envt)->arg = 0;
-			(*envt)->arg = ft_itoa(lvl + 1);
+			savefree((*envt)->arg);
+			if (lvl < 999)
+				(*envt)->arg = ft_itoa(lvl + 1);
 		}
 		else
 			(*envt)->arg = ft_strdup("1");
@@ -56,9 +65,15 @@ static void
 	if (!ft_strncmp("OLDPWD", (*envt)->val, 7))
 	{
 		*oldpwd = 1;
-		free((*envt)->arg);
-		(*envt)->arg = 0;
+		savefree((*envt)->arg);
 		(*envt)->equally = 0;
+	}
+	if (!ft_strncmp("PWD", (*envt)->val, 4))
+	{
+		*pwd = 1;
+		savefree((*envt)->arg);
+		(*envt)-> arg = ft_calloc(sizeof(char), PATH_MAX);
+		getcwd((*envt)->arg, PATH_MAX - 1);
 	}
 }
 
@@ -68,19 +83,21 @@ void
 	int		i;
 	int		oldpwd;
 	int		shlvl;
+	int		pwd;
 	t_env	*envt;
 
 	i = -1;
 	oldpwd = 0;
 	shlvl = 0;
+	pwd = 0;
 	while (env[++i])
 	{
 		envt = malloc(sizeof(t_env));
 		line_split(envt, env[i], 0);
-		check_value_lst(&envt, &oldpwd, &shlvl);
+		check_value_lst(&envt, &oldpwd, &shlvl, &pwd);
 		ft_lstadd_back(envlst, ft_lstnew(envt));
 	}
-	create_lst(envlst, oldpwd, shlvl);
+	create_lst(envlst, oldpwd, shlvl, pwd);
 }
 
 void

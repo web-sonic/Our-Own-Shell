@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:21 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 12:48:54 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/15 13:26:29 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,14 @@ char
 	if (str)
 		*str = 0;
 	return (new_dir);
+}
+
+void
+	savefree(char *str)
+{
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/12 19:26:08 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:46:34 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ static int
 		g_error = ft_pwd(args);
 	else if (!ft_strncmp(cmd, "unset", 6))
 		ft_unset(args, &envlst, pipe);
-	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7))
-		exceptions(args[0][0]);
+	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7)
+		|| !ft_strncmp(args[0], "/", 2))
+		exceptions(args[0]);
 	else
 		cmd_bin(args, envlst);
 	free(cmd);
