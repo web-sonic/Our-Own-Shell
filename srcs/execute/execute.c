@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/15 17:06:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/15 17:12:14 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static int
 		set_fds(fds, cmd, l_cmd);
 		if (cmd_exec(cmd->args, envlst, l_cmd, cmd))
 			error_parse(PARSE_ERROR, 0);
-		if (!(cmd->args)[0]) //#не сегается, но >1 виснет
+		if (!(cmd->args)[0])//#не сегается, но >1 виснет
 			break ;
 		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
 		cmd_clear(cmd);

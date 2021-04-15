@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/15 13:21:50 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/15 19:18:17 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,15 @@ static void
 		{
 			lvl = ft_atoi((*envt)->arg);
 			savefree((*envt)->arg);
+			((*envt)->arg = 0);
 			if (lvl < 999)
-				(*envt)->arg = ft_itoa(lvl + 1);
+				(*envt)->arg = (lvl < 0) ? ft_strdup("0") : ft_itoa(lvl + 1);
+			else if (lvl > 999)
+			{
+				ft_putstr_fd("bash: warning: shell level (", 1);
+				ft_putnbr_fd(lvl, 1);
+				ft_putendl_fd(") too high, resetting to 1", 1);
+			}	
 		}
 		else
 			(*envt)->arg = ft_strdup("1");
@@ -66,12 +73,14 @@ static void
 	{
 		*oldpwd = 1;
 		savefree((*envt)->arg);
+		(*envt)->arg = 0;
 		(*envt)->equally = 0;
 	}
 	if (!ft_strncmp("PWD", (*envt)->val, 4))
 	{
 		*pwd = 1;
 		savefree((*envt)->arg);
+		(*envt)->arg = 0;
 		(*envt)-> arg = ft_calloc(sizeof(char), PATH_MAX);
 		getcwd((*envt)->arg, PATH_MAX - 1);
 	}

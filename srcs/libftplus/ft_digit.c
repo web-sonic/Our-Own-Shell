@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:48:48 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/06 15:34:44 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/15 19:12:01 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ int
 	int digit;
 	int i;
 
-	i = -1;
+	i = 0;
 	digit = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	while (str[++i] && digit == 0)
+	while (str[i] && digit == 0)
+	{
 		if (!ft_isdigit(str[i]))
 			digit = 1;
+		i++;
+	}
 	return (digit);
 }
