@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/05 15:25:04 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/16 14:19:01 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void
 		ft_putstr_fd("exit\n", 1);
 		dub_and_free(&reader->rem_str, "\n");
 		tcsetattr(0, TCSANOW, term);
-		exit(0);
+		exit(g_error);
 	}
 }
 
