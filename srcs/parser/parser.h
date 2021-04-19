@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:15:29 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 14:41:13 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/19 14:07:05 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define DIEZ 35
 # define STOP_SYMBOLS "\\\"'<>\t "
 # define SPEC_SYMBOLS "\\\"'~"
+# define STRANGE_STR "@!#$&*(){}[]`\"'-><"
 
 char	*treat_dollar(char **str, t_bool *is_quest);
 char	*treat_quotes(char **str, int quote, char *dir_addr);

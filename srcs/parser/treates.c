@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treates.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:04:44 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 12:44:04 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/19 14:09:28 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,12 @@ char
 	int		len;
 
 	*is_quest = FALSE;
-	if (**str == '?')
-	{
-		(*str)++;
-		*is_quest = TRUE;
+	if (**str == '?' && (*is_quest = TRUE) && ((*str)++))
 		return (ft_itoa(g_error));
-	}
 	len = 0;
 	if (**str == '_' || ft_isalpha((*str)[0]))
 		len++;
-	if (!len && ft_isdigit((*str)[0]))
+	if (!len && (ft_isdigit((*str)[0]) || ft_strchr(STRANGE_STR, (*str)[0])))
 	{
 		(*str)++;
 		return (ft_strdup("$"));
