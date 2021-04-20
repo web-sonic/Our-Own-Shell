@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:47:22 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 15:14:57 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:35:30 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ void
 			line[ft_strlen(line) - 1] = 0;
 		cmd_lst = get_cmds(line, &magic_lst);
 		if (cmd_lst && cmd_lst->content)
-		{
 			exec(cmd_lst, envlst, mod_address(dir_add));
-			ft_lstclear(&cmd_lst, &clear_doublelst);
-		}
+		ft_lstclear(&cmd_lst, &clear_doublelst);
 	}
 	if (magic_lst)
 		ft_lstclear(&magic_lst, &free);
