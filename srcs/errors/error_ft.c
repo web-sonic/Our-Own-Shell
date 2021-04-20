@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:55:54 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/12 19:18:19 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 09:25:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ char
 	}
 	else if (buff.st_mode & S_IFDIR && (h = 126))
 		file_error(cmd, "is a directory");
-	g_error = h;
+	g_struct.error = h;
 	return ((h > 0) ? 0 : cmd);
 }

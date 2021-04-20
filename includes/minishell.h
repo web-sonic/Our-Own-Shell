@@ -6,7 +6,7 @@
 /*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:48:23 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/15 18:37:15 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 13:04:05 by sgath            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 
 # define BUF_STR 10
 
-int		g_error;
+t_globals	g_struct;
 
 t_list	*split_cmdlst(char *line, int stop_symbol, t_list **magic_lst);
 char	*readline(t_dlist **histlist, char *dir_add);
@@ -54,6 +54,7 @@ void	line_split(t_env *arr_arg, char *line, int plus);
 int		cmp_sort(t_env *cont, t_env *next);
 char	*mod_address(char *dir_add);
 void	*return_content(void *content);
+void	check_valid_shlvl(t_env **envt, int *shlvl);
 
 void	free_env(void *env);
 char	**getallenv(t_list *envlst);
@@ -71,5 +72,6 @@ t_cmd	*init_cmd(void);
 void	init_envlist(t_list **envlst, char **env);
 void	clear_doublelst(void *content);
 void	savefree(char *str);
+t_list	*parse_pipes(t_list *pipe_lst, t_list *envlst, char *dir_add);
 
 #endif

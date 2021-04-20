@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 05:32:18 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/08 16:48:34 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 08:18:52 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int
 	validate_redirects(t_cmd *cmd)
 {
 	if (cmd->is_fdin || cmd->is_fdout)
+		return (0);
+	else if (!(cmd->args))
 		return (0);
 	return (1);
 }

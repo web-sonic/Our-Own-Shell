@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 12:50:25 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/15 15:10:18 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 09:25:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void
 			free(reader->rem_str);
 		reader->rem_str = NULL;
 		ft_putchar_fd('\n', 1);
-		g_error = 1;
+		g_struct.error = 1;
 	}
 	if (reader->rem_str && (reader->rem_str)[0] != '\n' &&
 		(reader->rem_str)[0] != '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/15 17:12:14 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 09:49:10 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static char
 	return (validate_cmd(*cmd, buff, paths[0]));
 }
 
-static void
-	cmd_bin(char **args, t_list *envlst)
+static pid_t
+	cmd_bin(char **args, t_list *envlst, char *cnd)
 {
 	pid_t	ret;
 	char	**env;
@@ -50,6 +50,7 @@ static void
 	int		h;
 
 	h = 0;
+	free(cnd);
 	env = getallenv(envlst);
 	cmd = get_cmd(args, ft_getenv("PATH", envlst));
 	ret = (cmd) ? fork() : -1;
@@ -58,68 +59,66 @@ static void
 		if (execve(cmd, args, env) == -1)
 			exit(0);
 	}
-	else if (ret > 0)
-		wait(&h);
 	ft_wordtab_clear(env);
-	if (ret > 0 && g_error != 130 && g_error != 131)
-		g_error = h / 256;
 	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
 		free(cmd);
+	return (ret);
 }
 
-static int
+static pid_t
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
-	char	*cmd;
-
 	if (*args == 0)
 		return (validate_redirects(cnd));
-	cmd = ft_strtolower(args[0]);
-	if (!ft_strncmp(cmd, "echo", 5))
-		g_error = ft_echo(args);
-	else if (!ft_strncmp(cmd, "cd", 3))
-		g_error = ft_cd(args, envlst, pipe);
-	else if (!ft_strncmp(cmd, "env", 4) && !args[1])
-		g_error = ft_env(envlst);
-	else if (!ft_strncmp(cmd, "exit", 5))
-		g_error = ft_exit(args);
-	else if (!ft_strncmp(cmd, "export", 7))
-		g_error = ft_export(args, envlst, pipe);
-	else if (!ft_strncmp(cmd, "pwd", 4))
-		g_error = ft_pwd(args);
-	else if (!ft_strncmp(cmd, "unset", 6))
+	if (!ft_strncmp(ft_strtolower(args[0]), "echo", 5))
+		g_struct.error = ft_echo(args);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "cd", 3))
+		g_struct.error = ft_cd(args, envlst, pipe);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "env", 4) && !args[1])
+		g_struct.error = ft_env(envlst);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "exit", 5))
+		g_struct.error = ft_exit(args);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "export", 7))
+		g_struct.error = ft_export(args, envlst, pipe);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "pwd", 4))
+		g_struct.error = ft_pwd(args);
+	else if (!ft_strncmp(ft_strtolower(args[0]), "unset", 6))
 		ft_unset(args, &envlst, pipe);
 	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7)
 		|| !ft_strncmp(args[0], "/", 2))
 		exceptions(args[0]);
 	else
-		cmd_bin(args, envlst);
-	free(cmd);
+		return (cmd_bin(args, envlst, ft_strtolower(args[0])));
 	return (0);
 }
 
 static int
-	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst,
-	char *dir_add)
+	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst)
 {
 	t_bool	l_cmd;
 	t_cmd	*cmd;
+	int		h;
+	int		i;
 
+	g_struct.pid_count = 0;
 	while (pipe_lst)
 	{
-		cmd = parser(pipe_lst->content, envlst, dir_add);
+		cmd = pipe_lst->content;
 		pipe_lst = pipe_lst->next;
-		if (!cmd)
+		if (!cmd || !(cmd->args)[0])
 			continue ;
 		l_cmd = (!pipe_lst) ? TRUE : FALSE;
 		set_fds(fds, cmd, l_cmd);
-		if (cmd_exec(cmd->args, envlst, l_cmd, cmd))
-			error_parse(PARSE_ERROR, 0);
-		if (!(cmd->args)[0])//#не сегается, но >1 виснет
-			break ;
+		g_struct.pid[g_struct.pid_count++] =
+			cmd_exec(cmd->args, envlst, l_cmd, cmd);
 		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
 		cmd_clear(cmd);
 	}
+	i = 0;
+	while (i < g_struct.pid_count)
+		waitpid(g_struct.pid[i++], &h, 0);
+	if (g_struct.error != 130 && g_struct.error != 131)
+		g_struct.error = h / 256;
 	return (l_cmd);
 }
 
@@ -132,8 +131,9 @@ void
 	while (cmd_lst)
 	{
 		pipe_lst = cmd_lst->content;
+		pipe_lst = parse_pipes(pipe_lst, envlst, dir_add);
 		init_fd(&fds);
-		if (pipe_loop(pipe_lst, &fds, envlst, dir_add))
+		if (pipe_loop(pipe_lst, &fds, envlst))
 			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
