@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 13:15:49 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:32:45 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static int
 	i = 0;
 	while (i < g_struct.pid_count)
 		waitpid(g_struct.pid[i++], &h, 0);
-	if (g_struct.error != 130 && g_struct.error != 131)
+	if (g_struct.error != 130 && g_struct.error != 131 && g_struct.pid[i])
 		g_struct.error = h / 256;
 	return (l_cmd);
 }
