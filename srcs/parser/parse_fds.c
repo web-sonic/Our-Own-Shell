@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:11:41 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/07 16:35:24 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 09:25:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int
 		close(cmd->fdin);
 	if ((cmd->fdin = open(token, O_RDONLY, S_IRWXU)) < 0)
 	{
-		g_error = 1;
+		g_struct.error = 1;
 		file_error(token, strerror(errno));
 		return (0);
 	}
@@ -39,7 +39,7 @@ int
 			open(token, O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, S_IRWXU);
 		if (cmd->fdout < 0)
 		{
-			g_error = errno;
+			g_struct.error = errno;
 			file_error(token, strerror(errno));
 			return (0);
 		}
@@ -49,7 +49,7 @@ int
 	}
 	if ((cmd->fdout = open(token, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU)) < 0)
 	{
-		g_error = errno;
+		g_struct.error = errno;
 		file_error(token, strerror(errno));
 		return (0);
 	}

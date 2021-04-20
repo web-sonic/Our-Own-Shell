@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:48:26 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/19 18:45:01 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 09:25:07 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void
 		ft_putstr_fd("exit\n", 1);
 		dub_and_free(&reader->rem_str, "\n");
 		tcsetattr(0, TCSANOW, term);
-		exit(g_error);
+		exit(g_struct.error);
 	}
 }
 

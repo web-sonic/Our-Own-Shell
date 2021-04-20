@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:29:47 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/15 19:18:17 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 08:12:11 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void
 	{
 		envt = malloc(sizeof(t_env));
 		envt->val = ft_strdup("PWD");
-		envt-> arg = ft_calloc(sizeof(char), PATH_MAX);
+		envt->arg = ft_calloc(sizeof(char), PATH_MAX);
 		getcwd(envt->arg, PATH_MAX - 1);
 		envt->equally = 1;
 		ft_lstadd_back(envlst, ft_lstnew(envt));
@@ -64,7 +64,7 @@ static void
 				ft_putstr_fd("bash: warning: shell level (", 1);
 				ft_putnbr_fd(lvl, 1);
 				ft_putendl_fd(") too high, resetting to 1", 1);
-			}	
+			}
 		}
 		else
 			(*envt)->arg = ft_strdup("1");
@@ -81,7 +81,7 @@ static void
 		*pwd = 1;
 		savefree((*envt)->arg);
 		(*envt)->arg = 0;
-		(*envt)-> arg = ft_calloc(sizeof(char), PATH_MAX);
+		(*envt)->arg = ft_calloc(sizeof(char), PATH_MAX);
 		getcwd((*envt)->arg, PATH_MAX - 1);
 	}
 }

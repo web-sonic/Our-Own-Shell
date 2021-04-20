@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:31:09 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/08 14:36:29 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 09:30:00 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,12 @@ typedef struct		s_exp
 	int				error;
 	int				plus;
 }					t_exp;
+
+typedef struct		s_globals
+{
+	int				error;
+	pid_t			pid[1000];
+	int				pid_count;
+}					t_globals;
 
 #endif
