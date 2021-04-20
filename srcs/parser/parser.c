@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgath <sgath@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:52:46 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/05 14:55:27 by sgath            ###   ########.fr       */
+/*   Updated: 2021/04/20 14:59:33 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_cmd
 	quote = 0;
 	tmp = parse_vars(str, envlst, &quote);
 	cmd = parse_cmd(tmp, dir_addr);
+	if (cmd && cmd->fdin == -1 && cmd->fdout == -1)
+		g_struct.error = 0;
 	free(tmp);
 	return (cmd);
 }

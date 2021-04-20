@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 13:32:45 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:10:04 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ static pid_t
 		if (execve(cmd, args, env) == -1)
 			exit(0);
 	}
-	ft_wordtab_clear(env);
-	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
-		free(cmd);
-	return (ret);
+	else if (ret > 0)
+	{
+		ft_wordtab_clear(env);
+		if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
+			free(cmd);
+		return (ret);
+	}
+	return (0);
 }
 
 static pid_t
@@ -92,34 +96,34 @@ static pid_t
 	return (0);
 }
 
-static int
-	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst)
+static void
+	pipe_loop(t_list *pipe_lst, t_fdstruct *fds, t_list *envlst, t_bool *l_cm)
 {
-	t_bool	l_cmd;
 	t_cmd	*cmd;
 	int		h;
-	int		i;
 
 	g_struct.pid_count = 0;
+	h = 0;
 	while (pipe_lst)
 	{
 		cmd = pipe_lst->content;
 		pipe_lst = pipe_lst->next;
+		*l_cm = (!pipe_lst) ? TRUE : FALSE;
 		if (!cmd || !(cmd->args)[0])
-			continue ;
-		l_cmd = (!pipe_lst) ? TRUE : FALSE;
-		set_fds(fds, cmd, l_cmd);
-		g_struct.pid[g_struct.pid_count++] =
-			cmd_exec(cmd->args, envlst, l_cmd, cmd);
-		l_cmd = (l_cmd && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
-		cmd_clear(cmd);
+			check_cmd(cmd);
+		else
+		{
+			set_fds(fds, cmd, *l_cm);
+			g_struct.pid[g_struct.pid_count++] =
+				cmd_exec(cmd->args, envlst, *l_cm, cmd);
+			*l_cm = (*l_cm && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
+		}
+		(cmd) ? cmd_clear(cmd) : 0;
 	}
-	i = 0;
-	while (i < g_struct.pid_count)
-		waitpid(g_struct.pid[i++], &h, 0);
-	if (g_struct.error != 130 && g_struct.error != 131 && g_struct.pid[i])
+	waitpid(g_struct.pid[g_struct.pid_count - 1], &h, 0);
+	if (g_struct.error != 130 && g_struct.error != 131 &&
+		g_struct.pid[g_struct.pid_count - 1])
 		g_struct.error = h / 256;
-	return (l_cmd);
 }
 
 void
@@ -127,13 +131,15 @@ void
 {
 	t_fdstruct	fds;
 	t_list		*pipe_lst;
+	t_bool		l_cmd;
 
 	while (cmd_lst)
 	{
 		pipe_lst = cmd_lst->content;
 		pipe_lst = parse_pipes(pipe_lst, envlst, dir_add);
 		init_fd(&fds);
-		if (pipe_loop(pipe_lst, &fds, envlst))
+		pipe_loop(pipe_lst, &fds, envlst, &l_cmd);
+		if (l_cmd)
 			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;

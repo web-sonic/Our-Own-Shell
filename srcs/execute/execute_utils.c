@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 19:21:36 by sgath             #+#    #+#             */
-/*   Updated: 2021/04/20 08:36:42 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:10:19 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ t_list
 		ft_lstadd_back(&cmd_lst, ft_lstnew(cmd));
 	}
 	return (cmd_lst);
+}
+
+void
+	check_cmd(t_cmd *cmd)
+{
+	if (cmd && (cmd->fdin > -1 || cmd->fdout > -1))
+		g_struct.error = 0;
+	g_struct.pid[g_struct.pid_count++] = 0;
 }
