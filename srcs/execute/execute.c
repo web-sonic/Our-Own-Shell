@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 16:11:50 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:24:01 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,11 @@ void
 		pipe_lst = parse_pipes(pipe_lst, envlst, dir_add);
 		init_fd(&fds);
 		pipe_loop(pipe_lst, &fds, envlst, &l_cmd);
+		ft_lstclear(&pipe_lst, &cmd_clears);
 		if (l_cmd)
 			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
-		ft_lstclear(&pipe_lst, &cmd_clears);
 	}
 	free(dir_add);
 }
