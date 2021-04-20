@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:49:34 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 15:10:04 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:11:50 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ static pid_t
 	pid_t	ret;
 	char	**env;
 	char	*cmd;
-	int		h;
 
-	h = 0;
-	free(cnd);
+	if (exceptions(cnd))
+		return (0);
 	env = getallenv(envlst);
 	cmd = get_cmd(args, ft_getenv("PATH", envlst));
 	ret = (cmd) ? fork() : -1;
@@ -59,40 +58,37 @@ static pid_t
 		if (execve(cmd, args, env) == -1)
 			exit(0);
 	}
-	else if (ret > 0)
-	{
-		ft_wordtab_clear(env);
-		if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
-			free(cmd);
-		return (ret);
-	}
-	return (0);
+	ft_wordtab_clear(env);
+	if (cmd && ft_strncmp(args[0], cmd, ft_strlen(cmd) + 1))
+		free(cmd);
+	return (ret);
 }
 
 static pid_t
 	cmd_exec(char **args, t_list *envlst, int pipe, t_cmd *cnd)
 {
+	char	*cmd;
+
+	cmd = ft_strtolower(args[0]);
 	if (*args == 0)
 		return (validate_redirects(cnd));
-	if (!ft_strncmp(ft_strtolower(args[0]), "echo", 5))
+	if (!ft_strncmp(cmd, "echo", 5))
 		g_struct.error = ft_echo(args);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "cd", 3))
+	else if (!ft_strncmp(cmd, "cd", 3))
 		g_struct.error = ft_cd(args, envlst, pipe);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "env", 4) && !args[1])
+	else if (!ft_strncmp(cmd, "env", 4) && !args[1])
 		g_struct.error = ft_env(envlst);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "exit", 5))
+	else if (!ft_strncmp(cmd, "exit", 5))
 		g_struct.error = ft_exit(args);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "export", 7))
+	else if (!ft_strncmp(cmd, "export", 7))
 		g_struct.error = ft_export(args, envlst, pipe);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "pwd", 4))
+	else if (!ft_strncmp(cmd, "pwd", 4))
 		g_struct.error = ft_pwd(args);
-	else if (!ft_strncmp(ft_strtolower(args[0]), "unset", 6))
+	else if (!ft_strncmp(cmd, "unset", 6))
 		ft_unset(args, &envlst, pipe);
-	else if (!ft_strncmp(args[0], ".", 2) || !ft_strncmp(args[0], "/Users", 7)
-		|| !ft_strncmp(args[0], "/", 2))
-		exceptions(args[0]);
 	else
-		return (cmd_bin(args, envlst, ft_strtolower(args[0])));
+		return (cmd_bin(args, envlst, cmd));
+	free(cmd);
 	return (0);
 }
 
@@ -118,7 +114,6 @@ static void
 				cmd_exec(cmd->args, envlst, *l_cm, cmd);
 			*l_cm = (*l_cm && !ft_strncmp((cmd->args)[0], "exit", 5)) ? 1 : 0;
 		}
-		(cmd) ? cmd_clear(cmd) : 0;
 	}
 	waitpid(g_struct.pid[g_struct.pid_count - 1], &h, 0);
 	if (g_struct.error != 130 && g_struct.error != 131 &&
@@ -143,6 +138,7 @@ void
 			break ;
 		unset_fd(&fds);
 		cmd_lst = cmd_lst->next;
+		ft_lstclear(&pipe_lst, &cmd_clears);
 	}
 	free(dir_add);
 }

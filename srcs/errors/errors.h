@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:43:55 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 09:31:34 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:36:12 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	exit_error(char *line);
 int		valid_error(char *name, char *str);
 int		flag_error(char *name, char *arg);
 char	*validate_cmd(char *cmd, struct stat buff, char *path);
-void	exceptions(char *c);
+int		exceptions(char *c);
 t_list	*error_parse(char *str, int c);
 void	file_error(char *file, char *error);
 int		empty_lst(char *name);
