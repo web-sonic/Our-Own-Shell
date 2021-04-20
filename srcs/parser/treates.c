@@ -6,7 +6,7 @@
 /*   By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 06:04:44 by ctragula          #+#    #+#             */
-/*   Updated: 2021/04/20 09:25:07 by ctragula         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:26:12 by ctragula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ char
 		len++;
 	if (!len && (ft_isdigit((*str)[0]) || ft_strchr(STRANGE_STR, (*str)[0])))
 	{
+		if ((*str[0]) == '\0' || (*str[0]) == ' ')
+			*is_quest = TRUE;
 		(*str)++;
 		return (ft_strdup("$"));
 	}
